@@ -6,4 +6,5 @@
     <string name="AccountCreateButtonName">Create an account</string>
     <string name="AlreadyHaveAccountMessage">Already Have An Account ?</string>
     <string name="LoginButtonAndLoginTitle">Login</string>
+    <string name="splash_screen_img">splash screen img</string>
 </resources>
