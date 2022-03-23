@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GMAuto">
         <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".login.login"
+            android:exported="false" />
+        <activity
+            android:name=".WelomeScreen"
+            android:exported="false" />
+        <activity
             android:name=".Dashbord"
             android:exported="false" />
         <activity
