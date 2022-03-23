@@ -5,6 +5,15 @@
     <string name="WelcomeNote">Get Your All Automobile Services In Here!</string>
     <string name="AccountCreateButtonName">Create an account</string>
     <string name="AlreadyHaveAccountMessage">Already Have An Account ?</string>
-    <string name="LoginButtonAndLoginTitle">Login</string>
+    <string name="LoginButtonAndLoginTitle">Log in</string>
     <string name="splash_screen_img">splash screen img</string>
+    <string name="EmailPlaceHolder">Email</string>
+    <string name="PasswordPlaceHolder">Password</string>
+    <string name="ForgotPasswordMessage">Forgot password  ?</string>
+    <string name="NotRegisteredMessage">Not Registered ?</string>
+    <string name="CreateAccountButton">Create Account</string>
+    <string name="RegisterTitle">Register</string>
+    <string name="FullNamePlaceHolder">Full Name</string>
+    <string name="ConfirmPasswordPlaceHolder">Confirm Password</string>
+    <string name="SignUpButton">Sign Up</string>
 </resources>

@@ -20,7 +20,7 @@ public class WelomeScreen extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dash = new Intent(WelomeScreen.this,Dashbord.class);
+                Intent dash = new Intent(WelomeScreen.this,login.class);
                 startActivity(dash);
             }
         });
