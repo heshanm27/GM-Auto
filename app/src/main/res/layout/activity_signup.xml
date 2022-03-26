@@ -40,6 +40,8 @@
             android:textColor="@color/blue"
             android:textSize="40sp" />
 
+
+        //fullname
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +70,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        //email
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,6 +98,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        //password
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,6 +126,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        //confirmpassword
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
