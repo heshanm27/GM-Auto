@@ -35,7 +35,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:text="@string/SignUpButton"
             android:textColor="@color/blue"
             android:textSize="40sp" />
@@ -43,13 +43,16 @@
 
         //fullname
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fullnamelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="60dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue"
             android:hint="@string/FullNamePlaceHolder"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/errorRed"
             app:startIconDrawable="@drawable/fullname"
             app:startIconTint="@color/blue"
             app:endIconMode="clear_text"
@@ -72,13 +75,15 @@
 
         //email
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue"
             android:hint="@string/EmailPlaceHolder"
+            app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_email_24"
             app:startIconTint="@color/blue"
             app:endIconMode="clear_text"
@@ -103,7 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            app:errorEnabled="true"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue"
             android:hint="@string/PasswordPlaceHolder"
@@ -128,13 +134,15 @@
 
         //confirmpassword
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmpasswordlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue"
             android:hint="@string/ConfirmPasswordPlaceHolder"
+            app:errorEnabled="true"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/blue"
             app:startIconDrawable="@drawable/confirmpass"
@@ -155,6 +163,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/signup"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
