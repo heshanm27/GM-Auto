@@ -85,7 +85,6 @@
             app:endIconMode="password_toggle"
             app:endIconTint="@color/blue"
             app:startIconDrawable="@drawable/ic_baseline_lock_24"
-            app:startIconTintMode="multiply"
             app:startIconTint="@color/blue"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue">
@@ -95,7 +94,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textColor="@color/black"
-                app:startIconTint="@color/black"
                 app:boxStrokeWidth="20dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
