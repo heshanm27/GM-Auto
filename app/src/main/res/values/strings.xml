@@ -5,7 +5,7 @@
     <string name="WelcomeNote">Get Your All Automobile Services In Here!</string>
     <string name="AccountCreateButtonName">Create an account</string>
     <string name="AlreadyHaveAccountMessage">Already Have An Account ?</string>
-    <string name="LoginButtonAndLoginTitle">Log in</string>
+    <string name="LoginButtonAndLoginTitle">Sign in</string>
     <string name="splash_screen_img">splash screen img</string>
     <string name="EmailPlaceHolder">Email</string>
     <string name="PasswordPlaceHolder">Password</string>
