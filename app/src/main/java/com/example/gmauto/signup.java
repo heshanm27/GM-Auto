@@ -1,5 +1,6 @@
 package com.example.gmauto;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,10 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.databinding.ActivitySignupBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class signup extends AppCompatActivity {
 
@@ -65,8 +74,36 @@ public class signup extends AppCompatActivity {
             public void onClick(View v) {
 
 
-              if(validTextInput(binding.fullname,binding.fullnamelayout) && validEmailAddress(binding.email) && validPassword(binding.password,binding.emailLayout)){
-                  Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+              if(validTextInput(binding.fullname,binding.fullnamelayout) && validEmailAddress(binding.email) && validPassword(binding.password,binding.passwordLayout)){
+
+                  String emailValue = binding.email.getText().toString();
+                  String passwordValue = binding.password.getText().toString();
+                  fAuth.createUserWithEmailAndPassword(emailValue,passwordValue).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                      @Override
+                      public void onSuccess(AuthResult authResult) {
+                          //get currunt user
+                          FirebaseUser user  = fAuth.getCurrentUser();
+
+                          //add new document in users colletion using user id that got from fAuth
+                          DocumentReference docRef = fStore.collection("Users").document(user.getUid());
+
+                          Map<String,Object> userInfo = new HashMap<>();
+                            userInfo.put("FullName",binding.fullname.getText().toString());
+                            //user role
+                          userInfo.put("isAdmin",false);
+                          //save the document to firestore
+                          docRef.set(userInfo);
+                          startActivity(new Intent(getApplicationContext(),Dashbord.class));
+                          finish();
+                      }
+                  }).addOnFailureListener(new OnFailureListener() {
+                      @Override
+                      public void onFailure(@NonNull Exception e) {
+                          Toast.makeText(signup.this,"Faild to Create Account",Toast.LENGTH_SHORT).show();
+                      }
+                  });
+
+
               }
             }
         });
@@ -103,7 +140,7 @@ public class signup extends AppCompatActivity {
         if(validInput.isEmpty()){
             layout.setError("Please Enter Password");
             return false;
-        }else if(validInput.length() >= 7){
+        }else if(validInput.length() < 7){
             layout.setError("Password must be grater than 7 characters");
             return false;
         }
