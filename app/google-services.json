@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178058938019",
+    "project_id": "gmauto-6c556",
+    "storage_bucket": "gmauto-6c556.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178058938019:android:6f3976d99455237091a116",
+        "android_client_info": {
+          "package_name": "com.example.gmauto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178058938019-smipqeh1vl18tgj3898dl7sbcjjsmc59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUB2LqOYLL__EkEQs-XaJDg5IqmXULhQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178058938019-smipqeh1vl18tgj3898dl7sbcjjsmc59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

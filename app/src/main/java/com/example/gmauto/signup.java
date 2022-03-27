@@ -18,16 +18,25 @@ import android.widget.Toast;
 import com.example.gmauto.databinding.ActivitySignupBinding;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class signup extends AppCompatActivity {
 
     ActivitySignupBinding binding;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        //firebase setup
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
 
         binding.confirmpassword.addTextChangedListener(new TextWatcher() {
@@ -56,12 +65,14 @@ public class signup extends AppCompatActivity {
             public void onClick(View v) {
 
 
-              if(validTextInput(binding.fullname,binding.fullnamelayout) && validEmailAddress(binding.email) ){
+              if(validTextInput(binding.fullname,binding.fullnamelayout) && validEmailAddress(binding.email) && validPassword(binding.password,binding.emailLayout)){
                   Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
               }
             }
         });
 
+
+        //login intent
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +82,7 @@ public class signup extends AppCompatActivity {
         });
     }
 
+    //validate message
     private boolean validEmailAddress(TextInputEditText email){
         String emailInput = email.getText().toString();
         if(!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
@@ -83,6 +95,25 @@ public class signup extends AppCompatActivity {
         }
     }
 
+
+    //validate inputs
+    private  boolean validPassword(TextInputEditText input, TextInputLayout layout){
+        String validInput = input.getText().toString();
+
+        if(validInput.isEmpty()){
+            layout.setError("Please Enter Password");
+            return false;
+        }else if(validInput.length() >= 7){
+            layout.setError("Password must be grater than 7 characters");
+            return false;
+        }
+        else{
+            layout.setError(null);
+            return  true;
+        }
+    }
+
+    //validate inputs
     private  boolean validTextInput(TextInputEditText input, TextInputLayout layout){
         String validInput = input.getText().toString();
 
