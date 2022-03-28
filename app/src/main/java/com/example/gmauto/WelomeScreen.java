@@ -32,6 +32,7 @@ public class WelomeScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent createaccount = new Intent(WelomeScreen.this,signup.class);
                 startActivity(createaccount);
+                finish();
             }
         });
     }

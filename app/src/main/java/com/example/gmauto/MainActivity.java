@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private final int SPLASH_SCREEN = 5000;
     //animation variable
@@ -43,9 +45,15 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this,WelomeScreen.class);
-                startActivity(intent);
-                finish();
+
+                if(FirebaseAuth.getInstance().getCurrentUser() != null){
+                    startActivity(new Intent(getApplicationContext(),Dashbord.class));
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, WelomeScreen.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         },SPLASH_SCREEN);
     }
