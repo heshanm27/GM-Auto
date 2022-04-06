@@ -21,16 +21,14 @@ public class Dashbord extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-
-
 //        String userName = fAuth.getCurrentUser().getDisplayName();
 //        binding.textView.setText(userName);
-        binding.logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(),login.class));
-            }
-        });
+//        binding.logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(getApplicationContext(),login.class));
+//            }
+//        });
     }
 }
