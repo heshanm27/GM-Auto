@@ -26,12 +26,14 @@
 
     <item android:title="Communciate">
         <menu>
+            <group android:checkableBehavior="single">
         <item android:id="@+id/contact"
             android:title="Contact Us"
             android:icon="@drawable/ic_baseline_home_24"/>
         <item android:id="@+id/rate"
             android:title="Rate"
             android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
         </menu>
     </item>
 

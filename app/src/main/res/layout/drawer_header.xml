@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@drawable/bgbottomcorner"
+    android:background="@color/blue"
     android:orientation="vertical"
     android:gravity="left"
     android:padding="20dp"
@@ -10,7 +10,9 @@
 <ImageView
     android:layout_width="75dp"
     android:layout_height="75dp"
-    android:src="@drawable/ic_baseline_exit_to_app_24"
+    android:layout_marginTop="10dp"
+    android:src="@drawable/welcomescreen"
+    android:layout_gravity="center"
     />
 
     <RelativeLayout
