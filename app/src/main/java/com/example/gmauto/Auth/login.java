@@ -1,9 +1,8 @@
-package com.example.gmauto;
+package com.example.gmauto.Auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,13 +37,14 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 String EmailValue = binding.Email.getText().toString();
                 String passwordValue= binding.password.getText().toString();
-
+                Log.d("pass",passwordValue);
+                Log.d("pass",EmailValue);
                    fAuth.signInWithEmailAndPassword(EmailValue,passwordValue).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                        @Override
                        public void onSuccess(AuthResult authResult) {
                             checkAccessLevel(authResult.getUser().getUid());
 
-
+                           Toast.makeText(login.this,"LoginSucess",Toast.LENGTH_LONG).show();
 
 
 //                           startActivity( new Intent(getApplicationContext(),Dashbord.class));

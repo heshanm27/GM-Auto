@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/bgbottomcorner"
+    android:orientation="vertical"
+    android:gravity="left"
+    android:padding="20dp"
+    >
+<ImageView
+    android:layout_width="75dp"
+    android:layout_height="75dp"
+    android:src="@drawable/ic_baseline_exit_to_app_24"
+    />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+       >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/logout"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:text="Heshan Madhuranga" />
+
+        <Button
+            android:id="@+id/logout"
+            style="@style/ShapeAppearanceOverlay.Material3.NavigationView.Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Log out" />
+    </RelativeLayout>
+
+
+</LinearLayout>

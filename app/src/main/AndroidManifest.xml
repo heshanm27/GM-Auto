@@ -12,10 +12,10 @@
 
         >
         <activity
-            android:name=".signup"
+            android:name="com.example.gmauto.Auth.signup"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name="com.example.gmauto.Auth.login"
             android:exported="false" />
         <activity
             android:name=".WelomeScreen"
