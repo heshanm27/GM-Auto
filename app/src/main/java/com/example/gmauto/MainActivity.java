@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(),Dashbord.class));
                     finish();
                 }else {
-                    Intent intent = new Intent(MainActivity.this, WelomeScreen.class);
+                    Intent intent = new Intent(MainActivity.this, Dashbord.class);
                     startActivity(intent);
                     finish();
                 }

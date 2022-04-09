@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.gmauto.Auth.signup;
+
 public class WelomeScreen extends AppCompatActivity {
 
     TextView login;
@@ -23,14 +25,14 @@ public class WelomeScreen extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dash = new Intent(WelomeScreen.this,login.class);
+                Intent dash = new Intent(WelomeScreen.this, com.example.gmauto.Auth.login.class);
                 startActivity(dash);
             }
         });
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createaccount = new Intent(WelomeScreen.this,signup.class);
+                Intent createaccount = new Intent(WelomeScreen.this, signup.class);
                 startActivity(createaccount);
                 finish();
             }

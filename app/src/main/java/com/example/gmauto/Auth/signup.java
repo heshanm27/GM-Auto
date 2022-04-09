@@ -1,21 +1,17 @@
-package com.example.gmauto;
+package com.example.gmauto.Auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gmauto.Dashbord;
 import com.example.gmauto.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -93,7 +89,7 @@ public class signup extends AppCompatActivity {
                           userInfo.put("isAdmin",false);
                           //save the document to firestore
                           docRef.set(userInfo);
-                          startActivity(new Intent(getApplicationContext(),Dashbord.class));
+                          startActivity(new Intent(getApplicationContext(), Dashbord.class));
                           finish();
                       }
                   }).addOnFailureListener(new OnFailureListener() {
