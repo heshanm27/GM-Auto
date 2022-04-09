@@ -45,9 +45,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fullnamelayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/blue"
             android:hint="@string/FullNamePlaceHolder"
@@ -77,7 +77,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="10dp"
             android:textColorHint="@color/black"
@@ -108,7 +108,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="10dp"
             app:errorEnabled="true"
@@ -138,7 +138,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirmpasswordlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="10dp"
             android:textColorHint="@color/black"
@@ -168,7 +168,7 @@
             android:id="@+id/signup"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/SignUpButton"
             android:textColor="@color/white"
             app:backgroundTint="@color/black"
