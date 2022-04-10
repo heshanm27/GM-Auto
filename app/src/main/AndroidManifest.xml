@@ -12,10 +12,10 @@
 
         >
         <activity
-            android:name=".signup"
+            android:name="com.example.gmauto.Auth.signup"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name="com.example.gmauto.Auth.login"
             android:exported="false" />
         <activity
             android:name=".WelomeScreen"
@@ -26,7 +26,9 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

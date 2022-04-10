@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/sparepart"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Spare Parts" />
+        <item
+            android:id="@+id/Vehicle"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Vehicles" />
+        <item
+            android:id="@+id/Reservation"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Reservation" />
+
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Notification" />
+    </group>
+
+    <item android:title="Communciate">
+        <menu>
+            <group android:checkableBehavior="single">
+        <item android:id="@+id/contact"
+            android:title="Contact Us"
+            android:icon="@drawable/ic_baseline_home_24"/>
+        <item android:id="@+id/rate"
+            android:title="Rate"
+            android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>
