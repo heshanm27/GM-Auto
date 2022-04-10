@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,7 +27,10 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         binding = ActivityDashbordBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        //set action bar
         setSupportActionBar(binding.toolbar);
+
         binding.navView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerlayout, binding.toolbar, R.string.nav_drawer_open, R.string.nav_darwer_close);
         binding.drawerlayout.addDrawerListener(toggle);
@@ -43,6 +47,13 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
             super.onBackPressed();
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+         super.onCreateOptionsMenu(menu);
+         getMenuInflater().inflate(R.menu.topappbarr,menu);
+         return true;
     }
 
     @Override
