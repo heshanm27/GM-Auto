@@ -77,10 +77,13 @@
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/vehiclerecyclerView"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        />
 
 
     <LinearLayout
@@ -111,10 +114,13 @@
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/foryou"
+        android:id="@+id/foryourecylerview"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        />
 </LinearLayout>
 
 
