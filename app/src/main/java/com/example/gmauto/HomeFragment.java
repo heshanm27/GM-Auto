@@ -26,7 +26,7 @@ import com.google.firebase.firestore.Query;
 public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener {
 
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,vehile,foryou;
     SparepartHomeAdapter spareRecy;
     NavController navController;
     @Override
@@ -41,6 +41,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         recyclerView = root.findViewById(R.id.sparepartrecyclerView);
+        vehile = root.findViewById(R.id.vehiclerecyclerView);
+        foryou= root.findViewById(R.id.foryourecylerview);
 
         return root;
     }
@@ -76,6 +78,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
 
         spareRecy = new SparepartHomeAdapter(options);
         recyclerView.setAdapter(spareRecy);
+        vehile.setAdapter(spareRecy);
+        foryou.setAdapter(spareRecy);
         spareRecy.startListening();
     }
 
