@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GMAuto"
-
+        android:usesCleartextTraffic="true"
         >
+
         <activity
             android:name="com.example.gmauto.Auth.signup"
             android:exported="false" />
