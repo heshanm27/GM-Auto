@@ -7,7 +7,61 @@
 
     <fragment
         android:id="@+id/dashFragment"
-        android:name="com.example.gmauto.DashFragment"
+        android:name="com.example.gmauto.HomeFragment"
         android:label="fragment_dash"
-        tools:layout="@layout/fragment_dash" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_dashFragment_to_vehicleHome"
+            app:destination="@id/vehicleHome" />
+        <action
+            android:id="@+id/action_dashFragment_to_sparePartsHome"
+            app:destination="@id/sparePartsHome" />
+        <action
+            android:id="@+id/action_dashFragment_to_reservation"
+            app:destination="@id/reservation" />
+        <action
+            android:id="@+id/action_dashFragment_to_login2"
+            app:destination="@id/login2" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleHome"
+        android:name="com.example.gmauto.ui.vehicles.vehicleHome"
+        android:label="fragment_vehicle_home"
+        tools:layout="@layout/fragment_vehicle_home" >
+        <action
+            android:id="@+id/action_vehicleHome_to_dashFragment"
+            app:destination="@id/dashFragment" />
+        <action
+            android:id="@+id/action_vehicleHome_to_login2"
+            app:destination="@id/login2" />
+    </fragment>
+    <fragment
+        android:id="@+id/reservation"
+        android:name="com.example.gmauto.ui.reservation.reservation"
+        android:label="fragment_reservation"
+        tools:layout="@layout/fragment_reservation" >
+        <action
+            android:id="@+id/action_reservation_to_dashFragment"
+            app:destination="@id/dashFragment" />
+        <action
+            android:id="@+id/action_reservation_to_login2"
+            app:destination="@id/login2" />
+    </fragment>
+    <fragment
+        android:id="@+id/sparePartsHome"
+        android:name="com.example.gmauto.ui.spareParts.sparePartsHome"
+        android:label="fragment_spare_parts_home"
+        tools:layout="@layout/fragment_spare_parts_home" >
+        <action
+            android:id="@+id/action_sparePartsHome_to_dashFragment"
+            app:destination="@id/dashFragment" />
+        <action
+            android:id="@+id/action_sparePartsHome_to_login2"
+            app:destination="@id/login2" />
+    </fragment>
+    <activity
+        android:id="@+id/login2"
+        android:name="com.example.gmauto.Auth.login"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>

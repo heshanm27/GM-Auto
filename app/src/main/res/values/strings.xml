@@ -20,4 +20,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_darwer_close">Close navigation drawer</string>
     <string name="nav_drawer_open">"Open navigation darwer "</string>
+    <string name="Rating">Rating</string>
+    <string name="Ratingvalue">0/5</string>
+
 </resources>

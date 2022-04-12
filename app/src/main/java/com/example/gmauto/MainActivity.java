@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private final int SPLASH_SCREEN = 0;
+    private final int SPLASH_SCREEN = 3000;
     //animation variable
     Animation topAnimation, bottomAnimation;
     ImageView image;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), Dashbord.class));
                     finish();
                 } else {
-                    Intent intent = new Intent(MainActivity.this, Dashbord.class);
+                    Intent intent = new Intent(MainActivity.this, WelomeScreen.class);
                     startActivity(intent);
                     finish();
                 }
