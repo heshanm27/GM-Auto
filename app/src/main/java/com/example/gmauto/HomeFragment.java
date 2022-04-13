@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -43,7 +44,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         recyclerView = root.findViewById(R.id.sparepartrecyclerView);
         vehile = root.findViewById(R.id.vehiclerecyclerView);
         foryou= root.findViewById(R.id.foryourecylerview);
-
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         return root;
     }
 
@@ -79,6 +81,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         spareRecy = new SparepartHomeAdapter(options);
         recyclerView.setAdapter(spareRecy);
         vehile.setAdapter(spareRecy);
+
         foryou.setAdapter(spareRecy);
         spareRecy.startListening();
     }
