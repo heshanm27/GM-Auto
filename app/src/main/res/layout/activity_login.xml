@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login"
+    tools:context="com.example.gmauto.Auth.login"
     android:background="@color/blue"
     >
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
             android:hint="Email"
             app:endIconMode="clear_text"
@@ -104,7 +104,7 @@
             android:id="@+id/signin"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:text="@string/LoginButtonAndLoginTitle"
             android:textColor="@color/white"
             app:backgroundTint="@color/black"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/ForgotPasswordMessage"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -124,7 +124,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="40dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
