@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener {
 
-
+    //Reference
     RecyclerView sparepartrecyclerView, vehile, foryou;
     NavController navController;
     ShimmerFrameLayout shimmerLayout, shimmerLayout2, shimmerLayout3;
@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
 
         // spare part recycler View reference
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
+        // vehiclerecyclerView fragment
         vehile = root.findViewById(R.id.vehiclerecyclerView);
         foryou = root.findViewById(R.id.foryourecylerview);
         shimmerLayout = root.findViewById(R.id.shimmerLayout);
