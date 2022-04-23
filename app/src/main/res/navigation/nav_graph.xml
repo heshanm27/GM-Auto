@@ -70,7 +70,15 @@
         android:name="com.example.gmauto.ui.spareParts.sparepartDetails"
         android:label="fragment_sparepart_details"
         tools:layout="@layout/fragment_sparepart_details" >
-
+        <action
+            android:id="@+id/action_sparepartDetails_to_dashFragment"
+            app:destination="@id/dashFragment" />
+        <action
+            android:id="@+id/action_sparepartDetails_to_vehicleHome"
+            app:destination="@id/vehicleHome" />
+        <argument
+            android:name="firebaseID"
+            app:argType="string" />
     </fragment>
 
     <activity

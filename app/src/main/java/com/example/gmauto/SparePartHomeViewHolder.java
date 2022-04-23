@@ -15,7 +15,7 @@ public class SparePartHomeViewHolder  extends RecyclerView.ViewHolder {
     ImageView cardimg;
     TextView title, ratevalue, price;
     RatingBar ratingBar;
-    View view;
+    View V;
     public SparePartHomeViewHolder(@NonNull View itemView) {
         super(itemView);
         cardimg = itemView.findViewById(R.id.cardimg);
@@ -23,6 +23,7 @@ public class SparePartHomeViewHolder  extends RecyclerView.ViewHolder {
         price = itemView.findViewById(R.id.price);
         ratevalue = itemView.findViewById(R.id.ratevalue);
         ratingBar = itemView.findViewById(R.id.ratingBar);
-        view=itemView;
+        V=itemView;
+
     }
 }
