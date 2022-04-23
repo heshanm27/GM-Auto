@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
         // vehiclerecyclerView fragment
         vehile = root.findViewById(R.id.vehiclerecyclerView);
-        //foryourrecylerview fragment
+        //foryourrecylerview fragment1
         foryou = root.findViewById(R.id.foryourecylerview);
         shimmerLayout = root.findViewById(R.id.shimmerLayout);
         shimmerLayout2 = root.findViewById(R.id.shimmerLayout2);
