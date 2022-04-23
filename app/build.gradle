@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -60,4 +61,7 @@ dependencies {
 
     //firebasefix
     implementation 'io.grpc:grpc-okhttp:1.45.1'
+
+    //facebook shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }
