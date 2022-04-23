@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
         vehile = root.findViewById(R.id.vehiclerecyclerView);
         foryou = root.findViewById(R.id.foryourecylerview);
