@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_dashFragment_to_login2"
             app:destination="@id/login2" />
+        <action
+            android:id="@+id/action_dashFragment_to_sparepartDetails"
+            app:destination="@id/sparepartDetails" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -34,6 +37,9 @@
         <action
             android:id="@+id/action_vehicleHome_to_login2"
             app:destination="@id/login2" />
+        <action
+            android:id="@+id/action_vehicleHome_to_sparepartDetails"
+            app:destination="@id/sparepartDetails" />
     </fragment>
     <fragment
         android:id="@+id/reservation"
@@ -59,6 +65,14 @@
             android:id="@+id/action_sparePartsHome_to_login2"
             app:destination="@id/login2" />
     </fragment>
+    <fragment
+        android:id="@+id/sparepartDetails"
+        android:name="com.example.gmauto.ui.spareParts.sparepartDetails"
+        android:label="fragment_sparepart_details"
+        tools:layout="@layout/fragment_sparepart_details" >
+
+    </fragment>
+
     <activity
         android:id="@+id/login2"
         android:name="com.example.gmauto.Auth.login"
