@@ -14,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gmauto.HomeFragment;
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 public class SparepartHomeAdapter extends FirestoreRecyclerAdapter<sparepart, SparepartHomeAdapter.sparepartViewholder> {
 
+    ShimmerFrameLayout shimmer1;
     public SparepartHomeAdapter(@NonNull FirestoreRecyclerOptions<sparepart> options) {
         super(options);
+
     }
 
     @Override
@@ -34,9 +38,12 @@ public class SparepartHomeAdapter extends FirestoreRecyclerAdapter<sparepart, Sp
         Picasso.get().load(model.getImg()).into(holder.cardimg);
     }
 
+
+
     @NonNull
     @Override
     public sparepartViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
         View view = layoutinflater.inflate(R.layout.cardview_sparepart, parent, false);
         return new sparepartViewholder(view);
@@ -48,6 +55,7 @@ public class SparepartHomeAdapter extends FirestoreRecyclerAdapter<sparepart, Sp
         TextView title, ratevalue, price;
         RatingBar ratingBar;
 
+
         public sparepartViewholder(@NonNull View itemView) {
             super(itemView);
 
@@ -56,6 +64,7 @@ public class SparepartHomeAdapter extends FirestoreRecyclerAdapter<sparepart, Sp
             price = itemView.findViewById(R.id.price);
             ratevalue = itemView.findViewById(R.id.ratevalue);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+
 
         }
     }
