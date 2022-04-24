@@ -22,5 +22,6 @@
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
     <string name="Ratingvalue">0/5</string>
+    <string name="addReviewbtn">Add Review</string>
 
 </resources>
