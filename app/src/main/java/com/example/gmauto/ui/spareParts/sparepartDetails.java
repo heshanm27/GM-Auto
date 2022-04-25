@@ -1,5 +1,6 @@
 package com.example.gmauto.ui.spareParts;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,28 +28,37 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class sparepartDetails extends Fragment {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    TextView title,disc,price,rateAvgValue;
+    TextView title,disc,price,rateAvgValue,emptyText;
     ImageView mainImg;
     RatingBar Avgrate;
     RecyclerView reviewRecyclerView;
-
+    Button addreview;
+    String Id,name,userid;
     private FirestoreRecyclerAdapter<reviews, ReviewsViewHolder> adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -65,15 +78,108 @@ public class sparepartDetails extends Fragment {
         title = view.findViewById(R.id.title);
         disc = view.findViewById(R.id.disc);
         price = view.findViewById(R.id.price);
+        emptyText= view.findViewById(R.id.emptyText);
         mainImg=view.findViewById(R.id.mainImg);
         Avgrate = view.findViewById(R.id.avgRating);
+        addreview=view.findViewById(R.id.addreview);
         rateAvgValue = view.findViewById(R.id.rateAvgValue);
         reviewRecyclerView= view.findViewById(R.id.reviewRecyclerView);
-        String Id = sparepartDetailsArgs.fromBundle(requireArguments()).getFirebaseID().toString();
+
+         Id = sparepartDetailsArgs.fromBundle(requireArguments()).getFirebaseID().toString();
+         userid = FirebaseAuth.getInstance().getUid().toString();
+
+         db.collection("Users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+             @Override
+             public void onSuccess(DocumentSnapshot snapshot) {
+                 name = snapshot.getString("FullName");
+
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Toast toast = Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT);
+             }
+         });
+         userid = FirebaseAuth.getInstance().getUid();
+
         Log.d("id",Id);
         getDetails(Id);
         CalAvgRating(Id);
         getReviews(Id);
+
+        addreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+                bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
+
+                TextInputEditText review = bottomSheetDialog.findViewById(R.id.review);
+                TextInputLayout reviewTextLayout = bottomSheetDialog.findViewById(R.id.reviewTextLayout);
+                RatingBar rate  = bottomSheetDialog.findViewById(R.id.ratingInput);
+                Button postBtn = bottomSheetDialog.findViewById(R.id.post);
+                TextView ratingCount = bottomSheetDialog.findViewById(R.id.ratingCount);
+
+                String reviewMessage = review.getText().toString();
+                //keybord hide when unfocus
+                review.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+                        if(!b){
+                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+                        }
+
+                    }
+                });
+                Float rateing = rate.getRating();
+                String ratingCountstring = getString(R.string.RatingWithCount,rateing);
+                ratingCount.setText(ratingCountstring);
+                rate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        Float rateing = rate.getRating();
+                        String ratingCountstring = getString(R.string.RatingWithCount,rateing);
+                        ratingCount.setText(ratingCountstring);
+                    }
+                });
+
+
+                postBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!validReview(review,reviewTextLayout) && !validateRating(rate) ){
+                            Float rateValue = rate.getRating();
+                            String ReviewMsg =review.getText().toString();
+
+                            Map<String,Object> map = new HashMap<>();
+                            map.put("Timestamp",new Timestamp(new Date()));
+                            map.put("rate",rateValue);
+                            map.put("review",ReviewMsg);
+                            map.put("sparepartid",Id);
+                            map.put("userName",name);
+                            map.put("userid",userid);
+
+                            db.collection("Reviews").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast toast = Toast.makeText(getContext(),"Posted",Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast toast = Toast.makeText(getContext(),"Error Occured Try Again",Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+                bottomSheetDialog.show();
+            }
+        });
 
     }
 
@@ -117,11 +223,19 @@ public class sparepartDetails extends Fragment {
             }
 
             @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                    emptyText.setVisibility(getItemCount() == 0 ?View.VISIBLE :View.GONE);
+
+            }
+
+            @Override
             protected void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position, @NonNull reviews model) {
                             holder.username.setText(model.getUserName());
                             holder.ratingBar.setRating(model.getRate().floatValue());
                             holder.message.setText(model.getReview().toString());
-                            Log.d("holder",model.getUserid());
+                            Log.d("timestamp",model.getTimestamp().toDate().toString());
+
             }
         };
 
@@ -142,14 +256,21 @@ public class sparepartDetails extends Fragment {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                 double length = snapshotList.size();
-                double total = 0;
-                for (DocumentSnapshot snapshot : snapshotList) {
-                    total += snapshot.getDouble("rate");
+                if(length != 0){
+                    double total = 0;
+                    for (DocumentSnapshot snapshot : snapshotList) {
+                        total += snapshot.getDouble("rate");
+                    }
+                    double avg = total / length;
+                    Avgrate.setRating((float) avg);
+                    String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
+                    rateAvgValue.setText(ratingavgstring);
+                    Log.d("rate", String.valueOf(avg));
+                }else{
+                    Avgrate.setRating(0);
+                    rateAvgValue.setText("0"+"/5");
                 }
-                double avg = total / length;
-                Avgrate.setRating((float) avg);
-                rateAvgValue.setText(avg+"/5");
-                Log.d("rate", String.valueOf(avg));
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -158,4 +279,31 @@ public class sparepartDetails extends Fragment {
             }
         });
     }
+
+    private boolean validReview(TextInputEditText edit, TextInputLayout layout){
+        String value= edit.getText().toString();
+        Log.d("review",value);
+        if(value.isEmpty()){
+           layout.setError("Please Enter Your Review");
+           return  true;
+        }else {
+            Log.d("review","valid");
+            layout.setError(null);
+            return false;
+        }
+    }
+    private  boolean validateRating(RatingBar rate){
+        Float rateValue = rate.getRating();
+
+        if(rateValue == 0){
+            Toast toast =  Toast.makeText(getContext(),"Please Enter Rate for Product",Toast.LENGTH_LONG);
+            toast.show();
+            return  true;
+        }else {
+            return false;
+        }
+
+
+    }
+
 }

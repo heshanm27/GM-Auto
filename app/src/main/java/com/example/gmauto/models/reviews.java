@@ -1,11 +1,13 @@
 package com.example.gmauto.models;
 
+import com.google.firebase.Timestamp;
+
 public class reviews {
     Double rate;
     String review;
     String sparepartid;
     String  userid;
-    String timestamp;
+    com.google.firebase.Timestamp Timestamp;
     String userName;
 
     public String getUserName() {
@@ -51,19 +53,20 @@ public class reviews {
         this.userid = userid;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+
+    public com.google.firebase.Timestamp getTimestamp() {
+        return Timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setTimestamp(com.google.firebase.Timestamp timestamp) {
+        Timestamp = timestamp;
     }
 
-    public reviews(Double rate, String review, String sparepartid, String userid, String timestamp,String userName) {
+    public reviews(Double rate, String review, String sparepartid, String userid, com.google.firebase.Timestamp timestamp, String userName) {
         this.rate = rate;
         this.review = review;
         this.sparepartid = sparepartid;
         this.userid = userid;
-        this.timestamp = timestamp;
+        this.Timestamp = timestamp;
     }
 }

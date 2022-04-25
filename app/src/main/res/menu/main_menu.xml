@@ -23,7 +23,18 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Notification" />
     </group>
-
+    <item android:title="Admin">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/adminSparePart"
+                    android:title="Contact Us"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+                <item android:id="@+id/adminVehicle"
+                    android:title="Rate"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
+        </menu>
+    </item>
     <item android:title="Communciate">
         <menu>
             <group android:checkableBehavior="single">

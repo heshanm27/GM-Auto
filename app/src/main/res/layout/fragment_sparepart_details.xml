@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_margin="5dp"
+
             />
 
         <Button
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:text="Button"
             android:layout_margin="5dp"
+            app:cornerRadius="30dp"
             />
     </LinearLayout>
         <LinearLayout
@@ -106,6 +108,22 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:gravity="center"
+           >
+           <TextView
+               android:id="@+id/emptyText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="10dp"
+               android:textSize="20sp"
+               android:visibility="gone"
+               android:text="@string/noReviews" />
+       </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,10 +132,12 @@
             >
 
             <Button
+                android:id="@+id/addreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/addReviewbtn"
                 android:layout_margin="5dp"
+                app:cornerRadius="30dp"
                 />
         </LinearLayout>
 

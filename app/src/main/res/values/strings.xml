@@ -21,7 +21,14 @@
     <string name="nav_darwer_close">Close navigation drawer</string>
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
+    <string name="RatingWithCount">Rating (%.1f/5)</string>
+    <string name="RatingAvgvalue">(%.1f/5)</string>
     <string name="Ratingvalue">0/5</string>
     <string name="addReviewbtn">Add Review</string>
+    <string name="noReviews">No Reviews</string>
+    <string name="rateandReview">Rate and review</string>
+    <string name="reviewmessage">Enter Your Review</string>
+    <string name="review">Review</string>
+    <string name="post">Post</string>
 
 </resources>
