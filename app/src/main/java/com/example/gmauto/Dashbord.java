@@ -58,7 +58,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.testing).setDrawerLayout(drawerLayout).build();
+        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle).setDrawerLayout(drawerLayout).build();
         navigationView.setNavigationItemSelectedListener(this);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,mAppBarconfig);

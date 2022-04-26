@@ -35,7 +35,10 @@
             app:destination="@id/adminSparePart" />
         <action
             android:id="@+id/action_nav_home_to_testing"
-            app:destination="@id/testing" />
+            app:destination="@id/adminvehicle" />
+        <action
+            android:id="@+id/action_nav_home_to_adminvehicle"
+            app:destination="@id/adminvehicle" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -111,5 +114,10 @@
             app:destination="@id/nav_home"
             app:popUpTo="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/adminvehicle"
+        android:name="com.example.gmauto.ui.Admin.Adminvehicle"
+        android:label="fragment_adminvehicle"
+        tools:layout="@layout/fragment_adminvehicle" />
 
 </navigation>

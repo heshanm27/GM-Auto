@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -74,7 +75,10 @@ public class AdminSparePart extends Fragment {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("fab","WorkFab");
+                    DialogFragment dialog   = FullScreenDialog.newInstance();
+
+                   dialog.show(getActivity().getSupportFragmentManager(), "tag");
+
                 }
             });
         }
@@ -89,7 +93,8 @@ public class AdminSparePart extends Fragment {
                 .build();
         adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
 
-
+            DocumentSnapshot doc;
+            String id;
             @NonNull
             @Override
             public SparePartHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -119,19 +124,25 @@ public class AdminSparePart extends Fragment {
 
                 holder.itemdescription.setText(model.getProductDiscription());
                 Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
+
+
                 holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
-//                        String id = doc.getId().toString();
-                        Log.d("btn","deleteed");
+                         doc=getSnapshots().getSnapshot(position);
+                        id = doc.getId().toString();
+                        delete(id);
+
+
 
                     }
                 });
                 holder.editBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.d("btn","edited");
+                        doc=getSnapshots().getSnapshot(position);
+                        id = doc.getId().toString();
+                        update(id);
 
                     }
                 });
@@ -142,6 +153,28 @@ public class AdminSparePart extends Fragment {
 
         adminSparePartRecylerView.setAdapter(adapter);
         adapter.startListening();
+    }
+
+
+    public void delete(String ID){
+        Log.d("btn",ID);
+    }
+
+    public void  update(String ID){
+        Log.d("btn",ID);
+        DialogFragment dialog   = FullScreenDialog.newInstance();
+        Bundle args = new Bundle();
+        args.putString("FirebaseID",ID);
+
+        dialog.setArguments(args);
+        dialog.show(getActivity().getSupportFragmentManager(), "Update");
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fab.setVisibility(View.VISIBLE);
     }
 
     @Override

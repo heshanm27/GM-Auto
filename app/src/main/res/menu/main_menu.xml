@@ -27,10 +27,10 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item android:id="@+id/adminSparePart"
-                    android:title="Contact Us"
+                    android:title="Spare Parts"
                     android:icon="@drawable/ic_baseline_home_24"/>
-                <item android:id="@+id/testing"
-                    android:title="Rate"
+                <item android:id="@+id/adminvehicle"
+                    android:title="Vehicle"
                     android:icon="@drawable/ic_baseline_home_24"/>
             </group>
         </menu>
