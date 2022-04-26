@@ -63,6 +63,7 @@
             android:text="Button"
             android:layout_margin="5dp"
             app:cornerRadius="30dp"
+            android:textColor="@color/white"
             />
     </LinearLayout>
         <LinearLayout
@@ -138,8 +139,10 @@
                 android:text="@string/addReviewbtn"
                 android:layout_margin="5dp"
                 app:cornerRadius="30dp"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
+
 
 
     </LinearLayout>

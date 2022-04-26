@@ -1,60 +1,49 @@
 package com.example.gmauto.ui.Admin;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.gmauto.Dashbord;
+import com.example.gmauto.HomeFragmentDirections;
+import com.example.gmauto.MainActivity;
 import com.example.gmauto.R;
+import com.example.gmauto.models.reviews;
+import com.example.gmauto.models.sparepart;
+import com.example.gmauto.viewHolders.ReviewsViewHolder;
+import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminSparePart#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AdminSparePart extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AdminSparePart() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AdminSparePart.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AdminSparePart newInstance(String param1, String param2) {
-        AdminSparePart fragment = new AdminSparePart();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
+    RecyclerView adminSparePartRecylerView;
+    FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,5 +51,103 @@ public class AdminSparePart extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_admin_spare_part, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        adminSparePartRecylerView= view.findViewById(R.id.adminSparePartRecylerView);
+        //set layoutmanger into recyclerview
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        adminSparePartRecylerView.setLayoutManager(layoutManager);
+        //recyler view decoration
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+        adminSparePartRecylerView.addItemDecoration(dividerItemDecoration);
+
+        //get Floating button from mainActivity
+       fab = ((Dashbord) getActivity()).getFloatingActionButton();
+
+        if(fab != null){
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("fab","WorkFab");
+                }
+            });
+        }
+        initRecyclerView();
+    }
+
+
+    private void initRecyclerView() {
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts");
+        FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
+                .setQuery(query, sparepart.class)
+                .build();
+        adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
+
+
+            @NonNull
+            @Override
+            public SparePartHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
+                View view = layoutinflater.inflate(R.layout.admin_sparepart_recycler, parent, false);
+                return new SparePartHomeViewHolder(view);
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+
+            }
+
+            @Override
+            public void onError(@NonNull FirebaseFirestoreException e) {
+                super.onError(e);
+                Log.d("err","error occuer" +e);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.getMessage().toString(),Toast.LENGTH_LONG);
+                toast.show();
+
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
+                holder.title.setText(model.getProductName());
+
+                holder.itemdescription.setText(model.getProductDiscription());
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
+                holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+//                        String id = doc.getId().toString();
+                        Log.d("btn","deleteed");
+
+                    }
+                });
+                holder.editBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("btn","edited");
+
+                    }
+                });
+            }
+
+
+        };
+
+        adminSparePartRecylerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+        fab.setVisibility(View.GONE);
     }
 }

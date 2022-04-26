@@ -46,7 +46,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -54,10 +54,24 @@
                 android:id="@+id/nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="match_parent"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/nav_graph" />
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ThemeOverlay.Material3.FloatingActionButton.Primary"
+            android:backgroundTint="@color/blue"
+            android:contentDescription="@string/review"
+            android:layout_margin="32dp"
+            android:layout_gravity="bottom|end"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:tint="@color/white"
+            tools:ignore="MissingConstraints"
+            android:visibility="gone"
+            />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

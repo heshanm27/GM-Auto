@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gmauto.databinding.ActivityDashbordBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +37,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         AppBarConfiguration mAppBarconfig;
     ActionBarDrawerToggle toggle;
     NavController navController;
+    FloatingActionButton fab;
     boolean mToolBarNavigationRegister = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout = findViewById(R.id.drawerlayout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
-
+        fab = findViewById(R.id.floating_action_button);
         //set app bar
         setSupportActionBar(toolbar);
 
@@ -56,7 +58,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart).setDrawerLayout(drawerLayout).build();
+        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.testing).setDrawerLayout(drawerLayout).build();
         navigationView.setNavigationItemSelectedListener(this);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,mAppBarconfig);
@@ -71,7 +73,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
 
                 }else{
                     toggle.setDrawerIndicatorEnabled(false);
-                    toggle.setHomeAsUpIndicator(R.drawable.clearicon);
+                    toggle.setHomeAsUpIndicator(R.drawable.appbarbackbtn);
 
                 }
             }
@@ -115,4 +117,8 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         return false;
     }
 
+    //return fab
+    public FloatingActionButton getFloatingActionButton (){
+        return fab;
+    }
 }

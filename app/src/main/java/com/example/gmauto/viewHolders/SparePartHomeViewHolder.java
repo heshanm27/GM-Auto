@@ -1,5 +1,6 @@
-package com.example.gmauto;
+package com.example.gmauto.viewHolders;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,10 +13,11 @@ import com.example.gmauto.R;
 
 public class SparePartHomeViewHolder  extends RecyclerView.ViewHolder {
 
-    ImageView cardimg;
-    TextView title, ratevalue, price;
-    RatingBar ratingBar;
-    View V;
+    public ImageView cardimg;
+    public TextView title, ratevalue, price,itemdescription;
+    public RatingBar ratingBar;
+    public ImageButton editBtn,deleteBtn;
+    public View V;
     public SparePartHomeViewHolder(@NonNull View itemView) {
         super(itemView);
         cardimg = itemView.findViewById(R.id.cardimg);
@@ -23,6 +25,9 @@ public class SparePartHomeViewHolder  extends RecyclerView.ViewHolder {
         price = itemView.findViewById(R.id.price);
         ratevalue = itemView.findViewById(R.id.ratevalue);
         ratingBar = itemView.findViewById(R.id.ratingBar);
+        editBtn = itemView.findViewById(R.id.editBtn);
+        deleteBtn =itemView.findViewById(R.id.deleteBtn);
+        itemdescription= itemView.findViewById(R.id.itemdescription);
         V=itemView;
 
     }
