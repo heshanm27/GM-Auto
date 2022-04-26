@@ -41,7 +41,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout2"
+                android:id="@+id/SelectTitleLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -55,7 +55,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword2"
+                    android:id="@+id/SelectTitleEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
@@ -81,7 +81,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout5"
+                android:id="@+id/FullNameLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -95,7 +95,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword5"
+                    android:id="@+id/FullNameEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -116,7 +116,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout6"
+                android:id="@+id/EmailLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -130,7 +130,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword6"
+                    android:id="@+id/EmailEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -153,7 +153,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout7"
+                android:id="@+id/ContactNumberLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -167,7 +167,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword7"
+                    android:id="@+id/ContactNumberEditText2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -190,7 +190,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout8"
+                android:id="@+id/DateLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -204,7 +204,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword8"
+                    android:id="@+id/DateEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -227,7 +227,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout9"
+                android:id="@+id/TimeLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -241,7 +241,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword9"
+                    android:id="@+id/TimeEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -263,7 +263,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout48"
+                android:id="@+id/VehicleRegistrationNoLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -277,7 +277,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword48"
+                    android:id="@+id/VehicleRegistrationNoEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"

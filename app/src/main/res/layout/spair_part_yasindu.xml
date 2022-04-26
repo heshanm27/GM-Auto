@@ -54,7 +54,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout3"
+                android:id="@+id/FullNameLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -68,7 +68,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword3"
+                    android:id="@+id/FullNameEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -89,7 +89,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout5"
+                android:id="@+id/EmailLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -103,7 +103,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword5"
+                    android:id="@+id/EmailEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -124,7 +124,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout6"
+                android:id="@+id/ContactNumberLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -138,7 +138,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword6"
+                    android:id="@+id/ContactNumberEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -161,7 +161,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout7"
+                android:id="@+id/AddressLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -175,7 +175,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword7"
+                    android:id="@+id/AddressEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -198,7 +198,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout8"
+                android:id="@+id/MessageLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -212,7 +212,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword8"
+                    android:id="@+id/MessageEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -236,7 +236,7 @@
 
 
             <Button
-                android:id="@+id/signin"
+                android:id="@+id/Send1"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="50dp"

@@ -41,7 +41,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout2"
+                android:id="@+id/SparePartNameLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -55,7 +55,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword2"
+                    android:id="@+id/SparePartEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -77,7 +77,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout3"
+                android:id="@+id/DescriptionLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -91,7 +91,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword3"
+                    android:id="@+id/DescriptionEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -112,7 +112,7 @@
 
             <!--Todo  Change text(Add as String)-->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/confirmpasswordlayout5"
+                android:id="@+id/PriceLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -126,7 +126,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/confirmpassword5"
+                    android:id="@+id/PriceEditText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
