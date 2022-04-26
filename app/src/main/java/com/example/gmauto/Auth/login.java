@@ -3,11 +3,13 @@ package com.example.gmauto.Auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.gmauto.Dashbord;
 import com.example.gmauto.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,7 +46,10 @@ public class login extends AppCompatActivity {
                        public void onSuccess(AuthResult authResult) {
                             checkAccessLevel(authResult.getUser().getUid());
 
-                           Toast.makeText(login.this,"LoginSucess",Toast.LENGTH_LONG).show();
+                           Intent intent = new Intent(getApplicationContext(), Dashbord.class);
+                           startActivity(intent);
+                           finish();
+
 
 
 //                           startActivity( new Intent(getApplicationContext(),Dashbord.class));

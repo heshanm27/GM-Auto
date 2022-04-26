@@ -24,7 +24,7 @@
     android:padding="5dp"
     >
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/mainImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:src="@tools:sample/avatars" />
@@ -32,7 +32,7 @@
 </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -40,7 +40,7 @@
             />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/disc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -48,11 +48,12 @@
             />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_margin="5dp"
+
             />
 
         <Button
@@ -61,6 +62,8 @@
             android:layout_height="wrap_content"
             android:text="Button"
             android:layout_margin="5dp"
+            app:cornerRadius="30dp"
+            android:textColor="@color/white"
             />
     </LinearLayout>
         <LinearLayout
@@ -85,12 +88,13 @@
                 android:gravity="end"
                 >
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/rateAvgValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="TextView" />
                 <RatingBar
+                    android:id="@+id/avgRating"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,8 +104,47 @@
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviewRecyclerView"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:gravity="center"
+           >
+           <TextView
+               android:id="@+id/emptyText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="10dp"
+               android:textSize="20sp"
+               android:visibility="gone"
+               android:text="@string/noReviews" />
+       </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            >
+
+            <Button
+                android:id="@+id/addreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addReviewbtn"
+                android:layout_margin="5dp"
+                app:cornerRadius="30dp"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+
+
     </LinearLayout>
 
 </ScrollView>

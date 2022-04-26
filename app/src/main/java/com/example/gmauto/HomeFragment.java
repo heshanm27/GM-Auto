@@ -1,5 +1,6 @@
 package com.example.gmauto;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.gmauto.models.sparepart;
+import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -92,10 +95,6 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
                 .setQuery(query, sparepart.class)
                 .build();
-
-
-
-
         adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
 
 
@@ -133,16 +132,18 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, int position, @NonNull sparepart model) {
+            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
                 holder.price.setText("Rs" + Double.toString(model.getProductPrice()));
                 holder.ratevalue.setText(model.getRateavg().toString() + "/5");
                 holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
                 Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
-                holder.view.setOnClickListener(new View.OnClickListener() {
+                holder.V.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                    navController.navigate(R.id.action_dashFragment_to_sparepartDetails);
+                    DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        String id = doc.getId().toString();
+                        navController.navigate(HomeFragmentDirections.actionDashFragmentToSparepartDetails(id));
                     }
                 });
             }

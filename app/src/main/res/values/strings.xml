@@ -21,6 +21,28 @@
     <string name="nav_darwer_close">Close navigation drawer</string>
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
+    <string name="RatingWithCount">Rating (%.1f/5)</string>
+    <string name="RatingAvgvalue">(%.1f/5)</string>
     <string name="Ratingvalue">0/5</string>
+    <string name="addReviewbtn">Add Review</string>
+    <string name="noReviews">No Reviews</string>
+    <string name="rateandReview">Rate and review</string>
+    <string name="reviewmessage">Enter Your Review</string>
+    <string name="review">Review</string>
+    <string name="post">Post</string>
+    <string name="deletebtn">DeleteBtn</string>
+    <string name="editbtn">EditBtn</string>
+    <string name="title_activity_admin_sparepart">adminSparepartAct</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Closedialogue">"Close Dialogue  "</string>
+    <string name="LoadingDialog">Loading ....</string>
+    <string name="Gallery">Gallery</string>
 
 </resources>

@@ -9,14 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GMAuto"
-        android:usesCleartextTraffic="true"
-        >
-
+        android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.gmauto.Auth.signup"
+            android:name=".Auth.signup"
             android:exported="false" />
         <activity
-            android:name="com.example.gmauto.Auth.login"
+            android:name=".Auth.login"
             android:exported="false" />
         <activity
             android:name=".WelomeScreen"
@@ -26,10 +24,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
-
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
