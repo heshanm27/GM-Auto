@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/AddVehicle"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/VehicleName"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/EnterVehicleNamelayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/VehicleNamePlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/EnterVehicleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Price"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/EnterPriceLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/PricePlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/EnterPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Description"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/descriptionLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/DescriptionPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/descrption"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/TechnicalSpec"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/ManufacturingYear"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ManufacturingYearLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/ManufacturingPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/ManufacturingYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Fuel"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/FuelTypeLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/FuelPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/FuelType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Mileage"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/MileageLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/MileagePlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/Mileage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/color"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ColorLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/ColorPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/Color"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/Transmission"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TransmissionLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/TransmissionPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/Transmission"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/EngineCapacity"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/CapacityLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/EngineCapacityPlaceholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/Capacity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/SubmitButton"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
+                app:cornerRadius="30dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
