@@ -27,7 +27,7 @@ public class SparePartHomeViewHolder  extends RecyclerView.ViewHolder {
         ratingBar = itemView.findViewById(R.id.ratingBar);
         editBtn = itemView.findViewById(R.id.editBtn);
         deleteBtn =itemView.findViewById(R.id.deleteBtn);
-        itemdescription= itemView.findViewById(R.id.itemdescription);
+
         V=itemView;
 
     }

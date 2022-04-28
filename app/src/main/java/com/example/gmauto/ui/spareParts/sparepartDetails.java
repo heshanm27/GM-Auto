@@ -233,6 +233,12 @@ public class sparepartDetails extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     private  void getReviews(String ID){
         Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid",ID).limit(5);
         FirestoreRecyclerOptions<reviews> options = new FirestoreRecyclerOptions.Builder<reviews>()

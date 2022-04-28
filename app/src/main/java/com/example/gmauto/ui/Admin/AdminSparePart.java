@@ -98,7 +98,7 @@ public class AdminSparePart extends Fragment {
     }
 
     private void initRecyclerView() {
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts");
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy("Timestamp",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
                 .setQuery(query, sparepart.class)
                 .build();
@@ -133,15 +133,15 @@ public class AdminSparePart extends Fragment {
             protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
 
-                holder.itemdescription.setText(model.getProductDiscription());
-                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
+//                holder.itemdescription.setText(model.getProductDiscription());
+//                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
 
 
                 holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                          doc=getSnapshots().getSnapshot(position);
-                        id = doc.getId().toString();
+                        id = doc.getId();
                         delete(id);
 
 
@@ -152,7 +152,7 @@ public class AdminSparePart extends Fragment {
                     @Override
                     public void onClick(View view) {
                         doc=getSnapshots().getSnapshot(position);
-                        id = doc.getId().toString();
+                        id = doc.getId();
                         update(id,model);
 
                     }

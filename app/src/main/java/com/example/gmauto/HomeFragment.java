@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.models.sparepart;
@@ -30,14 +31,14 @@ import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
 
-public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener {
+public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener ,View.OnClickListener {
 
 
     RecyclerView sparepartrecyclerView, vehile, foryou;
     NavController navController;
     ShimmerFrameLayout shimmerLayout, shimmerLayout2, shimmerLayout3;
     FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
-
+    TextView view_all_sparepart;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
+        view_all_sparepart = root.findViewById(R.id.view_all_sparepart);
+        view_all_sparepart.setOnClickListener(this::onClick);
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
         vehile = root.findViewById(R.id.vehiclerecyclerView);
         foryou = root.findViewById(R.id.foryourecylerview);
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
 
 
     private void initRecyclerView() {
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts");
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy("Timestamp",Query.Direction.DESCENDING).limit(5);
         FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
                 .setQuery(query, sparepart.class)
                 .build();
@@ -159,7 +161,11 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         foryou.setAdapter(adapter);
         adapter.startListening();
     }
+    public void onClick(View v) {
 
+                    navController.navigate(HomeFragmentDirections.actionDashFragmentToSparePartsHome());
+
+    }
     @Override
     public void onStop() {
         super.onStop();

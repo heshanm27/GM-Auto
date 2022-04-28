@@ -3,12 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.spareParts.sparePartsHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+
+<LinearLayout
+    android:id="@+id/searcharea"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+   >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Spare Parts"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+
+            android:layout_gravity="left|center_vertical"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filters"
+
+            android:textStyle="bold"
+            android:layout_gravity="end|center_vertical"
+            android:textSize="14sp"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:id="@+id/filter"
+            android:gravity="end|center_vertical"
+
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:weightSum="3"
+        >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            app:boxStrokeColor="@color/blue"
+            android:hint="@string/Searchplaeholder"
+            android:layout_weight="3"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_baseline_search_24"
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:boxStrokeWidth="20dp"
+            android:textColor="@android:color/black"
+            android:inputType="textEmailAddress"
+
+            />
+
+</com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_below="@+id/searcharea"
+           android:layout_marginStart="5dp"
+           android:layout_marginTop="5dp"
+           android:layout_marginEnd="5dp"
+           android:layout_marginBottom="5dp" />
+   </RelativeLayout>
+
+
 
 </FrameLayout>
