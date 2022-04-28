@@ -1,5 +1,6 @@
 package com.example.gmauto.ui.spareParts;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -55,6 +56,8 @@ public class sparepartDetails extends Fragment {
     RecyclerView reviewRecyclerView;
     Button addreview;
     String Id,name,userid;
+    ProgressDialog progress;
+    BottomSheetDialog bottomSheetDialog;
     private FirestoreRecyclerAdapter<reviews, ReviewsViewHolder> adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,16 @@ public class sparepartDetails extends Fragment {
         rateAvgValue = view.findViewById(R.id.rateAvgValue);
         reviewRecyclerView= view.findViewById(R.id.reviewRecyclerView);
 
+
+        //progress dilogue
+        progress = new ProgressDialog(getContext());
+        progress.setContentView(R.layout.loading_dialog);
+        progress.setCancelable(false);
+
+        //set layoutmanger into recyclerview
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        reviewRecyclerView.setLayoutManager(layoutManager);
          Id = sparepartDetailsArgs.fromBundle(requireArguments()).getFirebaseID().toString();
          userid = FirebaseAuth.getInstance().getUid().toString();
 
@@ -110,7 +123,7 @@ public class sparepartDetails extends Fragment {
         addreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+              bottomSheetDialog = new BottomSheetDialog(getContext());
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
 
                 TextInputEditText review = bottomSheetDialog.findViewById(R.id.review);
@@ -134,6 +147,7 @@ public class sparepartDetails extends Fragment {
                 Float rateing = rate.getRating();
                 String ratingCountstring = getString(R.string.RatingWithCount,rateing);
                 ratingCount.setText(ratingCountstring);
+                //rating bar value changed
                 rate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -150,7 +164,7 @@ public class sparepartDetails extends Fragment {
                         if(!validReview(review,reviewTextLayout) && !validateRating(rate) ){
                             Float rateValue = rate.getRating();
                             String ReviewMsg =review.getText().toString();
-
+                            progress.show();
                             Map<String,Object> map = new HashMap<>();
                             map.put("Timestamp",new Timestamp(new Date()));
                             map.put("rate",rateValue);
@@ -164,6 +178,8 @@ public class sparepartDetails extends Fragment {
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast toast = Toast.makeText(getContext(),"Posted",Toast.LENGTH_SHORT);
                                     toast.show();
+                                    progress.dismiss();
+                                    bottomSheetDialog.dismiss();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -209,6 +225,14 @@ public class sparepartDetails extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(adapter != null){
+            adapter.startListening();
+        }
+    }
+
     private  void getReviews(String ID){
         Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid",ID).limit(5);
         FirestoreRecyclerOptions<reviews> options = new FirestoreRecyclerOptions.Builder<reviews>()
@@ -226,9 +250,7 @@ public class sparepartDetails extends Fragment {
             public void onDataChanged() {
                 super.onDataChanged();
                     emptyText.setVisibility(getItemCount() == 0 ?View.VISIBLE :View.GONE);
-
             }
-
             @Override
             protected void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position, @NonNull reviews model) {
                             holder.username.setText(model.getUserName());
@@ -240,13 +262,16 @@ public class sparepartDetails extends Fragment {
         };
 
         reviewRecyclerView.setAdapter(adapter);
-        adapter.startListening();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+        if(adapter != null){
+            adapter.stopListening();
+        }
+
     }
 
     private  void CalAvgRating(String ID) {
@@ -266,6 +291,7 @@ public class sparepartDetails extends Fragment {
                     String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
                     rateAvgValue.setText(ratingavgstring);
                     Log.d("rate", String.valueOf(avg));
+                    updateSparePartavg(ID,avg);
                 }else{
                     Avgrate.setRating(0);
                     rateAvgValue.setText("0"+"/5");
@@ -304,6 +330,23 @@ public class sparepartDetails extends Fragment {
         }
 
 
+    }
+
+    private  void updateSparePartavg(String ID,double avg){
+        db.collection("SpareParts").document(ID).update("rateavg",avg).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                if(progress != null && bottomSheetDialog != null){
+
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
 }

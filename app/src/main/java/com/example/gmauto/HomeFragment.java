@@ -134,7 +134,11 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
                 holder.price.setText("Rs" + Double.toString(model.getProductPrice()));
-                holder.ratevalue.setText(model.getRateavg().toString() + "/5");
+                float avg = (float) model.getRateavg().doubleValue();
+                String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
+                holder.ratevalue.setText(ratingavgstring);
+
+
                 holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
                 Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
                 holder.V.setOnClickListener(new View.OnClickListener() {

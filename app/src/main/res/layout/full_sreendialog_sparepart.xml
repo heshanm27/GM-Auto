@@ -60,25 +60,41 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    >
                 <ImageView
                     android:id="@+id/sparepartimage"
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="200dp"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:layout_gravity="center"
-
+                    android:src="@drawable/placeholder_images"
                     />
+                    <ProgressBar
+                        android:id="@+id/imgPogress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        />
+                </FrameLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Item Title"
+                    android:text="@string/Selectimage"
                     android:textSize="20sp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
                     android:textColor="@color/black"
+                    android:gravity="center"
                     />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/sparepartTitleLayput"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -86,7 +102,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    app:counterEnabled="true"
+                    app:counterTextColor="@color/blue"
+                    app:counterMaxLength="100"
                     android:hint="Enter Item Title"
+                    app:hintTextColor="@color/blue"
                     app:errorEnabled="true"
                     app:boxStrokeColor="@color/blue">
 
@@ -109,6 +129,10 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     android:hint="Item Disription"
+                    app:hintTextColor="@color/blue"
+                    app:counterEnabled="true"
+                    app:counterTextColor="@color/blue"
+                    app:counterMaxLength="400"
                     app:errorEnabled="true"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/blue">
@@ -136,6 +160,7 @@
                     android:layout_marginRight="20dp"
                     app:prefixText="LKR"
                     android:hint="Enter Item Price"
+                    app:hintTextColor="@color/blue"
                     app:counterTextColor="@color/black"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/blue">
@@ -144,7 +169,7 @@
                         android:id="@+id/priceedittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:inputType="numberDecimal"
                         android:textColor="@color/black"
                         app:boxStrokeWidth="20dp" />
 
@@ -155,10 +180,23 @@
                     android:layout_width="200dp"
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/SignUpButton"
+                    android:text="@string/AddItem"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/black"
                     android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:cornerRadius="30dp" />
+
+                <Button
+                    android:id="@+id/Update"
+                    android:layout_width="200dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/UpdateItem"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/black"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
                     app:cornerRadius="30dp" />
 
         </LinearLayout>

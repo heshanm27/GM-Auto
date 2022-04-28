@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.example.gmauto.viewHolders.ReviewsViewHolder;
 import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -142,7 +145,7 @@ public class AdminSparePart extends Fragment {
                     public void onClick(View view) {
                         doc=getSnapshots().getSnapshot(position);
                         id = doc.getId().toString();
-                        update(id);
+                        update(id,model);
 
                     }
                 });
@@ -158,13 +161,33 @@ public class AdminSparePart extends Fragment {
 
     public void delete(String ID){
         Log.d("btn",ID);
+
+        db.collection("SpareParts").document(ID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast taost = Toast.makeText(getContext(),"suessFully Deleted",Toast.LENGTH_LONG);
+                taost.show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
 
-    public void  update(String ID){
+    public void  update(String ID,sparepart model){
         Log.d("btn",ID);
         DialogFragment dialog   = FullScreenDialog.newInstance();
         Bundle args = new Bundle();
         args.putString("FirebaseID",ID);
+        args.putParcelable("model",  model);
+//        args.putString("productDiscription",model.getProductDiscription());
+//        args.putString("productName",model.getProductName());
+//        args.putDouble("productPrice",model.getProductPrice());
+//        args.putDouble("rateavg",model.getRateavg());
+//        args.putString("imgUrl",model.getImg());
 
         dialog.setArguments(args);
         dialog.show(getActivity().getSupportFragmentManager(), "Update");
@@ -174,12 +197,14 @@ public class AdminSparePart extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("steps","start");
         fab.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("steps","Stop");
         adapter.stopListening();
         fab.setVisibility(View.GONE);
     }
