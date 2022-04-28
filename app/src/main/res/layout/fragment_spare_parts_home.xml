@@ -74,7 +74,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
 
-            android:id="@+id/email"
+            android:id="@+id/searchEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:boxStrokeWidth="20dp"

@@ -11,6 +11,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,8 +45,9 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
     RecyclerView sparepart;
     NavController navController;
     ShimmerFrameLayout shimmerLayout;
-    String orderByText="Timestamp";
+    String orderByText="Timestamp",data="";
     Query.Direction Directions = Query.Direction.DESCENDING;
+    TextInputEditText  searchEdit;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,22 +84,22 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
                     case "Newst":
                         orderByText="Timestamp";
                         Directions = Query.Direction.DESCENDING;
-                        initRecyclerView(orderByText,Directions);
+                        filterquey(orderByText,Directions);
                         break;
                     case "Old":
                         orderByText="Timestamp";
                         Directions = Query.Direction.ASCENDING;
-                        initRecyclerView(orderByText,Directions);
+                        filterquey(orderByText,Directions);
                         break;
                     case "low-priced":
                         orderByText = "productPrice";
                         Directions = Query.Direction.ASCENDING;
-                        initRecyclerView(orderByText,Directions);
+                        filterquey(orderByText,Directions);
                         break;
                     case "high-priced":
                         orderByText = "productPrice";
                         Directions = Query.Direction.DESCENDING;
-                        initRecyclerView(orderByText,Directions);
+                        filterquey(orderByText,Directions);
                         break;
                 }
 
@@ -107,6 +111,39 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
             }
         });
 
+
+        //edit text
+        searchEdit=view.findViewById(R.id.searchEdit);
+
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("search",editable.toString());
+                    if(editable.toString().length() == 0){
+                        orderByText="Timestamp";
+                        Directions = Query.Direction.DESCENDING;
+                        filterquey(orderByText,Directions);
+                        Log.d("search","empty");
+                    }else{
+                        data =editable.toString();
+                        orderByText="productName";
+                        Directions = Query.Direction.DESCENDING;
+                        FilterSearh(orderByText,data);
+
+                    }
+
+            }
+        });
     }
 
     @Override
@@ -125,14 +162,21 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
     @Override
     public void onResume() {
         super.onResume();
-        initRecyclerView(orderByText,Directions);
+        filterquey(orderByText,Directions);
         if(adapter != null){
             adapter.startListening();
         }
     }
 
-    private void initRecyclerView(String orderBy, Query.Direction Direction) {
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy(orderBy,Direction);
+    public void filterquey(String orderBy, Query.Direction Direction){
+        Query query  = FirebaseFirestore.getInstance().collection("SpareParts").orderBy(orderBy,Direction);
+        initRecyclerView(query);
+    }
+    public void FilterSearh(String orderBy, String data){
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy(orderBy).startAt(data).endAt(data + "\uf8ff");
+        initRecyclerView(query);
+    }
+    private void initRecyclerView(Query query) {
         FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
                 .setQuery(query, sparepart.class)
                 .build();
