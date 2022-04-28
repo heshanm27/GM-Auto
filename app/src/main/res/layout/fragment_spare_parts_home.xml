@@ -90,15 +90,58 @@
 
 
        <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/sparepart"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:layout_below="@+id/searcharea"
            android:layout_marginStart="5dp"
            android:layout_marginTop="5dp"
            android:layout_marginEnd="5dp"
+           app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+           app:spanCount="2"
+           android:visibility="gone"
            android:layout_marginBottom="5dp" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shimmerLayout"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/searcharea"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/shimmer_effect_layout"/>
+
+                <include layout="@layout/shimmer_effect_layout" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/shimmer_effect_layout"/>
+
+                <include layout="@layout/shimmer_effect_layout" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/shimmer_effect_layout"/>
+
+                <include layout="@layout/shimmer_effect_layout" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
    </RelativeLayout>
-
-
 
 </FrameLayout>

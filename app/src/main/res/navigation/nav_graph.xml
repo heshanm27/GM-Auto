@@ -46,9 +46,6 @@
         android:label="fragment_vehicle_home"
         tools:layout="@layout/fragment_vehicle_home" >
         <action
-            android:id="@+id/action_vehicleHome_to_dashFragment"
-            app:destination="@id/nav_home" />
-        <action
             android:id="@+id/action_vehicleHome_to_login2"
             app:destination="@id/login2" />
         <action
@@ -74,11 +71,11 @@
         android:label="fragment_spare_parts_home"
         tools:layout="@layout/fragment_spare_parts_home" >
         <action
-            android:id="@+id/action_sparePartsHome_to_dashFragment"
-            app:destination="@id/nav_home" />
-        <action
             android:id="@+id/action_sparePartsHome_to_login2"
             app:destination="@id/login2" />
+        <action
+            android:id="@+id/action_sparePartsHome_to_sparepartDetails"
+            app:destination="@id/sparepartDetails" />
     </fragment>
     <fragment
         android:id="@+id/sparepartDetails"
