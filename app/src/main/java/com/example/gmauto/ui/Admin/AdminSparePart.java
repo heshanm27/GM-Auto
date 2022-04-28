@@ -85,9 +85,17 @@ public class AdminSparePart extends Fragment {
                 }
             });
         }
-        initRecyclerView();
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initRecyclerView();
+        if(adapter != null){
+            adapter.startListening();
+        }
+    }
 
     private void initRecyclerView() {
         Query query = FirebaseFirestore.getInstance().collection("SpareParts");
