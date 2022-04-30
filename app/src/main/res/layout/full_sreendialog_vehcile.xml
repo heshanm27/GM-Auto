@@ -99,7 +99,7 @@
                     />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sparepartTitleLayput"
+                    android:id="@+id/vehcileTitleLayput"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                     app:boxStrokeColor="@color/blue">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sparepartTitleEditText"
+                        android:id="@+id/vehicleTitleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -268,6 +268,7 @@
 
 
                 <RadioGroup
+                    android:id="@+id/TransmissionType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -275,10 +276,11 @@
 
 
                     <RadioButton
+
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:text="Manual"
-                        android:id="@+id/TransmissionRadioButton"
+                        android:id="@+id/Manual"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp" />
@@ -287,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Automatic "
-                        android:id="@+id/TransmissionRadioButton2"
+                        android:id="@+id/Automatic"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp"
@@ -297,7 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" Continuously variable "
-                        android:id="@+id/TransmissionRadioButton3"
+                        android:id="@+id/Continuously"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp"
@@ -339,6 +341,7 @@
                     android:text="@string/Fuel"
                     android:textColor="@color/black" />
                 <RadioGroup
+                    android:id="@+id/FuelType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -349,7 +352,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:text="Petrol "
-                        android:id="@+id/radioButton"
+                        android:id="@+id/petrol"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp" />
@@ -358,7 +361,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Diesel"
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/disel"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp"
@@ -367,39 +370,49 @@
                 </RadioGroup>
 
 
-                <androidx.gridlayout.widget.GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="20dp"
-                    app:columnCount="2">
-
-                    <CheckBox
-                        android:id="@+id/checkBox"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="2"
+                    android:layout_margin="10dp"
+                    >
+                    <EditText
+                        android:id="@+id/chipedit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Air Bags" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LED Headlight"
-                        app:layout_gravity="end" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:layout_marginRight="20dp"
-                        android:text="Fog Lamps" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox3"
+                        android:hint="@string/addReviewbtn"
+                        />
+                    <ImageButton
+                        android:id="@+id/deleteBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ABS"
-                        app:layout_gravity="end" />
-                </androidx.gridlayout.widget.GridLayout>
+                        android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/editbtn"
+                        android:padding="10dp"
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
+                        app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+                        app:tint="@color/cardview_dark_background" />
+                    <ImageButton
+                        android:id="@+id/getBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/fui_transparent"
+                        android:contentDescription="@string/editbtn"
+                        android:padding="10dp"
+                        android:scaleX="1.2"
+                        android:scaleY="1.2"
+                        app:srcCompat="@drawable/ic_baseline_add_24"
+                        app:tint="@color/cardview_dark_background" />
+                </LinearLayout>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGrup"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_height="wrap_content"/>
 
                 <Button
                     android:id="@+id/Submit"

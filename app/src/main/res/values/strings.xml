@@ -47,7 +47,7 @@
     <string name="AddItem">Add Item</string>
     <string name="Selectimage">Select Image</string>
     <string name="UpdateItem">Update Item</string>
-<string name="uploadimges">uploadimage</string>
+    <string name="uploadimges">uploadimage</string>
     <string name="TechnicalSpecifications">Technical Specifications</string>
     <string name="ManufacturingPlaceholder">Enter Manufacturing Year</string>
     <string name="FuelPlaceholder">Fuel Type</string>

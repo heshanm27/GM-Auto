@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_nav_home_to_adminvehicle"
             app:destination="@id/adminvehicle" />
+        <action
+            android:id="@+id/action_nav_home_to_vehicleDetails"
+            app:destination="@id/vehicleDetails" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -49,9 +52,8 @@
             android:id="@+id/action_vehicleHome_to_login2"
             app:destination="@id/login2" />
         <action
-            android:id="@+id/action_vehicleHome_to_sparepartDetails"
-            app:destination="@id/sparepartDetails"
-            app:popUpTo="@id/sparePartsHome" />
+            android:id="@+id/action_vehicleHome_to_vehicleDetails"
+            app:destination="@id/vehicleDetails" />
     </fragment>
     <fragment
         android:id="@+id/reservation"
@@ -68,7 +70,7 @@
     <fragment
         android:id="@+id/sparePartsHome"
         android:name="com.example.gmauto.ui.spareParts.sparePartsHome"
-        android:label="fragment_spare_parts_home"
+        android:label="Spare Parts"
         tools:layout="@layout/fragment_spare_parts_home" >
         <action
             android:id="@+id/action_sparePartsHome_to_login2"
@@ -76,16 +78,15 @@
         <action
             android:id="@+id/action_sparePartsHome_to_sparepartDetails"
             app:destination="@id/sparepartDetails" />
+        <action
+            android:id="@+id/action_sparePartsHome_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/sparepartDetails"
         android:name="com.example.gmauto.ui.spareParts.sparepartDetails"
         android:label="Details"
         tools:layout="@layout/fragment_sparepart_details" >
-        <action
-            android:id="@+id/action_sparepartDetails_to_vehicleHome"
-            app:destination="@id/vehicleHome"
-            app:popUpTo="@id/vehicleHome" />
         <argument
             android:name="firebaseID"
             app:argType="string" />
@@ -116,5 +117,12 @@
         android:name="com.example.gmauto.ui.Admin.Adminvehicle"
         android:label="fragment_adminvehicle"
         tools:layout="@layout/fragment_adminvehicle" />
+    <fragment
+        android:id="@+id/vehicleDetails"
+        android:name="com.example.gmauto.ui.vehicles.vehicleDetails"
+        android:label="fragment_vehicle_details"
+        tools:layout="@layout/fragment_vehicle_details" >
+        <argument android:name="FirebaseID" />
+    </fragment>
 
 </navigation>

@@ -15,12 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.Dashbord;
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
+import com.example.gmauto.models.vehicle;
 import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
+import com.example.gmauto.viewHolders.VehicleViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,15 +34,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+import java.util.Map;
+
 
 public class Adminvehicle extends Fragment {
 
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
-    RecyclerView adminSparePartRecylerView;
+    FirestoreRecyclerAdapter<vehicle, VehicleViewHolder> adapter;
+    RecyclerView adminRecylerView;
     FloatingActionButton fab;
-
+    TextView year,year2,year3,year4;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +61,15 @@ public class Adminvehicle extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        adminSparePartRecylerView= view.findViewById(R.id.adminSparePartRecylerView);
-//        //set layoutmanger into recyclerview
-//        LinearLayoutManager layoutManager
-//                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
-//        adminSparePartRecylerView.setLayoutManager(layoutManager);
-//        //recyler view decoration
-//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
-//        adminSparePartRecylerView.addItemDecoration(dividerItemDecoration);
+
+        adminRecylerView= view.findViewById(R.id.adminRecylerView);
+        //set layoutmanger into recyclerview
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        adminRecylerView.setLayoutManager(layoutManager);
+        //recyler view decoration
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+        adminRecylerView.addItemDecoration(dividerItemDecoration);
 
         //get Floating button from mainActivity
         fab = ((Dashbord) getActivity()).getFloatingActionButton();
@@ -80,57 +86,39 @@ public class Adminvehicle extends Fragment {
                 }
             });
         }
-
+        getFirebase();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        initRecyclerView();
-//        if(adapter != null){
-//            adapter.startListening();
-//        }
+        initRecyclerView();
+        if(adapter != null){
+            adapter.startListening();
+        }
     }
 
     private void initRecyclerView() {
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy("Timestamp",Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
-                .setQuery(query, sparepart.class)
+        Query query = FirebaseFirestore.getInstance().collection("Vehicles").orderBy("Timestamp",Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<vehicle> options = new FirestoreRecyclerOptions.Builder<vehicle>()
+                .setQuery(query, vehicle.class)
                 .build();
-        adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
-
+        adapter = new FirestoreRecyclerAdapter<vehicle, VehicleViewHolder>(options) {
             DocumentSnapshot doc;
             String id;
+
             @NonNull
             @Override
-            public SparePartHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
                 View view = layoutinflater.inflate(R.layout.admin_sparepart_recycler, parent, false);
-                return new SparePartHomeViewHolder(view);
+                return new VehicleViewHolder(view);
             }
 
             @Override
-            public void onDataChanged() {
-                super.onDataChanged();
+            protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
 
-            }
-
-            @Override
-            public void onError(@NonNull FirebaseFirestoreException e) {
-                super.onError(e);
-                Log.d("err","error occuer" +e);
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.getMessage().toString(),Toast.LENGTH_LONG);
-                toast.show();
-
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
-                holder.title.setText(model.getProductName());
-
-//                holder.itemdescription.setText(model.getProductDiscription());
-//                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
-
+                holder.title.setText(model.getTitle());
 
                 holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -138,9 +126,6 @@ public class Adminvehicle extends Fragment {
                         doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
                         delete(id);
-
-
-
                     }
                 });
                 holder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -153,11 +138,9 @@ public class Adminvehicle extends Fragment {
                     }
                 });
             }
-
-
         };
 
-        adminSparePartRecylerView.setAdapter(adapter);
+        adminRecylerView.setAdapter(adapter);
         adapter.startListening();
     }
 
@@ -180,7 +163,7 @@ public class Adminvehicle extends Fragment {
 
     }
 
-    public void  update(String ID,sparepart model){
+    public void  update(String ID,vehicle model){
         Log.d("btn",ID);
         DialogFragment dialog   = FullScreenDialog.newInstance();
         Bundle args = new Bundle();
@@ -197,6 +180,10 @@ public class Adminvehicle extends Fragment {
 
     }
 
+
+
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -204,11 +191,36 @@ public class Adminvehicle extends Fragment {
         fab.setVisibility(View.VISIBLE);
     }
 
+    public void getFirebase(){
+
+        db.collection("Vehicles").document("oNYPZq3jN6wPf103b6Tk").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+
+        if(snapshot != null) {
+            String years23 = snapshot.getString("Title");
+//////            Map<String, Object> map = (Map<String, Object>) snapshot.get("discription");
+////            String years = (String) map.get("Mileage");
+////            String years2 = (String) map.get("year");
+////            String years24 = (String) map.get("a");
+//
+//            Log.d("maps", years+years2 + years23+years24);
+
+        }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("maps","error"+e);
+            }
+        });
+    }
     @Override
     public void onStop() {
         super.onStop();
         Log.d("steps","Stop");
-//        adapter.stopListening();
+        adapter.stopListening();
         fab.setVisibility(View.GONE);
     }
 }

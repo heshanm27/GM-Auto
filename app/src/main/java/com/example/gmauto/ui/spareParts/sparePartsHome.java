@@ -35,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -220,7 +221,17 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
 
 
                 holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
-                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
                 holder.V.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
