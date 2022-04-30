@@ -56,5 +56,22 @@
     <string name="vehicle_reg_placeholder">Enter Vehicle Registration No</string>
     <string name="address_placeholder">Enter Address</string>
     <string name="message_placeholder">Enter Message</string>
+    <string name="manufacturingYear">Manufacturing Year</string>
+    <string name="manufacturingYearPlaceholder">Enter Manufacturing Year</string>
+    <string name="fuel">Fuel</string>
+    <string name="fuelPlaceholder">Select Fuel Type</string>
+    <string name="mileage">Mileage</string>
+    <string name="mileagePlaceholder">Enter Vehicle Mileage</string>
+    <string name="color">Color</string>
+    <string name="colorPlaceholder">Enter Vehicle Color</string>
+    <string name="Transmission">Transmission</string>
+    <string name="transmissionPlaceholder">Select Transmission</string>
+    <string name="engineCapacity">Engine Capacity</string>
+    <string name="engineCapacityTypePlaceholder">Enter Engine Capaity</string>
+    <string name="amenities">Amenities</string>
+    <string name="addFeatures">Add Features</string>
+    <string name="addPicture">Add Picture</string>
+    <string name="takePhoto">Take Photo</string>
+
 
 </resources>
