@@ -194,22 +194,23 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         chips.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.d("valie","chip" +chipGrup.getChildCount());
-              for(int i=0;i<=chipGrup.getChildCount();i++){
-                  Chip chip = (Chip) chipGrup.getChildAt(i);
-                      Log.d("valie",chip.getText().toString());
-                      Log.d("valie","chip");
-                      Amenities.remove(chip.getText().toString());
-
-
-              }
+                Amenities.remove(text);
                 chipGrup.removeView(view);
+                displaylist();
             }
         });
+        displaylist();
         chipGrup.addView(chips);
 
 
+    }
+
+
+    public void displaylist(){
+
+        for (String i:Amenities) {
+            System.out.println(i);
+        }
     }
 
     public void add() {
