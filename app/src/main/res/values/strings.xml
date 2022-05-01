@@ -44,5 +44,26 @@
     <string name="Closedialogue">"Close Dialogue  "</string>
     <string name="LoadingDialog">Loading ....</string>
     <string name="Gallery">Gallery</string>
+    <string name="AddItem">Add Item</string>
+    <string name="Selectimage">Select Image</string>
+    <string name="UpdateItem">Update Item</string>
+    <string name="uploadimges">uploadimage</string>
+    <string name="TechnicalSpecifications">Technical Specifications</string>
+    <string name="ManufacturingPlaceholder">Enter Manufacturing Year</string>
+    <string name="FuelPlaceholder">Fuel Type</string>
+    <string name="TransmissionPlaceholder">Select Transmission</string>
+    <string name="EngineCapacity">Engine Capacity</string>
+    <string name="MileagePlaceholder">Enter Mileage</string>
+    <string name="EngineCapacityPlaceholder">Enter Capacity</string>
+    <string name="ColorPlaceholder">Enter Color</string>
+    <string name="Fuel">Fuel</string>
+    <string name="Transmission">Transmission</string>
+    <string name="Searchplaeholder">Search</string>
 
+    <string-array name="filters">
+        <item>Newst</item>
+        <item>Old</item>
+        <item>low-priced</item>
+        <item>high-priced</item>
+    </string-array>
 </resources>

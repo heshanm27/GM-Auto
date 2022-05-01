@@ -16,11 +16,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -38,6 +41,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
     ActionBarDrawerToggle toggle;
     NavController navController;
     FloatingActionButton fab;
+    Button Logoutbutton;
     boolean mToolBarNavigationRegister = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +53,28 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.floating_action_button);
+
         //set app bar
         setSupportActionBar(toolbar);
 
+        View header = navigationView.getHeaderView(0);
+        Logoutbutton = header.findViewById(R.id.logout);
+        Logoutbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), WelomeScreen.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         navigationView.bringToFront();
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_darwer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle).setDrawerLayout(drawerLayout).build();
+        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle,R.id.vehicleHome,R.id.sparePartsHome).setDrawerLayout(drawerLayout).build();
         navigationView.setNavigationItemSelectedListener(this);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,mAppBarconfig);
@@ -84,6 +100,8 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
                 onBackPressed();
             }
         });
+
+
     }
 
 

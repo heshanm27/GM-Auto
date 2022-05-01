@@ -15,10 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.models.sparepart;
+import com.example.gmauto.models.vehicle;
 import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
+import com.example.gmauto.viewHolders.VehicleViewHolder;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -27,17 +30,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
-public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener {
+public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateListener ,View.OnClickListener {
 
     //Reference
     RecyclerView sparepartrecyclerView, vehile, foryou;
     NavController navController;
     ShimmerFrameLayout shimmerLayout, shimmerLayout2, shimmerLayout3;
     FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
-
+    FirestoreRecyclerAdapter<vehicle, VehicleViewHolder> Vehicleadapter;
+    TextView view_all_sparepart;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,10 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        view_all_sparepart = root.findViewById(R.id.view_all_sparepart);
+        view_all_sparepart.setOnClickListener(this::onClick);
         // spare part recycler View reference
+
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
         // vehiclerecyclerView fragment
         vehile = root.findViewById(R.id.vehiclerecyclerView);
@@ -87,11 +95,12 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             navController.navigate(R.id.action_dashFragment_to_login2);
         }
         initRecyclerView();
+        vehcileRecylerView();
     }
 
 
     private void initRecyclerView() {
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts");
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy("Timestamp",Query.Direction.DESCENDING).limit(5);
         FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
                 .setQuery(query, sparepart.class)
                 .build();
@@ -112,9 +121,6 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
                 shimmerLayout.stopShimmer();
                 shimmerLayout.setVisibility(View.GONE);
                 sparepartrecyclerView.setVisibility(View.VISIBLE);
-                shimmerLayout2.stopShimmer();
-                shimmerLayout2.setVisibility(View.GONE);
-                vehile.setVisibility(View.VISIBLE);
                 shimmerLayout3.stopShimmer();
                 shimmerLayout3.setVisibility(View.GONE);
                 foryou.setVisibility(View.VISIBLE);
@@ -135,9 +141,21 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
                 holder.price.setText("Rs" + Double.toString(model.getProductPrice()));
-                holder.ratevalue.setText(model.getRateavg().toString() + "/5");
+                float avg = (float) model.getRateavg().doubleValue();
+                String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
+                holder.ratevalue.setText(ratingavgstring);
                 holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
-                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
                 holder.V.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -152,14 +170,86 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         };
 
         sparepartrecyclerView.setAdapter(adapter);
-        vehile.setAdapter(adapter);
         foryou.setAdapter(adapter);
         adapter.startListening();
     }
 
+    private  void vehcileRecylerView(){
+        Query query = FirebaseFirestore.getInstance().collection("Vehicles").orderBy("Timestamp",Query.Direction.DESCENDING).limit(5);
+        FirestoreRecyclerOptions<vehicle> options = new FirestoreRecyclerOptions.Builder<vehicle>()
+                .setQuery(query, vehicle.class)
+                .build();
+        Vehicleadapter = new FirestoreRecyclerAdapter<vehicle, VehicleViewHolder>(options) {
+
+            @NonNull
+            @Override
+            public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
+                View view = layoutinflater.inflate(R.layout.vehicle_cardview, parent, false);
+                return new VehicleViewHolder(view);
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                shimmerLayout2.stopShimmer();
+                shimmerLayout2.setVisibility(View.GONE);
+                vehile.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(@NonNull FirebaseFirestoreException e) {
+                super.onError(e);
+                shimmerLayout2.startShimmer();
+                shimmerLayout2.setVisibility(View.VISIBLE);
+                vehile.setVisibility(View.GONE);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
+                holder.title.setText(model.getTitle());
+                holder.price.setText(Double.toString(model.getPrice())+"mil");
+                Picasso.get().load(model.getImgUrl()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        String id = doc.getId().toString();
+                        navController.navigate(HomeFragmentDirections.actionNavHomeToVehicleDetails(id));
+                    }
+                });
+            }
+        };
+        vehile.setAdapter(Vehicleadapter);
+        Vehicleadapter.startListening();
+    }
+
+
+
+
+
+    public void onClick(View v) {
+
+                    navController.navigate(HomeFragmentDirections.actionDashFragmentToSparePartsHome());
+
+    }
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+        if(adapter != null && Vehicleadapter != null){
+            adapter.stopListening();
+            Vehicleadapter.stopListening();
+        }
+
     }
 }
