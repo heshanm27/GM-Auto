@@ -165,7 +165,7 @@ public class Adminvehicle extends Fragment {
 
     public void  update(String ID,vehicle model){
         Log.d("btn",ID);
-        DialogFragment dialog   = FullScreenDialog.newInstance();
+        DialogFragment dialog   = vehicleFullScrrenDialog.newInstance();
         Bundle args = new Bundle();
         args.putString("FirebaseID",ID);
         args.putParcelable("model",  model);

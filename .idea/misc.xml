@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/drawable/bgcorner.xml" value="0.3225" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/drawable/bgdowncorner.xml" value="0.3225" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.242" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.242" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.164" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_admin_sparepart.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_dashbord.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_fullscreen.xml" value="0.15775972637879435" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_login.xml" value="0.15775972637879435" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_signup.xml" value="0.15433946130825138" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_testing.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/activity_welome_screen.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/add_sparepart_dialog.xml" value="0.21419410004275333" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/admin_sparepart_recycler.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/admin_vehicle_reycler.xml" value="0.1013253527148354" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/cardview_sparepart.xml" value="0.4" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/content_admin_sparepart.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/drawer_header.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_admin_spare_part.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_adminvehicle.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_blank2.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_dash.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_first.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_home.xml" value="0.33666666666666667" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_reservation.xml" value="0.11671654553227875" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_spare_parts_home.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_sparepart_details.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_vehicle_details.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_vehicle_full_scrren_dialog.xml" value="0.15604959384352288" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/fragment_vehicle_home.xml" value="0.20478837109876016" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/full_screen_dialogvehcile.xml" value="0.1013253527148354" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/full_sreendialog_sparepart.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/full_sreendialog_vehcile.xml" value="0.21663619744058502" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/loading_dialog.xml" value="0.21248396750748183" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/reviews_recycler_layout.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/shimmer_effect_layout.xml" value="0.4" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/table_layout_item.xml" value="0.1936725096194955" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/layout/vehicle_cardview.xml" value="0.4" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/menu/main_menu.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/menu/topappbarr.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2265" />
+        <entry key="..\:/Users/ASUS/StudioProjects/GM-Auto/app/src/main/res/xml/file_paths.xml" value="0.15604959384352288" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
@@ -49,7 +50,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     ProgressDialog progress;
     EditText chipedit;
-    ImageButton deletebtn, getBtn;
+    ImageButton deletebtn;
     ChipGroup chipGrup;
     String Id, Transmissiontype, Fueltype, userid;
     ImageView sparepartimage;
@@ -59,6 +60,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
     TextInputLayout vehcileTitleLayput, discriptionLauout, pricelayout, ManufacturingYearLayout, MileageLayout, CapacityLayout, ColorLayout;
     TextInputEditText vehicleTitleEditText, itemdiscription, priceedittext, ManufacturingYear, Mileage, Capacity, Color;
     RadioButton Manual, Automatic, Continuously, petrol,disel;
+    TextView apptitle;
         List<String> Amenities ;
     static vehicleFullScrrenDialog newInstance() {
         return new vehicleFullScrrenDialog();
@@ -84,7 +86,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         deletebtn = view.findViewById(R.id.deleteBtn);
         chipGrup = view.findViewById(R.id.chipGrup);
         chipedit = view.findViewById(R.id.chipedit);
-        getBtn = view.findViewById(R.id.getBtn);
+
 
         vehcileTitleLayput = view.findViewById(R.id.vehcileTitleLayput);
         discriptionLauout = view.findViewById(R.id.discriptionLauout);
@@ -100,7 +102,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         Mileage = view.findViewById(R.id.Mileage);
         Capacity = view.findViewById(R.id.Capacity);
         Color = view.findViewById(R.id.Color);
-
+        apptitle =view.findViewById(R.id.apptitle);
         TransmissionType = view.findViewById(R.id.TransmissionType);
         Manual = view.findViewById(R.id.Manual);
         Automatic = view.findViewById(R.id.Automatic);
@@ -133,9 +135,28 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         if (bundle != null) {
             Id = bundle.getString("FirebaseID");
             vehicle model = bundle.getParcelable("model");
+
+            //set values
+            vehicleTitleEditText.setText(model.getTitle());
+            itemdiscription.setText(model.getDiscription());
+            priceedittext.setText(Double.toString(model.getPrice()));
+            Map<String,Object> map = model.getDetails();
+
+            ManufacturingYear.setText(map.get("ManufacturingYear").toString());
+            Mileage.setText(map.get("Mileage").toString());
+            Capacity.setText(map.get("EngineCapacity").toString());
+            Color.setText(map.get("Color").toString());
             Update.setVisibility(View.VISIBLE);
+
+           List<String> amenitiesArray = model.getAmenities();
+
+            for (String i:amenitiesArray) {
+                addChip(i);
+            }
         }else{
             Submit.setVisibility(View.VISIBLE);
+            apptitle.setText("Add Vehicle");
+
         }
 
         //progress dilogue
@@ -160,21 +181,19 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
                 add();
             }
         });
-        getBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("btnget", "clicked");
-//                List<Integer> list = chipGrup.getChildCount();
-                int i = chipGrup.getChildCount();
-                Log.d("btnget", String.valueOf(i));
 
-            }
-        });
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = chipedit.getText().toString();
                 addChip(text);
+            }
+        });
+
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Update();
             }
         });
         //apbar close button
@@ -239,7 +258,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
             map.put("Amenities", Amenities);
             map.put("details", details);
             map.put("Timestamp", new Timestamp(new Date()));
-
+            map.put("Discription",disc);
             db.collection("Vehicles").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
@@ -265,6 +284,58 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         }
     }
 
+
+    public void Update() {
+
+        if (validate(vehicleTitleEditText, vehcileTitleLayput) && validate(itemdiscription, discriptionLauout) && validate(priceedittext, pricelayout)
+                && validate(ManufacturingYear, ManufacturingYearLayout) && validate(Mileage, MileageLayout) && validate(Capacity, CapacityLayout) && validate(Color, ColorLayout)
+        ) {
+            progress.show();
+            Toast toast = Toast.makeText(getContext(), "Submited", Toast.LENGTH_SHORT);
+            String title = vehicleTitleEditText.getText().toString();
+            String disc = itemdiscription.getText().toString();
+            double price = Double.parseDouble(priceedittext.getText().toString());
+
+            Map<String, Object> details = new HashMap<>();
+            details.put("Color", Color.getText().toString());
+            details.put("EngineCapacity", Capacity.getText().toString());
+            details.put("FuleType",Fueltype);
+            details.put("ManufacturingYear", ManufacturingYear.getText().toString());
+            details.put("Mileage", Mileage.getText().toString());
+            details.put("TransmissionType", Transmissiontype);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("img", ImageURL);
+            map.put("Title", title);
+            map.put("Price", price);
+            map.put("Amenities", Amenities);
+            map.put("details", details);
+            map.put("Timestamp", new Timestamp(new Date()));
+            map.put("Discription",disc);
+            db.collection("Vehicles").document(Id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast toast = Toast.makeText(getContext(), "Successfully Updated", Toast.LENGTH_SHORT);
+                    toast.show();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 5s = 5000ms
+                            progress.dismiss();
+                            dismiss();
+                        }
+                    }, 1000);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast toast = Toast.makeText(getContext(), "Error Occured Try Again", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        }
+    }
     public boolean validate(TextInputEditText editText, TextInputLayout layout) {
 
         String value = editText.getText().toString();

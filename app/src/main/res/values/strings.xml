@@ -59,6 +59,7 @@
     <string name="Fuel">Fuel</string>
     <string name="Transmission">Transmission</string>
     <string name="Searchplaeholder">Search</string>
+    <string name="Filters">Filters</string>
 
     <string-array name="filters">
         <item>Newst</item>
