@@ -21,42 +21,50 @@
     <string name="nav_darwer_close">Close navigation drawer</string>
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
+    <string name="RatingWithCount">Rating (%.1f/5)</string>
+    <string name="RatingAvgvalue">(%.1f/5)</string>
     <string name="Ratingvalue">0/5</string>
-    <string name="User_profile_topic">Edit Profile</string>
-    <string name="YourName">Your Name</string>
-    <string name="YourEmail">Your Email</string>
-    <string name="YourMobile">Mobile Number</string>
-    <string name="User_Name">User Name</string>
-    <string name="SubmitButton">Submit</string>
-    <string name="BidNowTopic">Bid Now</string>
-    <string name="Price">Price</string>
-    <string name="YourMessageBid">Type Your Message</string>
-    <string name="yourNamePlaceholder">Enter Your Name</string>
-    <string name="YourEmailPlaceholder">Enter Email</string>
-    <string name="MobileNumberPlaceholder">Enter Mobile Number</string>
-    <string name="PricePlaceholder">Enter Price</string>
-    <string name="EnterMessagePalceholder">Enter Message</string>
-    <string name="ContactUsTopic">Contact Us</string>
-    <string name="ContactUsName">Name</string>
-    <string name="Email">Email</string>
-    <string name="Message">Message</string>
-    <string name="VehicleName">Vehicle Name</string>
-    <string name="VehicleNamePlaceholder">Enter Vehicle Name</string>
-    <string name="Description">Description</string>
-    <string name="DescriptionPlaceholder">Enter Description</string>
-    <string name="ManufacturingYear">Manufacturing Year</string>
+    <string name="addReviewbtn">Add Review</string>
+    <string name="noReviews">No Reviews</string>
+    <string name="rateandReview">Rate and review</string>
+    <string name="reviewmessage">Enter Your Review</string>
+    <string name="review">Review</string>
+    <string name="post">Post</string>
+    <string name="deletebtn">DeleteBtn</string>
+    <string name="editbtn">EditBtn</string>
+    <string name="title_activity_admin_sparepart">adminSparepartAct</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Closedialogue">"Close Dialogue  "</string>
+    <string name="LoadingDialog">Loading ....</string>
+    <string name="Gallery">Gallery</string>
+    <string name="AddItem">Add Item</string>
+    <string name="Selectimage">Select Image</string>
+    <string name="UpdateItem">Update Item</string>
+    <string name="uploadimges">uploadimage</string>
+    <string name="TechnicalSpecifications">Technical Specifications</string>
     <string name="ManufacturingPlaceholder">Enter Manufacturing Year</string>
-    <string name="Fuel">Fuel</string>
     <string name="FuelPlaceholder">Fuel Type</string>
-    <string name="Mileage">Mileage</string>
-    <string name="color">Color</string>
-    <string name="ColorPlaceholder">Select Color</string>
-    <string name="Transmission">Transmission</string>
     <string name="TransmissionPlaceholder">Select Transmission</string>
     <string name="EngineCapacity">Engine Capacity</string>
-    <string name="EngineCapacityPlaceholder">Select Capacity</string>
-    <string name="AddVehicle">Add Vehicle</string>
-    <string name="TechnicalSpec">Technical Specifications</string>
-    <string name="MileagePlaceholder">Mileage</string>
+    <string name="MileagePlaceholder">Enter Mileage</string>
+    <string name="EngineCapacityPlaceholder">Enter Capacity</string>
+    <string name="ColorPlaceholder">Enter Color</string>
+    <string name="Fuel">Fuel</string>
+    <string name="Transmission">Transmission</string>
+    <string name="Searchplaeholder">Search</string>
+    <string name="Filters">Filters</string>
 
+    <string-array name="filters">
+        <item>Newst</item>
+        <item>Old</item>
+        <item>low-priced</item>
+        <item>high-priced</item>
+    </string-array>
 </resources>

@@ -6,11 +6,11 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Home" />
         <item
-            android:id="@+id/sparepart"
+            android:id="@+id/sparePartsHome"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Spare Parts" />
         <item
-            android:id="@+id/Vehicle"
+            android:id="@+id/vehicleHome"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Vehicles" />
         <item
@@ -23,7 +23,18 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Notification" />
     </group>
-
+    <item android:title="Admin">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/adminSparePart"
+                    android:title="Spare Parts"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+                <item android:id="@+id/adminvehicle"
+                    android:title="Vehicle"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
+        </menu>
+    </item>
     <item android:title="Communciate">
         <menu>
             <group android:checkableBehavior="single">
