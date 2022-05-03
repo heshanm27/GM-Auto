@@ -67,4 +67,35 @@
         <item>low-priced</item>
         <item>high-priced</item>
     </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="User_profile_topic">Edit Profile</string>
+    <string name="YourName">Your Name</string>
+    <string name="YourEmail">Your Email</string>
+    <string name="YourMobile">Mobile Number</string>
+    <string name="User_Name">User Name</string>
+    <string name="SubmitButton">Submit</string>
+    <string name="BidNowTopic">Bid Now</string>
+    <string name="Price">Price</string>
+    <string name="YourMessageBid">Type Your Message</string>
+    <string name="yourNamePlaceholder">Enter Your Name</string>
+    <string name="YourEmailPlaceholder">Enter Email</string>
+    <string name="MobileNumberPlaceholder">Enter Mobile Number</string>
+    <string name="PricePlaceholder">Enter Price</string>
+    <string name="EnterMessagePalceholder">Enter Message</string>
+    <string name="ContactUsTopic">Contact Us</string>
+    <string name="ContactUsName">Name</string>
+    <string name="Email">Email</string>
+    <string name="Message">Message</string>
+    <string name="VehicleName">Vehicle Name</string>
+    <string name="VehicleNamePlaceholder">Enter Vehicle Name</string>
+    <string name="Description">Description</string>
+    <string name="DescriptionPlaceholder">Enter Description</string>
+    <string name="ManufacturingYear">Manufacturing Year</string>
+    <string name="Mileage">Mileage</string>
+    <string name="color">Color</string>
+    <string name="AddVehicle">AddVehicle</string>
+
+
 </resources>
