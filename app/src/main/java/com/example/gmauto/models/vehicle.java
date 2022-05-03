@@ -3,7 +3,6 @@ package com.example.gmauto.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,24 +12,36 @@ public class vehicle implements Parcelable {
     String Title ;
     String ImgUrl;
     Double Price;
-//    String discription;
-//    String ManufacturingYear;
-//    String FuleType;
-//    String Mileage;
-//    String Color;
-//    String TransMissionType;
-//    String Enginecapaity;
+    String Discription;
     private Map<String, Object> details;
     List<String> Amenities;
+
+
     public vehicle() {
     }
 
-    public vehicle(String title, String imgUrl, Double price, Map<String, Object> details, List<String> amenities) {
+    public vehicle(String title, String imgUrl, Double price, Map<String, Object> details, List<String> amenities,String Discription) {
         Title = title;
         ImgUrl = imgUrl;
         Price = price;
         this.details = details;
         Amenities = amenities;
+        this.Discription =Discription;
+    }
+
+    public Double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(Double price) {
+        Price = price;
+    }
+    public String getDiscription() {
+        return Discription;
+    }
+
+    public void setDiscription(String discription) {
+        Discription = discription;
     }
 
     public String getTitle() {
@@ -49,14 +60,6 @@ public class vehicle implements Parcelable {
         ImgUrl = imgUrl;
     }
 
-    public Double getPrice() {
-        return Price;
-    }
-
-    public void setPrice(Double price) {
-        Price = price;
-    }
-
     public Map<String, Object> getDetails() {
         return details;
     }
@@ -73,6 +76,7 @@ public class vehicle implements Parcelable {
         Amenities = amenities;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,6 +87,7 @@ public class vehicle implements Parcelable {
         dest.writeString(this.Title);
         dest.writeString(this.ImgUrl);
         dest.writeValue(this.Price);
+        dest.writeString(this.Discription);
         dest.writeInt(this.details.size());
         for (Map.Entry<String, Object> entry : this.details.entrySet()) {
             dest.writeString(entry.getKey());
@@ -95,6 +100,7 @@ public class vehicle implements Parcelable {
         this.Title = source.readString();
         this.ImgUrl = source.readString();
         this.Price = (Double) source.readValue(Double.class.getClassLoader());
+        this.Discription = source.readString();
         int detailsSize = source.readInt();
         this.details = new HashMap<String, Object>(detailsSize);
         for (int i = 0; i < detailsSize; i++) {
@@ -109,6 +115,7 @@ public class vehicle implements Parcelable {
         this.Title = in.readString();
         this.ImgUrl = in.readString();
         this.Price = (Double) in.readValue(Double.class.getClassLoader());
+        this.Discription = in.readString();
         int detailsSize = in.readInt();
         this.details = new HashMap<String, Object>(detailsSize);
         for (int i = 0; i < detailsSize; i++) {

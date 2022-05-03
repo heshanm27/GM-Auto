@@ -137,7 +137,7 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
                         Log.d("search","empty");
                     }else{
                         data =editable.toString();
-                        orderByText="productName";
+                        orderByText="SearchKey";
                         Directions = Query.Direction.DESCENDING;
                         FilterSearh(orderByText,data);
 
@@ -251,7 +251,10 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+        if(adapter != null){
+            adapter.stopListening();
+        }
+
     }
 
 }

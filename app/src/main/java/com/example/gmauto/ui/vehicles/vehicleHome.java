@@ -18,36 +18,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
-import com.example.gmauto.models.sparepart;
-import com.example.gmauto.ui.spareParts.sparePartsHomeDirections;
-import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
+import com.example.gmauto.models.vehicle;
+import com.example.gmauto.viewHolders.VehicleViewHolder;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
 public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListener {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
+    FirestoreRecyclerAdapter<vehicle, VehicleViewHolder> adapter;
     Spinner spinner;
-    RecyclerView sparepart;
+    RecyclerView vehicle;
     NavController navController;
     ShimmerFrameLayout shimmerLayout;
     String orderByText="Timestamp",data="";
     Query.Direction Directions = Query.Direction.DESCENDING;
     TextInputEditText searchEdit;
+    ProgressBar progressLoad;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,11 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        progressLoad = view.findViewById(R.id.progressLoad);
+
         //reycler view
-        sparepart = view.findViewById(R.id.sparepart);
+        vehicle = view.findViewById(R.id.vehicle);
         navController = Navigation.findNavController(view);
 
         shimmerLayout = view.findViewById(R.id.shimmerLayout);
@@ -94,12 +98,12 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                         filterquey(orderByText,Directions);
                         break;
                     case "low-priced":
-                        orderByText = "productPrice";
+                        orderByText = "Price";
                         Directions = Query.Direction.ASCENDING;
                         filterquey(orderByText,Directions);
                         break;
                     case "high-priced":
-                        orderByText = "productPrice";
+                        orderByText = "Price";
                         Directions = Query.Direction.DESCENDING;
                         filterquey(orderByText,Directions);
                         break;
@@ -138,7 +142,7 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                     Log.d("search","empty");
                 }else{
                     data =editable.toString();
-                    orderByText="productName";
+                    orderByText="Title";
                     Directions = Query.Direction.DESCENDING;
                     FilterSearh(orderByText,data);
 
@@ -175,22 +179,22 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
         initRecyclerView(query);
     }
     public void FilterSearh(String orderBy, String data){
-        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy(orderBy).startAt(data).endAt(data + "\uf8ff");
+        Query query = FirebaseFirestore.getInstance().collection("Vehicles").orderBy(orderBy).startAt(data).endAt(data + "\uf8ff");
         initRecyclerView(query);
     }
     private void initRecyclerView(Query query) {
-        FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
-                .setQuery(query, sparepart.class)
+        FirestoreRecyclerOptions<vehicle> options = new FirestoreRecyclerOptions.Builder<vehicle>()
+                .setQuery(query, vehicle.class)
                 .build();
-        adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<vehicle, VehicleViewHolder>(options) {
 
 
             @NonNull
             @Override
-            public SparePartHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
-                View view = layoutinflater.inflate(R.layout.cardview_sparepart, parent, false);
-                return new SparePartHomeViewHolder(view);
+                View view = layoutinflater.inflate(R.layout.vehicle_cardview, parent, false);
+                return new VehicleViewHolder(view);
             }
 
             @Override
@@ -198,7 +202,7 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                 super.onDataChanged();
                 shimmerLayout.stopShimmer();
                 shimmerLayout.setVisibility(View.GONE);
-                sparepart.setVisibility(View.VISIBLE);
+                vehicle.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -209,26 +213,23 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                 toast.show();
                 shimmerLayout.startShimmer();
                 shimmerLayout.setVisibility(View.VISIBLE);
-                sparepart.setVisibility(View.GONE);
+                vehicle.setVisibility(View.GONE);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
-                holder.title.setText(model.getProductName());
-                holder.price.setText("Rs" + Double.toString(model.getProductPrice()));
-                float avg = (float) model.getRateavg().doubleValue();
-                String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
-                holder.ratevalue.setText(ratingavgstring);
+            protected void onBindViewHolder(@NonNull VehicleViewHolder holder, int position, @NonNull vehicle model) {
 
-
-                holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
-                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
-                holder.V.setOnClickListener(new View.OnClickListener() {
+                holder.title.setText(model.getTitle());
+                holder.price.setText(Double.toString(model.getPrice()));
+                Picasso.get().load(model.getImgUrl()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
                     @Override
-                    public void onClick(View view) {
-                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
-                        String id = doc.getId().toString();
-                        navController.navigate(sparePartsHomeDirections.actionSparePartsHomeToSparepartDetails(id));
+                    public void onSuccess() {
+                        holder.progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
                     }
                 });
             }
@@ -236,13 +237,16 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
 
         };
 
-        sparepart.setAdapter(adapter);
+        vehicle.setAdapter(adapter);
         adapter.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+        if (adapter != null){
+            adapter.stopListening();
+        }
+
     }
 
 }

@@ -1,7 +1,7 @@
 package com.example.gmauto.ui.Admin;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Intent.ACTION_PICK;
+
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -47,7 +46,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -59,7 +57,6 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -121,32 +118,17 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
         progress.setCancelable(false);
-        Submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                add();
-
-
-            }
-        });
-        sparepartimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                imgDialog(builder);
-                Log.d("tag", "clicked");
-            }
+        Submit.setOnClickListener(view1 -> add());
+        sparepartimage.setOnClickListener(view12 -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            imgDialog(builder);
+            Log.d("tag", "clicked");
         });
         Bundle bundle = getArguments();
 
         if (bundle != null) {
             Id = bundle.getString("FirebaseID");
             sparepart  model = bundle.getParcelable("model");
-//            String title = bundle.getString("productName");
-//            String disc = bundle.getString("productDiscription");
-//            Double prie = bundle.getDouble("productPrice");
-//            String img = bundle.getString("imgUrl");
             sparepartTitleEditText.setText(model.getProductName());
             itemdiscription.setText(model.getProductDiscription());
             priceedittext.setText(model.getProductPrice().toString());
@@ -164,38 +146,27 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         close.setOnClickListener(this);
 
         //start intent
-        mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+        mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
 
-                    File f = new File(currentPhotoPath);
-                    sparepartimage.setImageURI(Uri.fromFile(f));
-                    Log.d("tag", "ABsolute Url of Image is " + Uri.fromFile(f));
+                File f = new File(currentPhotoPath);
+                sparepartimage.setImageURI(Uri.fromFile(f));
+                Log.d("tag", "ABsolute Url of Image is " + Uri.fromFile(f));
 
-                    Log.d("tag", "clicked2");
-                }
+                Log.d("tag", "clicked2");
             }
         });
 
         //Gallary intent
-        mGetGallaryContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-            @Override
-            public void onActivityResult(Uri result) {
-                imageUri = result;
-                sparepartimage.setImageURI(result);
-                if (imageUri != null) {
-                    handleUpload(imageUri);
-                }
+        mGetGallaryContent = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
+            imageUri = result;
+            sparepartimage.setImageURI(result);
+            if (imageUri != null) {
+                handleUpload(imageUri);
             }
         });
 
-        Update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                update(Id);
-            }
-        });
+        Update.setOnClickListener(view13 -> update(Id));
         return view;
     }
 
@@ -203,13 +174,8 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
 
-        switch (id) {
-
-            case R.id.fullscreen_dialog_close:
-                dismiss();
-                break;
-
-
+        if (id == R.id.fullscreen_dialog_close) {
+            dismiss();
         }
 
     }
@@ -241,7 +207,6 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
 
         if (validate(sparepartTitleEditText, sparepartTitleLayput) && validate(itemdiscription, discriptionLauout) && validate(priceedittext, pricelayout)) {
             progress.show();
-            Toast toast = Toast.makeText(getContext(), "Submited", Toast.LENGTH_SHORT);
             String title =sparepartTitleEditText.getText().toString();
             String disc =itemdiscription.getText().toString();
             double price = Double.parseDouble(priceedittext.getText().toString());
@@ -253,6 +218,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             map.put("productName",title);
             map.put("rateavg",0.0);
             map.put("Timestamp",new Timestamp(new Date()));
+            map.put("SearchKey",title.toLowerCase());
 
             db.collection("SpareParts").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
@@ -293,7 +259,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             map.put("productPrice",price);
             map.put("productName",title);
             map.put("rateavg",0.0);
-
+            map.put("SearchKey",title.toLowerCase());
 
             db.collection("SpareParts").document(ID).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

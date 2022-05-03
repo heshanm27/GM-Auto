@@ -38,19 +38,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Filters"
-
             android:textStyle="bold"
             android:layout_gravity="end|center_vertical"
             android:textSize="14sp"/>
+
         <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
             android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:contentDescription="@string/Filters"
             android:gravity="end|center_vertical"
-
-
-            />
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
     </LinearLayout>
     <LinearLayout

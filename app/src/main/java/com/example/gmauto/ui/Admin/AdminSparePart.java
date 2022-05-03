@@ -136,7 +136,7 @@ public class AdminSparePart extends Fragment {
 //                holder.itemdescription.setText(model.getProductDiscription());
 //                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
 
-
+                    try{
                 holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -144,10 +144,12 @@ public class AdminSparePart extends Fragment {
                         id = doc.getId();
                         delete(id);
 
-
+                            adapter.startListening();
 
                     }
-                });
+                });}catch(Exception e) {
+                        e.printStackTrace();
+                }
                 holder.editBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -167,7 +169,7 @@ public class AdminSparePart extends Fragment {
     }
 
 
-    public void delete(String ID){
+    public void delete(String ID) {
         Log.d("btn",ID);
 
         db.collection("SpareParts").document(ID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -185,18 +187,13 @@ public class AdminSparePart extends Fragment {
 
     }
 
+
     public void  update(String ID,sparepart model){
         Log.d("btn",ID);
         DialogFragment dialog   = FullScreenDialog.newInstance();
         Bundle args = new Bundle();
         args.putString("FirebaseID",ID);
         args.putParcelable("model",  model);
-//        args.putString("productDiscription",model.getProductDiscription());
-//        args.putString("productName",model.getProductName());
-//        args.putDouble("productPrice",model.getProductPrice());
-//        args.putDouble("rateavg",model.getRateavg());
-//        args.putString("imgUrl",model.getImg());
-
         dialog.setArguments(args);
         dialog.show(getActivity().getSupportFragmentManager(), "Update");
 

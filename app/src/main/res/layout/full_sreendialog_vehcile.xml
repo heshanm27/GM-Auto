@@ -272,14 +272,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+
                     >
-
-
                     <RadioButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="55dp"
                         android:text="Manual"
+                        android:buttonTint="@color/blue"
                         android:id="@+id/Manual"
                         android:layout_gravity="start"
                         android:checked="false"
@@ -290,6 +289,7 @@
                         android:layout_height="wrap_content"
                         android:text="Automatic "
                         android:id="@+id/Automatic"
+                        android:buttonTint="@color/blue"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp"
@@ -299,6 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" Continuously variable "
+                        android:buttonTint="@color/blue"
                         android:id="@+id/Continuously"
                         android:layout_gravity="start"
                         android:checked="false"
@@ -354,6 +355,7 @@
                         android:text="Petrol "
                         android:id="@+id/petrol"
                         android:layout_gravity="start"
+                        android:buttonTint="@color/blue"
                         android:checked="false"
                         android:textSize="10sp" />
 
@@ -362,6 +364,7 @@
                         android:layout_height="wrap_content"
                         android:text="Diesel"
                         android:id="@+id/disel"
+                        android:buttonTint="@color/blue"
                         android:layout_gravity="start"
                         android:checked="false"
                         android:textSize="10sp"
@@ -387,17 +390,6 @@
                         />
                     <ImageButton
                         android:id="@+id/deleteBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/fui_transparent"
-                        android:contentDescription="@string/editbtn"
-                        android:padding="10dp"
-                        android:scaleX="1.2"
-                        android:scaleY="1.2"
-                        app:srcCompat="@drawable/ic_baseline_delete_forever_24"
-                        app:tint="@color/cardview_dark_background" />
-                    <ImageButton
-                        android:id="@+id/getBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/fui_transparent"
