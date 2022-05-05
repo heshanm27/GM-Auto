@@ -60,7 +60,15 @@
     <string name="Transmission">Transmission</string>
     <string name="Searchplaeholder">Search</string>
     <string name="Filters">Filters</string>
-
+    <string name="make_appoinment">Make Appoinment</string>
+    <string name="select">Select</string>
+    <string name="selectTime">Select Time</string>
+    <string name="SelectDate">Select Date</string>
+    <string name="VehicleRegistrationNo">"Vehicle Registration No "</string>
+    <string name="ContactUs">Contact No</string>
+    <string name="ServiceType">Select Service Type</string>
+    <string name="Submit">Submit</string>
+    <string name="your_request_has_been_submitted_successfully">Your Request Has Been Submitted Successfully</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>
