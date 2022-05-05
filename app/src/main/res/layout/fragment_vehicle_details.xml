@@ -57,9 +57,9 @@
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/clearicon"
+                android:drawableLeft="@drawable/ic_baseline_dehaze_24"
                 android:textColor="@color/blue"
-                android:text="@string/deletebtn"
+                android:text="Discription"
                 />
             <TextView
                 android:id="@+id/discription"
@@ -70,8 +70,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/clearicon"
+                android:drawableLeft="@drawable/ic_baseline_dehaze_24"
                 android:textColor="@color/blue"
+                android:layout_marginLeft="10dp"
                 android:text="@string/TechnicalSpecifications"
                 />
         </LinearLayout>
@@ -117,7 +118,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="year"
+                android:text="FuleType"
                 android:layout_weight="1"
                 />
             <TextView
@@ -142,7 +143,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/TechnicalSpecifications"
+                android:text="Mileage"
                 android:layout_weight="1"
                 />
             <TextView
@@ -167,7 +168,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/TechnicalSpecifications"
+                android:text="Color"
                 android:layout_weight="1"
                 />
             <TextView
@@ -192,7 +193,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/TechnicalSpecifications"
+                android:text="TransmissionType"
                 android:layout_weight="1"
                 />
             <TextView
@@ -217,7 +218,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/TechnicalSpecifications"
+                android:text="EngineCapacity"
                 android:layout_weight="1"
                 />
             <TextView
@@ -232,9 +233,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/clearicon"
+            android:drawableLeft="@drawable/ic_baseline_dehaze_24"
             android:textColor="@color/blue"
-            android:text="@string/TechnicalSpecifications"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Amenities"
             />
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"

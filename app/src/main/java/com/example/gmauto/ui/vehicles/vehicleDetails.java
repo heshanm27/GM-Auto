@@ -36,7 +36,7 @@ public class vehicleDetails extends Fragment {
 
     String Id, name, userid;
 
-    TextView title, price, EngineCapacity,TransmissionType,Color,Mileage,Fuel,ManufacturingYear;
+    TextView title, price, EngineCapacity,TransmissionType,Color,Mileage,Fuel,ManufacturingYear,discription;
     ChipGroup chipGroup;
     ImageView imageView5;
     ProgressBar progressLoad;
@@ -70,13 +70,14 @@ public class vehicleDetails extends Fragment {
         chipGroup = view.findViewById(R.id.chipGroup);
         imageView5 = view.findViewById(R.id.imageView5);
         progressLoad = view.findViewById(R.id.progressLoad);
+        discription = view.findViewById(R.id.discription);
         Log.d("debug", Id);
 
         getDetails();
     }
 
     public void getDetails() {
-        db.collection("Vehicles").document("1PF2RSC0wgASoGgdq2lx").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("Vehicles").document(Id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
                 Map<String,Object> map = (Map<String, Object>) snapshot.get("details");
@@ -96,7 +97,7 @@ public class vehicleDetails extends Fragment {
                 for ( String elem : group ) {
                     addChip(elem);
                 }
-                title.setText((String) map.get("FuleType"));
+                title.setText((String) map.get("Title"));
                 String amount = snapshot.getDouble("Price").toString();
                 price.setText(amount);
                 ManufacturingYear.setText((String) map.get("ManufacturingYear"));
@@ -105,6 +106,7 @@ public class vehicleDetails extends Fragment {
                 EngineCapacity.setText((String) map.get("EngineCapacity"));
                 TransmissionType.setText((String) map.get("TransmissionType"));
                 Color.setText((String) map.get("Color"));
+                discription.setText(snapshot.getString("Discription"));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

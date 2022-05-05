@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_nav_home_to_vehicleDetails"
             app:destination="@id/vehicleDetails" />
+        <action
+            android:id="@+id/action_nav_home_to_profile"
+            app:destination="@id/profile" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -121,5 +124,10 @@
         tools:layout="@layout/fragment_vehicle_details" >
         <argument android:name="FirebaseID" />
     </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.gmauto.ui.Profile.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>
