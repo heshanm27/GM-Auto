@@ -83,7 +83,7 @@ public class vehicleDetails extends Fragment {
                 Map<String,Object> map = (Map<String, Object>) snapshot.get("details");
                 List<String> group = (List<String>) snapshot.get("Amenities");
 
-                Picasso.get().load(snapshot.getString("ImgUrl")).placeholder(R.drawable.clearicon).into(imageView5, new Callback() {
+                Picasso.get().load(snapshot.getString("img")).placeholder(R.drawable.clearicon).into(imageView5, new Callback() {
                     @Override
                     public void onSuccess() {
                         progressLoad.setVisibility(View.GONE);
