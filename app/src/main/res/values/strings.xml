@@ -7,13 +7,13 @@
     <string name="AlreadyHaveAccountMessage">Already Have An Account ?</string>
     <string name="LoginButtonAndLoginTitle">Sign in</string>
     <string name="splash_screen_img">splash screen img</string>
-    <string name="EmailPlaceHolder">Enter Email</string>
+    <string name="EmailPlaceHolder">Email</string>
     <string name="PasswordPlaceHolder">Password</string>
     <string name="ForgotPasswordMessage">Forgot password  ?</string>
     <string name="NotRegisteredMessage">Not Registered ?</string>
     <string name="CreateAccountButton">Create Account</string>
     <string name="RegisterTitle">Register</string>
-    <string name="FullNamePlaceHolder">Enter Full Name</string>
+    <string name="FullNamePlaceHolder">Full Name</string>
     <string name="ConfirmPasswordPlaceHolder">Confirm Password</string>
     <string name="SignUpButton">Sign Up</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -21,57 +21,58 @@
     <string name="nav_darwer_close">Close navigation drawer</string>
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
+    <string name="RatingWithCount">Rating (%.1f/5)</string>
+    <string name="RatingAvgvalue">(%.1f/5)</string>
     <string name="Ratingvalue">0/5</string>
-    <string name="request_quotation_value">Request Quotation</string>
-    <string name="product_name_value">Product Name:</string>
-    <string name="full_name">Full Name</string>
-    <string name="email">Email</string>
-    <string name="contact_no">Contact No</string>
-    <string name="address">Address</string>
-    <string name="message">Message</string>
-    <string name="send_Button">Send</string>
-    <string name="spare_part_name">Spare Part Name</string>
-    <string name="desctiption">Desctiption</string>
-    <string name="price">Price</string>
-    <string name="image">Images</string>
-    <string name="add_picture_button">Add Picture</string>
-    <string name="take_photo_button">Take Photo</string>
-    <string name="submit_button">Submit</string>
-    <string name="add_spate_part">Add Spare Part</string>
-    <string name="make_apppoinment">Make Appoinment</string>
-    <string name="title">Title</string>
-    <string name="name">Name</string>
-    <string name="select_service_type">Select Service Type</string>
-    <string name="preferred_date">Preferred Date</string>
-    <string name="preferred_Time">Preferred Time</string>
-    <string name="vehicle_registration_no">Vehicle Registration No</string>
-    <string name="select_title">Select Title</string>
-    <string name="spare_part_name_placeholder">Enter Spate Part Name</string>
-    <string name="desctiption_placeholder">Enter Description</string>
-    <string name="price_placeholder">Enter Price</string>
-    <string name="email_placeholder">Enter Email</string>
-    <string name="contact_placeholder">Enter Contact Number</string>
-    <string name="date_placeholder">Select Date</string>
-    <string name="time_placeholder">Select Time</string>
-    <string name="vehicle_reg_placeholder">Enter Vehicle Registration No</string>
-    <string name="address_placeholder">Enter Address</string>
-    <string name="message_placeholder">Enter Message</string>
-    <string name="manufacturingYear">Manufacturing Year</string>
-    <string name="manufacturingYearPlaceholder">Enter Manufacturing Year</string>
-    <string name="fuel">Fuel</string>
-    <string name="fuelPlaceholder">Select Fuel Type</string>
-    <string name="mileage">Mileage</string>
-    <string name="mileagePlaceholder">Enter Vehicle Mileage</string>
-    <string name="color">Color</string>
-    <string name="colorPlaceholder">Enter Vehicle Color</string>
+    <string name="addReviewbtn">Add Review</string>
+    <string name="noReviews">No Reviews</string>
+    <string name="rateandReview">Rate and review</string>
+    <string name="reviewmessage">Enter Your Review</string>
+    <string name="review">Review</string>
+    <string name="post">Post</string>
+    <string name="deletebtn">DeleteBtn</string>
+    <string name="editbtn">EditBtn</string>
+    <string name="title_activity_admin_sparepart">adminSparepartAct</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Closedialogue">"Close Dialogue  "</string>
+    <string name="LoadingDialog">Loading ....</string>
+    <string name="Gallery">Gallery</string>
+    <string name="AddItem">Add Item</string>
+    <string name="Selectimage">Select Image</string>
+    <string name="UpdateItem">Update Item</string>
+    <string name="uploadimges">uploadimage</string>
+    <string name="TechnicalSpecifications">Technical Specifications</string>
+    <string name="ManufacturingPlaceholder">Enter Manufacturing Year</string>
+    <string name="FuelPlaceholder">Fuel Type</string>
+    <string name="TransmissionPlaceholder">Select Transmission</string>
+    <string name="EngineCapacity">Engine Capacity</string>
+    <string name="MileagePlaceholder">Enter Mileage</string>
+    <string name="EngineCapacityPlaceholder">Enter Capacity</string>
+    <string name="ColorPlaceholder">Enter Color</string>
+    <string name="Fuel">Fuel</string>
     <string name="Transmission">Transmission</string>
-    <string name="transmissionPlaceholder">Select Transmission</string>
-    <string name="engineCapacity">Engine Capacity</string>
-    <string name="engineCapacityTypePlaceholder">Enter Engine Capaity</string>
-    <string name="amenities">Amenities</string>
-    <string name="addFeatures">Add Features</string>
-    <string name="addPicture">Add Picture</string>
-    <string name="takePhoto">Take Photo</string>
-
-
+    <string name="Searchplaeholder">Search</string>
+    <string name="Filters">Filters</string>
+    <string name="make_appoinment">Make Appoinment</string>
+    <string name="select">Select</string>
+    <string name="selectTime">Select Time</string>
+    <string name="SelectDate">Select Date</string>
+    <string name="VehicleRegistrationNo">"Vehicle Registration No "</string>
+    <string name="ContactUs">Contact No</string>
+    <string name="ServiceType">Select Service Type</string>
+    <string name="Submit">Submit</string>
+    <string name="your_request_has_been_submitted_successfully">Your Request Has Been Submitted Successfully</string>
+    <string-array name="filters">
+        <item>Newst</item>
+        <item>Old</item>
+        <item>low-priced</item>
+        <item>high-priced</item>
+    </string-array>
 </resources>

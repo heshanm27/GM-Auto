@@ -30,13 +30,15 @@
         android:textSize="18sp"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
         android:layout_weight="1"
         android:id="@+id/view_all_sparepart"
         android:text="View all"
         android:drawableRight="@drawable/ic_baseline_navigate_next_24"
-        android:gravity="end"
+        android:gravity="end|center_vertical"
+        android:clickable="true"
+        android:onClick="onClick"
         />
 
 </LinearLayout>
