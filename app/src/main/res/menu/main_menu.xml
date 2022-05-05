@@ -14,7 +14,7 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Vehicles" />
         <item
-            android:id="@+id/Reservation"
+            android:id="@+id/reservation"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Reservation" />
 
