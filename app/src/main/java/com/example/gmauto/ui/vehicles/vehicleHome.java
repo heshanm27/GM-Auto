@@ -221,7 +221,7 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
 
                 holder.title.setText(model.getTitle());
                 holder.price.setText(Double.toString(model.getPrice()));
-                Picasso.get().load(model.getImgUrl()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
                     @Override
                     public void onSuccess() {
                         holder.progressLoad.setVisibility(View.GONE);

@@ -35,6 +35,16 @@
             </group>
         </menu>
     </item>
+
+    <item android:title="Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/Profile"
+                    android:title="Profile"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
+        </menu>
+    </item>
     <item android:title="Communciate">
         <menu>
             <group android:checkableBehavior="single">
