@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/add_spate_part"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/spare_part_name"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/SparePartNameLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/spare_part_name_placeholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/SparePartEditText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/desctiption"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/DescriptionLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/desctiption_placeholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/DescriptionEditText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/price"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/PriceLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/price_placeholder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/PriceEditText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--Todo  Change text(Add as String)-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/image"
+                android:textColor="@color/black" />
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <!--Todo  Change text(Add as String)-->
+
+
+            <Button
+                android:id="@+id/signin"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/add_picture_button"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
+                app:cornerRadius="30dp" />
+
+            <Button
+                android:id="@+id/signin2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/take_photo_button"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
+                app:cornerRadius="30dp" />
+
+            <Button
+                android:id="@+id/signin3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/submit_button"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
+                app:cornerRadius="30dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
