@@ -14,7 +14,7 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Vehicles" />
         <item
-            android:id="@+id/Reservation"
+            android:id="@+id/reservation"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Reservation" />
 
@@ -23,7 +23,7 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Notification" />
     </group>
-    <item android:title="Admin">
+    <item android:title="Admin" android:id="@+id/AdminSection">
         <menu>
             <group android:checkableBehavior="single">
                 <item android:id="@+id/adminSparePart"
@@ -35,14 +35,21 @@
             </group>
         </menu>
     </item>
+
+    <item android:title="Profile" android:id="@+id/nav_profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/profile"
+                    android:title="Profile"
+                    android:icon="@drawable/ic_baseline_home_24"/>
+            </group>
+        </menu>
+    </item>
     <item android:title="Communciate">
         <menu>
             <group android:checkableBehavior="single">
-        <item android:id="@+id/contact"
+        <item android:id="@+id/contactUs"
             android:title="Contact Us"
-            android:icon="@drawable/ic_baseline_home_24"/>
-        <item android:id="@+id/rate"
-            android:title="Rate"
             android:icon="@drawable/ic_baseline_home_24"/>
             </group>
         </menu>

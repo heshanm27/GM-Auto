@@ -10,7 +10,7 @@ import java.util.Map;
 public class vehicle implements Parcelable {
 
     String Title ;
-    String ImgUrl;
+    String img;
     Double Price;
     String Discription;
     private Map<String, Object> details;
@@ -20,12 +20,12 @@ public class vehicle implements Parcelable {
     public vehicle() {
     }
 
-    public vehicle(String title, String imgUrl, Double price, Map<String, Object> details, List<String> amenities,String Discription) {
-        Title = title;
-        ImgUrl = imgUrl;
-        Price = price;
+    public vehicle(String title, String img, Double price, Map<String, Object> details, List<String> amenities,String Discription) {
+        this.Title = title;
+        this.img = img;
+        this. Price = price;
         this.details = details;
-        Amenities = amenities;
+        this.Amenities = amenities;
         this.Discription =Discription;
     }
 
@@ -52,12 +52,12 @@ public class vehicle implements Parcelable {
         Title = title;
     }
 
-    public String getImgUrl() {
-        return ImgUrl;
+    public String getImg() {
+        return img;
     }
 
-    public void setImgUrl(String imgUrl) {
-        ImgUrl = imgUrl;
+    public void setImg(String imgUrl) {
+        img = imgUrl;
     }
 
     public Map<String, Object> getDetails() {
@@ -85,7 +85,7 @@ public class vehicle implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.Title);
-        dest.writeString(this.ImgUrl);
+        dest.writeString(this.img);
         dest.writeValue(this.Price);
         dest.writeString(this.Discription);
         dest.writeInt(this.details.size());
@@ -98,7 +98,7 @@ public class vehicle implements Parcelable {
 
     public void readFromParcel(Parcel source) {
         this.Title = source.readString();
-        this.ImgUrl = source.readString();
+        this.img = source.readString();
         this.Price = (Double) source.readValue(Double.class.getClassLoader());
         this.Discription = source.readString();
         int detailsSize = source.readInt();
@@ -113,7 +113,7 @@ public class vehicle implements Parcelable {
 
     protected vehicle(Parcel in) {
         this.Title = in.readString();
-        this.ImgUrl = in.readString();
+        this.img = in.readString();
         this.Price = (Double) in.readValue(Double.class.getClassLoader());
         this.Discription = in.readString();
         int detailsSize = in.readInt();
@@ -126,7 +126,7 @@ public class vehicle implements Parcelable {
         this.Amenities = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<vehicle> CREATOR = new Parcelable.Creator<vehicle>() {
+    public static final Creator<vehicle> CREATOR = new Creator<vehicle>() {
         @Override
         public vehicle createFromParcel(Parcel source) {
             return new vehicle(source);

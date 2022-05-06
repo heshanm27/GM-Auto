@@ -60,7 +60,19 @@
     <string name="Transmission">Transmission</string>
     <string name="Searchplaeholder">Search</string>
     <string name="Filters">Filters</string>
-
+    <string name="make_appoinment">Make Appoinment</string>
+    <string name="select">Select</string>
+    <string name="selectTime">Select Time</string>
+    <string name="SelectDate">Select Date</string>
+    <string name="VehicleRegistrationNo">"Vehicle Registration No "</string>
+    <string name="ContactUs">Contact No</string>
+    <string name="ServiceType">Select Service Type</string>
+    <string name="Submit">Submit</string>
+    <string name="your_request_has_been_submitted_successfully">Your Request Has Been Submitted Successfully</string>
+    <string name="Total">LKR %.2f </string>
+    <string name="Price">LKR %.2f </string>
+    <string name="orderSucces">Order was successfully placed.</string>
+    <string name="OrderConfirmation">Your order will be reviewed and confirmed by our employees. Delivery and other information will be sent to you via the provided email within 24 hours. Thank you for selecting us.</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>
@@ -69,33 +81,11 @@
     </string-array>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="User_profile_topic">Edit Profile</string>
-    <string name="YourName">Your Name</string>
-    <string name="YourEmail">Your Email</string>
-    <string name="YourMobile">Mobile Number</string>
-    <string name="User_Name">User Name</string>
-    <string name="SubmitButton">Submit</string>
-    <string name="BidNowTopic">Bid Now</string>
-    <string name="Price">Price</string>
-    <string name="YourMessageBid">Type Your Message</string>
-    <string name="yourNamePlaceholder">Enter Your Name</string>
-    <string name="YourEmailPlaceholder">Enter Email</string>
-    <string name="MobileNumberPlaceholder">Enter Mobile Number</string>
-    <string name="PricePlaceholder">Enter Price</string>
-    <string name="EnterMessagePalceholder">Enter Message</string>
-    <string name="ContactUsTopic">Contact Us</string>
-    <string name="ContactUsName">Name</string>
-    <string name="Email">Email</string>
-    <string name="Message">Message</string>
-    <string name="VehicleName">Vehicle Name</string>
-    <string name="VehicleNamePlaceholder">Enter Vehicle Name</string>
-    <string name="Description">Description</string>
-    <string name="DescriptionPlaceholder">Enter Description</string>
-    <string name="ManufacturingYear">Manufacturing Year</string>
-    <string name="Mileage">Mileage</string>
-    <string name="color">Color</string>
-    <string name="AddVehicle">AddVehicle</string>
-
+    <string-array name="Quanity">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>50(Max)</item>
+    </string-array>
 
 </resources>

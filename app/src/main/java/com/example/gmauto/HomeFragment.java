@@ -141,7 +141,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             @Override
             protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
-                holder.price.setText("Rs" + Double.toString(model.getProductPrice()));
+                String p = getString(R.string.Price,model.getProductPrice());
+                holder.price.setText(p);
                 float avg = (float) model.getRateavg().doubleValue();
                 String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
                 holder.ratevalue.setText(ratingavgstring);
@@ -210,7 +211,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
                 holder.title.setText(model.getTitle());
                 holder.price.setText(Double.toString(model.getPrice())+"mil");
-                Picasso.get().load(model.getImgUrl()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+               System.out.println(model.getImg());
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
                     @Override
                     public void onSuccess() {
                         holder.progressLoad.setVisibility(View.GONE);
@@ -241,7 +243,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
 
     public void onClick(View v) {
 
-                    navController.navigate(HomeFragmentDirections.actionDashFragmentToSparePartsHome());
+                    navController.navigate(R.id.action_nav_home_to_sparePartsHome);
 
     }
     @Override
