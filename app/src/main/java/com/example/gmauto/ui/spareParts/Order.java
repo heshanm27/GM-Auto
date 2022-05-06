@@ -254,7 +254,9 @@ public class Order extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        alertDialog.dismiss();
+        if(alertDialog != null){
+            alertDialog.dismiss();
+        }
     }
 
     //Validators
