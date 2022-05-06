@@ -210,6 +210,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         chips.setChipBackgroundColorResource(R.color.blue);
         chips.setCloseIconVisible(true);
         chips.setTextColor(getResources().getColor(R.color.white));
+        chips.setCloseIconTintResource(R.color.white);
         chips.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

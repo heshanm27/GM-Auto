@@ -123,6 +123,7 @@ public class vehicleDetails extends Fragment {
         chips.setText(text);
         chips.setChipBackgroundColorResource(R.color.blueAccent);
         chips.setCloseIconVisible(false);
+        chips.setCloseIconTintResource(R.color.white);
         chips.setTextColor(getResources().getColor(R.color.blue));
         chipGroup.addView(chips);
 

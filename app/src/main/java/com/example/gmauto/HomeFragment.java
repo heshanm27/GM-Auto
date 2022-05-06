@@ -41,8 +41,9 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
     NavController navController;
     ShimmerFrameLayout shimmerLayout, shimmerLayout2, shimmerLayout3;
     FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> adapter;
+    FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder> foryouadapter;
     FirestoreRecyclerAdapter<vehicle, VehicleViewHolder> Vehicleadapter;
-    TextView view_all_sparepart;
+    TextView view_all_sparepart,view_all_foryou,view_all_vehicles;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,18 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         view_all_sparepart = root.findViewById(R.id.view_all_sparepart);
+        view_all_vehicles = root.findViewById(R.id.view_all_vehicles);
+        view_all_foryou = root.findViewById(R.id.view_all_foryou);
         view_all_sparepart.setOnClickListener(this::onClick);
+        view_all_foryou.setOnClickListener(this::onClick);
         // spare part recycler View reference
+
+        view_all_vehicles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_dashFragment_to_vehicleHome);
+            }
+        });
 
         sparepartrecyclerView = root.findViewById(R.id.sparepartrecyclerView);
         // vehiclerecyclerView fragment
@@ -96,6 +107,7 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         }
         initRecyclerView();
         vehcileRecylerView();
+        Foryou();
     }
 
 
@@ -171,8 +183,83 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
         };
 
         sparepartrecyclerView.setAdapter(adapter);
-        foryou.setAdapter(adapter);
         adapter.startListening();
+    }
+
+
+
+    private void Foryou() {
+        Query query = FirebaseFirestore.getInstance().collection("SpareParts").orderBy("Timestamp",Query.Direction.ASCENDING).limit(5);
+        FirestoreRecyclerOptions<sparepart> options = new FirestoreRecyclerOptions.Builder<sparepart>()
+                .setQuery(query, sparepart.class)
+                .build();
+        foryouadapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
+
+
+            @NonNull
+            @Override
+            public SparePartHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                LayoutInflater layoutinflater = LayoutInflater.from(parent.getContext());
+                View view = layoutinflater.inflate(R.layout.cardview_sparepart, parent, false);
+                return new SparePartHomeViewHolder(view);
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                shimmerLayout.stopShimmer();
+                shimmerLayout.setVisibility(View.GONE);
+                sparepartrecyclerView.setVisibility(View.VISIBLE);
+                shimmerLayout3.stopShimmer();
+                shimmerLayout3.setVisibility(View.GONE);
+                foryou.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(@NonNull FirebaseFirestoreException e) {
+                super.onError(e);
+                Log.d("err","error occuer" +e);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.getMessage().toString(),Toast.LENGTH_LONG);
+                toast.show();
+                shimmerLayout.startShimmer();
+                shimmerLayout.setVisibility(View.VISIBLE);
+                sparepartrecyclerView.setVisibility(View.GONE);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
+                holder.title.setText(model.getProductName());
+                String p = getString(R.string.Price,model.getProductPrice());
+                holder.price.setText(p);
+                float avg = (float) model.getRateavg().doubleValue();
+                String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
+                holder.ratevalue.setText(ratingavgstring);
+                holder.ratingBar.setRating((float) model.getRateavg().doubleValue());
+                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+                holder.V.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        String id = doc.getId().toString();
+                        navController.navigate(HomeFragmentDirections.actionDashFragmentToSparepartDetails(id));
+                    }
+                });
+            }
+
+
+        };
+        foryou.setAdapter(foryouadapter);
+        foryouadapter.startListening();
     }
 
     private  void vehcileRecylerView(){
@@ -248,9 +335,10 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
     @Override
     public void onStop() {
         super.onStop();
-        if(adapter != null && Vehicleadapter != null){
+        if(adapter != null && Vehicleadapter != null && foryouadapter != null){
             adapter.stopListening();
             Vehicleadapter.stopListening();
+            foryouadapter.startListening();
         }
 
     }
