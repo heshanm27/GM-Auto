@@ -2,6 +2,7 @@ package com.example.gmauto.models;
 
 import com.google.firebase.Timestamp;
 
+//Review view
 public class reviews {
     Double rate;
     String review;
