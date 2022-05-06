@@ -102,6 +102,7 @@ public class ContactUs extends Fragment {
 
 
     //Validators
+    //Error Checking
     public boolean validate(TextInputEditText editText, TextInputLayout layout) {
 
         String value = editText.getText().toString();
