@@ -132,7 +132,7 @@
                android:textColor="@color/white"
                android:backgroundTint="@color/blue"
                android:layout_gravity="center"
-               android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+               android:drawableLeft="@drawable/ic_baseline_done_24"
                android:drawableTint="@color/white"
                app:cornerRadius="10dp" />
 
@@ -147,7 +147,7 @@
                android:textColor="@color/black"
                android:backgroundTint="@color/blue"
                android:layout_gravity="center"
-               android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+               android:drawableLeft="@drawable/clearicon"
                android:drawableTint="@color/black"
                app:cornerRadius="10dp" />
        </LinearLayout>
