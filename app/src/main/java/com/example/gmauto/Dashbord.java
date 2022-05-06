@@ -83,7 +83,7 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         checkAccessLevel(FirebaseAuth.getInstance().getUid());
 
 
-        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle,R.id.vehicleHome,R.id.sparePartsHome,R.id.reservation,R.id.contactUs,R.id.profile).setDrawerLayout(drawerLayout).build();
+        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle,R.id.vehicleHome,R.id.sparePartsHome,R.id.reservation,R.id.contactUs,R.id.profile,R.id.adminReservation).setDrawerLayout(drawerLayout).build();
         navigationView.setNavigationItemSelectedListener(this);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,mAppBarconfig);

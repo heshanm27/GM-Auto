@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_nav_home_to_contactUs"
             app:destination="@id/contactUs" />
+        <action
+            android:id="@+id/action_nav_home_to_adminReservation"
+            app:destination="@id/adminReservation" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -150,5 +153,10 @@
         android:name="com.example.gmauto.ui.ContactUs.ContactUs"
         android:label="Contact Us"
         tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/adminReservation"
+        android:name="com.example.gmauto.ui.Admin.AdminReservation"
+        android:label="fragment_admin_reservation"
+        tools:layout="@layout/fragment_admin_reservation" />
 
 </navigation>

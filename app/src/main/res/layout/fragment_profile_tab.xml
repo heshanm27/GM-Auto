@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Tabs.ProfileTab">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Tabs.ProfileTab"
+    android:orientation="vertical"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
+            android:text="Email" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Email" />
+
+    </LinearLayout>
+<com.google.android.material.divider.MaterialDivider
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:dividerThickness="2dp"
+
+  />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+            android:text="Mobile Number" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Email" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,60 +1,55 @@
 package com.example.gmauto.ui.Admin;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gmauto.R;
+import com.example.gmauto.models.reservation;
+import com.example.gmauto.models.reviews;
+import com.example.gmauto.viewHolders.ReservationViewHolder;
+import com.example.gmauto.viewHolders.ReviewsViewHolder;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdminReservation#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class AdminReservation extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirestoreRecyclerAdapter<reservation, ReservationViewHolder> adapter;
+    RecyclerView reservationRecyclerView;
 
     public AdminReservation() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AdminReservation.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AdminReservation newInstance(String param1, String param2) {
-        AdminReservation fragment = new AdminReservation();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -62,5 +57,111 @@ public class AdminReservation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_admin_reservation, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        reservationRecyclerView= view.findViewById(R.id.reservationRecyclerView);
+
+        //set layoutmanger into recyclerview
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        reservationRecyclerView.setLayoutManager(layoutManager);
+        //recyler view decoration
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
+        reservationRecyclerView.addItemDecoration(dividerItemDecoration);
+
+
+        getReservations();
+    }
+
+
+
+    private  void getReservations(){
+        Query query = FirebaseFirestore.getInstance().collection("OnlineReservation").orderBy("Timestamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<reservation> options = new FirestoreRecyclerOptions.Builder<reservation>()
+                .setQuery(query, reservation.class)
+                .build();
+        adapter = new FirestoreRecyclerAdapter<reservation, ReservationViewHolder>(options){
+
+            @NonNull
+            @Override
+            public ReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminr_reservation_recyclerview_layout, parent, false);
+                return new ReservationViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull ReservationViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull reservation model) {
+
+                holder.ServiceType.setText(model.getServiceType());
+                holder.name.setText(model.getFullName());
+                holder.dates.setText(model.getPreferedDate());
+                holder.times.setText(model.getPrefferedTime());
+
+                holder.Accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        UpdateStatus(doc.getId(),"Accept");
+                    }
+                });
+
+                holder.decline.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        UpdateStatus(doc.getId(),"Declined");
+                    }
+                });
+
+            }
+        };
+
+        reservationRecyclerView.setAdapter(adapter);
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(adapter != null){
+            adapter.stopListening();
+        }
+
+    }
+
+
+    public void UpdateStatus(String Id,String status){
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("Status",status);
+        map.put("UpdatedTimestamp",new Timestamp(new Date()));
+        db.collection("OnlineReservation").document(Id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getContext(),"Sucess", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(),"Error occured", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(adapter != null){
+            adapter.startListening();
+        }
     }
 }

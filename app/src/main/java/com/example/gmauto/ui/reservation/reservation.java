@@ -267,6 +267,7 @@ Dialog thxDialog;
         map.put("VehicleRegistrat",RegNo.getText().toString());
         map.put("userID",userID);
         map.put("Timestamp",new Timestamp(new Date()));
+        map.put("Status","Pending");
 
         ArrayList<TextInputEditText> editTexts = new ArrayList<>();
         editTexts.add(Title);
