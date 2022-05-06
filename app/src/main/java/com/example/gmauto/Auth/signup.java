@@ -85,6 +85,8 @@ public class signup extends AppCompatActivity {
 
                           Map<String,Object> userInfo = new HashMap<>();
                             userInfo.put("FullName",binding.fullname.getText().toString());
+                            userInfo.put("Email",binding.email.getText().toString());
+                            userInfo.put("Img","https://firebasestorage.googleapis.com/v0/b/gmauto-6c556.appspot.com/o/ProfileImg%2Fuser-pngrepo-com.png?alt=media&token=1b6325d4-e239-4fee-9621-76db418d09be");
                             //user role
                           userInfo.put("isAdmin",false);
                           //save the document to firestore

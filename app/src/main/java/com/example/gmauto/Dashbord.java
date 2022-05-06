@@ -27,13 +27,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.gmauto.Auth.login;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashbord extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         Toolbar toolbar;
@@ -74,7 +79,11 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle,R.id.vehicleHome,R.id.sparePartsHome,R.id.reservation).setDrawerLayout(drawerLayout).build();
+        //hide menu items
+        checkAccessLevel(FirebaseAuth.getInstance().getUid());
+
+
+        mAppBarconfig = new AppBarConfiguration.Builder(R.id.nav_home,R.id.adminSparePart,R.id.adminvehicle,R.id.vehicleHome,R.id.sparePartsHome,R.id.reservation,R.id.contactUs,R.id.profile).setDrawerLayout(drawerLayout).build();
         navigationView.setNavigationItemSelectedListener(this);
         navController= Navigation.findNavController(this,R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,mAppBarconfig);
@@ -103,6 +112,8 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
 
 
     }
+
+
 
 
 
@@ -138,5 +149,29 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
     //return fab
     public FloatingActionButton getFloatingActionButton (){
         return fab;
+    }
+
+    public void checkAccessLevel(String uid){
+        DocumentReference docRef = db.collection("Users").document(uid);
+        //get alue from doumment
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Menu menu = navigationView.getMenu();
+                if(documentSnapshot.getBoolean("isAdmin")){
+                    //hide item
+
+                    menu.findItem(R.id.AdminSection).setVisible(true);
+                }else{
+                    menu.findItem(R.id.AdminSection).setVisible(false);
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"LoginFaild",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

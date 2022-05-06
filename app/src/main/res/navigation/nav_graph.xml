@@ -14,9 +14,6 @@
             android:id="@+id/action_dashFragment_to_vehicleHome"
             app:destination="@id/vehicleHome" />
         <action
-            android:id="@+id/action_dashFragment_to_sparePartsHome"
-            app:destination="@id/sparePartsHome" />
-        <action
             android:id="@+id/action_dashFragment_to_reservation"
             app:destination="@id/reservation" />
         <action
@@ -29,7 +26,7 @@
             app:exitAnim="@anim/fui_slide_out_left"
             app:popEnterAnim="@anim/fui_slide_in_right"
             app:popExitAnim="@anim/fui_slide_out_left"
-            app:popUpTo="@id/sparepartDetails" />
+            app:popUpTo="@id/sparePartsHome" />
         <action
             android:id="@+id/action_dashFragment_to_adminSparePart"
             app:destination="@id/adminSparePart" />
@@ -45,11 +42,18 @@
         <action
             android:id="@+id/action_nav_home_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_nav_home_to_sparePartsHome"
+            app:destination="@id/sparePartsHome"
+            app:popUpTo="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_home_to_contactUs"
+            app:destination="@id/contactUs" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
         android:name="com.example.gmauto.ui.vehicles.vehicleHome"
-        android:label="fragment_vehicle_home"
+        android:label="Vehicles"
         tools:layout="@layout/fragment_vehicle_home" >
         <action
             android:id="@+id/action_vehicleHome_to_login2"
@@ -61,7 +65,7 @@
     <fragment
         android:id="@+id/reservation"
         android:name="com.example.gmauto.ui.reservation.reservation"
-        android:label="fragment_reservation"
+        android:label="Reservation"
         tools:layout="@layout/fragment_reservation" >
         <action
             android:id="@+id/action_reservation_to_login2"
@@ -80,7 +84,8 @@
             app:destination="@id/sparepartDetails" />
         <action
             android:id="@+id/action_sparePartsHome_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/sparepartDetails"
@@ -91,10 +96,12 @@
             android:name="firebaseID"
             app:argType="string" />
         <action
-            android:id="@+id/action_sparepartDetails_to_nav_home"
-            app:destination="@id/nav_home"
-            app:enterAnim="@anim/fui_slide_out_left"
-            app:popUpTo="@id/nav_home" />
+            android:id="@+id/action_sparepartDetails_to_sparePartsHome"
+            app:destination="@id/sparePartsHome"
+            app:popUpTo="@id/sparePartsHome" />
+        <action
+            android:id="@+id/action_sparepartDetails_to_order2"
+            app:destination="@id/order2" />
     </fragment>
 
     <activity
@@ -115,19 +122,33 @@
     <fragment
         android:id="@+id/adminvehicle"
         android:name="com.example.gmauto.ui.Admin.Adminvehicle"
-        android:label="fragment_adminvehicle"
+        android:label="Vehicle"
         tools:layout="@layout/fragment_adminvehicle" />
     <fragment
         android:id="@+id/vehicleDetails"
         android:name="com.example.gmauto.ui.vehicles.vehicleDetails"
-        android:label="fragment_vehicle_details"
+        android:label="Vehicle Details"
         tools:layout="@layout/fragment_vehicle_details" >
         <argument android:name="FirebaseID" />
     </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.example.gmauto.ui.Profile.Profile"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/order2"
+        android:name="com.example.gmauto.ui.spareParts.Order"
+        android:label="Order"
+        tools:layout="@layout/fragment_order" >
+        <action
+            android:id="@+id/action_order2_to_sparePartsHome"
+            app:destination="@id/sparePartsHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactUs"
+        android:name="com.example.gmauto.ui.ContactUs.ContactUs"
+        android:label="Contact Us"
+        tools:layout="@layout/fragment_contact_us" />
 
 </navigation>
