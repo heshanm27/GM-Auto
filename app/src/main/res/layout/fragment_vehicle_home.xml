@@ -74,7 +74,7 @@
                     app:endIconMode="clear_text"
                     app:startIconDrawable="@drawable/ic_baseline_search_24"
                     >
-
+                <!-- Vehicle Search -->
                     <com.google.android.material.textfield.TextInputEditText
 
                         android:id="@+id/searchEdit"
