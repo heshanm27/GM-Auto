@@ -142,7 +142,7 @@ public class ContactUs extends Fragment {
             return true;
         }else{
 
-            layout.setError("Please Enter Valid MobileNo");
+            layout.setError("Please Enter Valid MobileNo"); //Bug fix
             return false;
         }
     }
