@@ -22,7 +22,7 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             >
-
+        <!-- Display Vehicle Image -->
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_margin="10dp"
