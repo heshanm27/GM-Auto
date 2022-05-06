@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,16 +50,18 @@ import java.util.Map;
 
 
 public class sparepartDetails extends Fragment {
-
+    NavController navController;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextView title,disc,price,rateAvgValue,emptyText;
     ImageView mainImg;
     RatingBar Avgrate;
     RecyclerView reviewRecyclerView;
-    Button addreview;
+    Button addreview,order;
     String Id,name,userid;
     ProgressDialog progress;
     BottomSheetDialog bottomSheetDialog;
+    String  gotimg,tit;
+    Double itemPrice;
     private FirestoreRecyclerAdapter<reviews, ReviewsViewHolder> adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +91,7 @@ public class sparepartDetails extends Fragment {
         addreview=view.findViewById(R.id.addreview);
         rateAvgValue = view.findViewById(R.id.rateAvgValue);
         reviewRecyclerView= view.findViewById(R.id.reviewRecyclerView);
-
-
+        order = view.findViewById(R.id.order);
         //progress dilogue
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
@@ -119,6 +122,8 @@ public class sparepartDetails extends Fragment {
         getDetails(Id);
         CalAvgRating(Id);
         getReviews(Id);
+
+
 
         addreview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +202,19 @@ public class sparepartDetails extends Fragment {
             }
         });
 
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle args = new Bundle();
+                          args.putString("FirebaseID",Id);
+                          args.putString("Title", tit);
+                          args.putString("img", gotimg);
+                           args.putDouble("price", itemPrice);
+                            Navigation.findNavController(view).navigate(R.id.action_sparepartDetails_to_order2,args);
+            }
+        });
+
+
     }
 
     private void getDetails(String ID){
@@ -204,14 +222,17 @@ public class sparepartDetails extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
-                    String img = documentSnapshot.getString("img");
-                    String tit = documentSnapshot.getString("productName");
+                    gotimg = documentSnapshot.getString("img");
+                   tit = documentSnapshot.getString("productName");
                     String discription = documentSnapshot.getString("productDiscription");
-                    String amount = documentSnapshot.getDouble("productPrice").toString();
+                    itemPrice = documentSnapshot.getDouble("productPrice");
+                    String amount = getString(R.string.Price,documentSnapshot.getDouble("productPrice"));
                     title.setText(tit);
                     disc.setText(discription);
-                    price.setText("LKR"+amount);
-                    Picasso.get().load(img).placeholder(R.drawable.clearicon).into(mainImg);
+                    price.setText(amount);
+                    Picasso.get().load(gotimg).placeholder(R.drawable.clearicon).into(mainImg);
+
+
 
                 }else{
                     Toast.makeText(getContext(),"Doument Not Exist",Toast.LENGTH_LONG).show();

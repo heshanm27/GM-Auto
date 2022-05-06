@@ -69,10 +69,21 @@
     <string name="ServiceType">Select Service Type</string>
     <string name="Submit">Submit</string>
     <string name="your_request_has_been_submitted_successfully">Your Request Has Been Submitted Successfully</string>
+    <string name="Total">LKR %.2f </string>
+    <string name="Price">LKR %.2f </string>
+    <string name="orderSucces">Order was successfully placed.</string>
+    <string name="OrderConfirmation">Your order will be reviewed and confirmed by our employees. Delivery and other information will be sent to you via the provided email within 24 hours. Thank you for selecting us.</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>
         <item>low-priced</item>
         <item>high-priced</item>
+    </string-array>
+
+    <string-array name="Quanity">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>50(Max)</item>
     </string-array>
 </resources>
