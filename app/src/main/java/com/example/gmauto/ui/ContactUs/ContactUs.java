@@ -51,6 +51,7 @@ public class ContactUs extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Contact us view define
         NameLayout = view.findViewById(R.id.NameLayout);
         EmaillLayout = view.findViewById(R.id.EmaillLayout);
         MobileLayout = view.findViewById(R.id.MobileLayout);
