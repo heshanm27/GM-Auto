@@ -8,8 +8,8 @@ import java.util.Date;
 public class orders {
 
     String ItemID;
-    String itemname;
-    String Total;
+    String ItemName;
+    Double Total;
     Integer Quantity;
     String CustomerName;
     String Email;
@@ -22,9 +22,9 @@ public class orders {
     public orders() {
     }
 
-    public orders(String itemID, String itemname, String total, Integer quantity, String customerName, String email, String phoneno, String address, String extraDetails, String userId, Timestamp timeStamp) {
+    public orders(String itemID, String ItemName, Double total, Integer quantity, String customerName, String email, String phoneno, String address, String extraDetails, String userId, Timestamp timeStamp) {
         ItemID = itemID;
-        this.itemname = itemname;
+        this.ItemName = ItemName;
         Total = total;
         Quantity = quantity;
         CustomerName = customerName;
@@ -44,19 +44,19 @@ public class orders {
         ItemID = itemID;
     }
 
-    public String getItemname() {
-        return itemname;
+    public String getItemName() {
+        return ItemName;
     }
 
-    public void setItemname(String itemname) {
-        this.itemname = itemname;
+    public void setItemName(String itemname) {
+        this.ItemName = itemname;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return Total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         Total = total;
     }
 
