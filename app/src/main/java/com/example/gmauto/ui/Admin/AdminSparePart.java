@@ -31,11 +31,18 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AdminSparePart extends Fragment {
@@ -142,7 +149,7 @@ public class AdminSparePart extends Fragment {
                     public void onClick(View view) {
                          doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
-                        delete(id);
+                        delete(doc,model);
 
                             adapter.startListening();
 
@@ -169,21 +176,36 @@ public class AdminSparePart extends Fragment {
     }
 
 
-    public void delete(String ID) {
-        Log.d("btn",ID);
+    public void delete(DocumentSnapshot snapshot,sparepart model) {
+            DocumentReference documentReference = snapshot.getReference();
+        Map<String,Object> map = new HashMap<>();
+        map.put("img",model.getImg());
+        map.put("productDiscription",model.getProductDiscription());
+        map.put("productPrice",model.getProductPrice());
+        map.put("productName",model.getProductName());
+        map.put("rateavg",0.0);
+        map.put("Timestamp",model.getTime());
+        map.put("SearchKey",model.getProductName());
 
-        db.collection("SpareParts").document(ID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast taost = Toast.makeText(getContext(),"suessFully Deleted",Toast.LENGTH_LONG);
-                taost.show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
+        Snackbar.make(adminSparePartRecylerView,"Item Deleted",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.startListening();
+                documentReference.set(map);
             }
-        });
+        }).show();
 
     }
 

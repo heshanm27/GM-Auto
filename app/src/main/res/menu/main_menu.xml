@@ -18,10 +18,10 @@
             android:icon="@drawable/reserved"
             android:title="Reservation" />
 
-        <item
-            android:id="@+id/notification"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Notification" />
+<!--        <item-->
+<!--            android:id="@+id/notification"-->
+<!--            android:icon="@drawable/ic_baseline_home_24"-->
+<!--            android:title="Notification" />-->
     </group>
     <item android:title="Admin" android:id="@+id/AdminSection">
         <menu>
@@ -35,6 +35,10 @@
                 <item android:id="@+id/adminReservation"
                     android:title="Reservation"
                     android:icon="@drawable/reserved"/>
+                <item android:id="@+id/adminOrder"
+                    android:title="Orders"
+                    android:icon="@drawable/adminordersicon"/>
+
             </group>
         </menu>
     </item>

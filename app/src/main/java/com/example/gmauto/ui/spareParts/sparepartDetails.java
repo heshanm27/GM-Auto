@@ -43,6 +43,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,17 +53,18 @@ import java.util.Map;
 public class sparepartDetails extends Fragment {
     NavController navController;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    TextView title,disc,price,rateAvgValue,emptyText;
+    TextView title, disc, price, rateAvgValue, emptyText;
     ImageView mainImg;
     RatingBar Avgrate;
     RecyclerView reviewRecyclerView;
-    Button addreview,order;
-    String Id,name,userid;
+    Button addreview, order;
+    String Id, name, userid;
     ProgressDialog progress;
     BottomSheetDialog bottomSheetDialog;
-    String  gotimg,tit;
+    String gotimg, tit;
     Double itemPrice;
     private FirestoreRecyclerAdapter<reviews, ReviewsViewHolder> adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class sparepartDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View root= inflater.inflate(R.layout.fragment_sparepart_details, container, false);
+        View root = inflater.inflate(R.layout.fragment_sparepart_details, container, false);
 
         return root;
     }
@@ -85,12 +87,12 @@ public class sparepartDetails extends Fragment {
         title = view.findViewById(R.id.title);
         disc = view.findViewById(R.id.disc);
         price = view.findViewById(R.id.price);
-        emptyText= view.findViewById(R.id.emptyText);
-        mainImg=view.findViewById(R.id.mainImg);
+        emptyText = view.findViewById(R.id.emptyText);
+        mainImg = view.findViewById(R.id.mainImg);
         Avgrate = view.findViewById(R.id.avgRating);
-        addreview=view.findViewById(R.id.addreview);
+        addreview = view.findViewById(R.id.addreview);
         rateAvgValue = view.findViewById(R.id.rateAvgValue);
-        reviewRecyclerView= view.findViewById(R.id.reviewRecyclerView);
+        reviewRecyclerView = view.findViewById(R.id.reviewRecyclerView);
         order = view.findViewById(R.id.order);
         //progress dilogue
         progress = new ProgressDialog(getContext());
@@ -101,39 +103,38 @@ public class sparepartDetails extends Fragment {
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         reviewRecyclerView.setLayoutManager(layoutManager);
-         Id = sparepartDetailsArgs.fromBundle(requireArguments()).getFirebaseID().toString();
-         userid = FirebaseAuth.getInstance().getUid().toString();
+        Id = sparepartDetailsArgs.fromBundle(requireArguments()).getFirebaseID().toString();
+        userid = FirebaseAuth.getInstance().getUid().toString();
 
-         db.collection("Users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-             @Override
-             public void onSuccess(DocumentSnapshot snapshot) {
-                 name = snapshot.getString("FullName");
+        db.collection("Users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                name = snapshot.getString("FullName");
 
-             }
-         }).addOnFailureListener(new OnFailureListener() {
-             @Override
-             public void onFailure(@NonNull Exception e) {
-                 Toast toast = Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT);
-             }
-         });
-         userid = FirebaseAuth.getInstance().getUid();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast toast = Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT);
+            }
+        });
+        userid = FirebaseAuth.getInstance().getUid();
 
-        Log.d("id",Id);
+        Log.d("id", Id);
         getDetails(Id);
         CalAvgRating(Id);
         getReviews(Id);
 
 
-
         addreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              bottomSheetDialog = new BottomSheetDialog(getContext());
+                bottomSheetDialog = new BottomSheetDialog(getContext());
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
 
                 TextInputEditText review = bottomSheetDialog.findViewById(R.id.review);
                 TextInputLayout reviewTextLayout = bottomSheetDialog.findViewById(R.id.reviewTextLayout);
-                RatingBar rate  = bottomSheetDialog.findViewById(R.id.ratingInput);
+                RatingBar rate = bottomSheetDialog.findViewById(R.id.ratingInput);
                 Button postBtn = bottomSheetDialog.findViewById(R.id.post);
                 TextView ratingCount = bottomSheetDialog.findViewById(R.id.ratingCount);
 
@@ -142,22 +143,22 @@ public class sparepartDetails extends Fragment {
                 review.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
                     public void onFocusChange(View view, boolean b) {
-                        if(!b){
+                        if (!b) {
                             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
 
                     }
                 });
                 Float rateing = rate.getRating();
-                String ratingCountstring = getString(R.string.RatingWithCount,rateing);
+                String ratingCountstring = getString(R.string.RatingWithCount, rateing);
                 ratingCount.setText(ratingCountstring);
                 //rating bar value changed
                 rate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                         Float rateing = rate.getRating();
-                        String ratingCountstring = getString(R.string.RatingWithCount,rateing);
+                        String ratingCountstring = getString(R.string.RatingWithCount, rateing);
                         ratingCount.setText(ratingCountstring);
                     }
                 });
@@ -166,30 +167,28 @@ public class sparepartDetails extends Fragment {
                 postBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(!validReview(review,reviewTextLayout) && !validateRating(rate) ){
+                        if (!validReview(review, reviewTextLayout) && !validateRating(rate)) {
                             Float rateValue = rate.getRating();
-                            String ReviewMsg =review.getText().toString();
+                            String ReviewMsg = review.getText().toString();
                             progress.show();
-                            Map<String,Object> map = new HashMap<>();
-                            map.put("Timestamp",new Timestamp(new Date()));
-                            map.put("rate",rateValue);
-                            map.put("review",ReviewMsg);
-                            map.put("sparepartid",Id);
-                            map.put("userName",name);
-                            map.put("userid",userid);
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("Timestamp", new Timestamp(new Date()));
+                            map.put("rate", rateValue);
+                            map.put("review", ReviewMsg);
+                            map.put("sparepartid", Id);
+                            map.put("userName", name);
+                            map.put("userid", userid);
 
                             db.collection("Reviews").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Toast toast = Toast.makeText(getContext(),"Posted",Toast.LENGTH_SHORT);
-                                    toast.show();
                                     progress.dismiss();
                                     bottomSheetDialog.dismiss();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast toast = Toast.makeText(getContext(),"Error Occured Try Again",Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(getContext(), "Error Occured Try Again", Toast.LENGTH_SHORT);
                                     toast.show();
                                 }
                             });
@@ -206,42 +205,41 @@ public class sparepartDetails extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle args = new Bundle();
-                          args.putString("FirebaseID",Id);
-                          args.putString("Title", tit);
-                          args.putString("img", gotimg);
-                           args.putDouble("price", itemPrice);
-                            Navigation.findNavController(view).navigate(R.id.action_sparepartDetails_to_order2,args);
+                args.putString("FirebaseID", Id);
+                args.putString("Title", tit);
+                args.putString("img", gotimg);
+                args.putDouble("price", itemPrice);
+                Navigation.findNavController(view).navigate(R.id.action_sparepartDetails_to_order2, args);
             }
         });
 
 
     }
 
-    private void getDetails(String ID){
+    private void getDetails(String ID) {
         db.collection("SpareParts").document(ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     gotimg = documentSnapshot.getString("img");
-                   tit = documentSnapshot.getString("productName");
+                    tit = documentSnapshot.getString("productName");
                     String discription = documentSnapshot.getString("productDiscription");
                     itemPrice = documentSnapshot.getDouble("productPrice");
-                    String amount = getString(R.string.Price,documentSnapshot.getDouble("productPrice"));
+                    String amount = getString(R.string.Price, documentSnapshot.getDouble("productPrice"));
                     title.setText(tit);
                     disc.setText(discription);
                     price.setText(amount);
                     Picasso.get().load(gotimg).placeholder(R.drawable.clearicon).into(mainImg);
 
 
-
-                }else{
-                    Toast.makeText(getContext(),"Doument Not Exist",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Doument Not Exist", Toast.LENGTH_LONG).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Error occur please try agian later",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error occur please try agian later", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -249,7 +247,7 @@ public class sparepartDetails extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(adapter != null){
+        if (adapter != null) {
             adapter.startListening();
         }
     }
@@ -260,12 +258,12 @@ public class sparepartDetails extends Fragment {
 
     }
 
-    private  void getReviews(String ID){
-        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid",ID).limit(5);
+    private void getReviews(String ID) {
+        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid", ID).limit(5);
         FirestoreRecyclerOptions<reviews> options = new FirestoreRecyclerOptions.Builder<reviews>()
                 .setQuery(query, reviews.class)
                 .build();
-        adapter = new FirestoreRecyclerAdapter<reviews, ReviewsViewHolder>(options){
+        adapter = new FirestoreRecyclerAdapter<reviews, ReviewsViewHolder>(options) {
             @NonNull
             @Override
             public ReviewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -276,14 +274,18 @@ public class sparepartDetails extends Fragment {
             @Override
             public void onDataChanged() {
                 super.onDataChanged();
-                    emptyText.setVisibility(getItemCount() == 0 ?View.VISIBLE :View.GONE);
+                emptyText.setVisibility(getItemCount() == 0 ? View.VISIBLE : View.GONE);
             }
+
             @Override
             protected void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position, @NonNull reviews model) {
-                            holder.username.setText(model.getUserName());
-                            holder.ratingBar.setRating(model.getRate().floatValue());
-                            holder.message.setText(model.getReview().toString());
-                            Log.d("timestamp",model.getTimestamp().toDate().toString());
+                holder.username.setText(model.getUserName());
+                holder.ratingBar.setRating(model.getRate().floatValue());
+                holder.message.setText(model.getReview().toString());
+                Date date = new Date(String.valueOf(model.getTimestamp().toDate()));
+                SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy");
+                String value = sfd.format(date);
+                holder.timestamp.setText(value);
 
             }
         };
@@ -295,33 +297,33 @@ public class sparepartDetails extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if(adapter != null){
+        if (adapter != null) {
             adapter.stopListening();
         }
 
     }
 
-    private  void CalAvgRating(String ID) {
+    private void CalAvgRating(String ID) {
 //        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid",ID).
         db.collection("Reviews").whereEqualTo("sparepartid", ID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                 double length = snapshotList.size();
-                if(length != 0){
+                if (length != 0) {
                     double total = 0;
                     for (DocumentSnapshot snapshot : snapshotList) {
                         total += snapshot.getDouble("rate");
                     }
                     double avg = total / length;
                     Avgrate.setRating((float) avg);
-                    String ratingavgstring = getString(R.string.RatingAvgvalue,avg);
+                    String ratingavgstring = getString(R.string.RatingAvgvalue, avg);
                     rateAvgValue.setText(ratingavgstring);
                     Log.d("rate", String.valueOf(avg));
-                    updateSparePartavg(ID,avg);
-                }else{
+                    updateSparePartavg(ID, avg);
+                } else {
                     Avgrate.setRating(0);
-                    rateAvgValue.setText("0"+"/5");
+                    rateAvgValue.setText("0" + "/5");
                 }
 
             }
@@ -333,37 +335,38 @@ public class sparepartDetails extends Fragment {
         });
     }
 
-    private boolean validReview(TextInputEditText edit, TextInputLayout layout){
-        String value= edit.getText().toString();
-        Log.d("review",value);
-        if(value.isEmpty()){
-           layout.setError("Please Enter Your Review");
-           return  true;
-        }else {
-            Log.d("review","valid");
+    private boolean validReview(TextInputEditText edit, TextInputLayout layout) {
+        String value = edit.getText().toString();
+        Log.d("review", value);
+        if (value.isEmpty()) {
+            layout.setError("Please Enter Your Review");
+            return true;
+        } else {
+            Log.d("review", "valid");
             layout.setError(null);
             return false;
         }
     }
-    private  boolean validateRating(RatingBar rate){
+
+    private boolean validateRating(RatingBar rate) {
         Float rateValue = rate.getRating();
 
-        if(rateValue == 0){
-            Toast toast =  Toast.makeText(getContext(),"Please Enter Rate for Product",Toast.LENGTH_LONG);
+        if (rateValue == 0) {
+            Toast toast = Toast.makeText(getContext(), "Please Enter Rate for Product", Toast.LENGTH_LONG);
             toast.show();
-            return  true;
-        }else {
+            return true;
+        } else {
             return false;
         }
 
 
     }
 
-    private  void updateSparePartavg(String ID,double avg){
-        db.collection("SpareParts").document(ID).update("rateavg",avg).addOnSuccessListener(new OnSuccessListener<Void>() {
+    private void updateSparePartavg(String ID, double avg) {
+        db.collection("SpareParts").document(ID).update("rateavg", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                if(progress != null && bottomSheetDialog != null){
+                if (progress != null && bottomSheetDialog != null) {
 
                 }
 

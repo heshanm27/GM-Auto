@@ -81,5 +81,44 @@
         app:backgroundTint="@color/blue"
         android:layout_gravity="center"
         app:cornerRadius="30dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+
+        >
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_baseline_edit_24"
+            android:drawableTint="@color/white"
+            android:visibility="gone"
+            app:cornerRadius="10dp" />
+
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="Delete"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_baseline_delete_forever_24"
+            android:drawableTint="@color/black"
+            android:visibility="gone"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
 
 </LinearLayout>
