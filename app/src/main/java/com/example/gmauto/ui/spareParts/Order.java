@@ -64,6 +64,10 @@ public class Order extends Fragment {
     NavController navController;
     ProgressDialog progress;
     AlertDialog alertDialog;
+
+    public Order() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,6 +199,7 @@ public class Order extends Fragment {
         map.put("ExtraDetails",message.getText().toString());
         map.put("TimeStamp",new Timestamp(new Date()));
         map.put("UserId", FirebaseAuth.getInstance().getUid());
+        map.put("Status", "Pending");
         db.collection("Orders").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {

@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:indeterminate="true"
                         android:indeterminateTintMode="src_atop"
                         android:indeterminateTint="@color/blue"
@@ -410,7 +410,13 @@
                     android:layout_width="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_height="wrap_content"/>
-
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Send Notifcations"
+                    />
                 <Button
                     android:id="@+id/Submit"
                     android:layout_width="200dp"

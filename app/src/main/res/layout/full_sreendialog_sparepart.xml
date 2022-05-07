@@ -165,8 +165,6 @@
                     app:prefixText="LKR"
                     android:hint="Enter Item Price"
                     app:hintTextColor="@color/blue"
-                    app:counterTextColor="@color/black"
-                    android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/blue">
 
                     <com.google.android.material.textfield.TextInputEditText

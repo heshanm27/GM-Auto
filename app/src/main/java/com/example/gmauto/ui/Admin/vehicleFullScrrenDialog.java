@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,6 +42,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gmauto.Notification.FcmNotificationsSender;
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
 import com.example.gmauto.models.vehicle;
@@ -92,6 +94,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
     RadioGroup TransmissionType, FuelType;
     Button Submit,Update;
     ProgressBar imgPogress;
+    CheckBox notification;
     String currentPhotoPath;
     FloatingActionButton fabuploadbtn;
     private static String ImageURL = "https://firebasestorage.googleapis.com/v0/b/gmauto-6c556.appspot.com/o/Placeholder%2Fplaceholder_images.png?alt=media&token=7d8c880e-2eec-456f-99aa-72472c8682c5";
@@ -158,7 +161,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         Continuously = view.findViewById(R.id.Continuously);
         FuelType = view.findViewById(R.id.FuelType);
         imgPogress = view.findViewById(R.id.imgPogress);
-
+        notification= view.findViewById(R.id.notification);
         TransmissionType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -371,6 +374,10 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
             db.collection("Vehicles").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
+                    if(notification.isChecked()){
+                        FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all","New Vehicles Added For Sell CheckOut",title,getContext(),getActivity());
+                        notificationsSender.SendNotifications();
+                    }
                     Toast toast = Toast.makeText(getContext(), "Posted", Toast.LENGTH_SHORT);
                     toast.show();
                     final Handler handler = new Handler();

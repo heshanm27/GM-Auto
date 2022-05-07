@@ -29,11 +29,16 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -125,7 +130,7 @@ public class Adminvehicle extends Fragment {
                     public void onClick(View view) {
                         doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
-                        delete(id);
+                        delete(doc,model);
                     }
                 });
                 holder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,14 +150,30 @@ public class Adminvehicle extends Fragment {
     }
 
 
-    public void delete(String ID){
-        Log.d("btn",ID);
+    public void delete(DocumentSnapshot snapshot,vehicle model){
+        DocumentReference documentReference = snapshot.getReference();
 
-        db.collection("SpareParts").document(ID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        Map<String, Object> details = model.getDetails();
+        details.put("Color", details.get("Color"));
+        details.put("EngineCapacity", details.get("EngineCapacity"));
+        details.put("FuleType",details.get("FuleType"));
+        details.put("ManufacturingYear", details.get("ManufacturingYear"));
+        details.put("Mileage", details.get("ManufacturingYear"));
+        details.put("TransmissionType", details.get("TransmissionType"));
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("img", model.getImg());
+        map.put("Title", model.getTitle());
+        map.put("Price", model.getPrice());
+        map.put("Amenities", model.getAmenities());
+        map.put("details", details);
+        map.put("Timestamp", new Timestamp(new Date()));
+        map.put("Discription",model.getDiscription());
+
+        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast taost = Toast.makeText(getContext(),"suessFully Deleted",Toast.LENGTH_LONG);
-                taost.show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -160,6 +181,14 @@ public class Adminvehicle extends Fragment {
 
             }
         });
+
+        Snackbar.make(adminRecylerView,"Item Deleted",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.startListening();
+                documentReference.set(map);
+            }
+        }).show();
 
     }
 
@@ -169,12 +198,6 @@ public class Adminvehicle extends Fragment {
         Bundle args = new Bundle();
         args.putString("FirebaseID",ID);
         args.putParcelable("model",  model);
-//        args.putString("productDiscription",model.getProductDiscription());
-//        args.putString("productName",model.getProductName());
-//        args.putDouble("productPrice",model.getProductPrice());
-//        args.putDouble("rateavg",model.getRateavg());
-//        args.putString("imgUrl",model.getImg());
-
         dialog.setArguments(args);
         dialog.show(getActivity().getSupportFragmentManager(), "Update");
 
@@ -220,7 +243,12 @@ public class Adminvehicle extends Fragment {
     public void onStop() {
         super.onStop();
         Log.d("steps","Stop");
-        adapter.stopListening();
-        fab.setVisibility(View.GONE);
+        if(adapter != null){
+            adapter.stopListening();
+        }
+       if(fab != null){
+           fab.setVisibility(View.GONE);
+       }
+
     }
 }

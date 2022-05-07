@@ -17,12 +17,13 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder {
     public TextView timestamp;
     public TextView message;
     public RatingBar ratingBar;
-
+    public View V;
     public ReviewsViewHolder(@NonNull View itemView) {
         super(itemView);
         username=itemView.findViewById(R.id.username);
         timestamp = itemView.findViewById(R.id.timestamp);
         message = itemView.findViewById(R.id.reviewMessage);
         ratingBar = itemView.findViewById(R.id.rating);
+        V = itemView;
     }
 }
