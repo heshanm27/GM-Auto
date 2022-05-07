@@ -40,6 +40,8 @@
                     app:boxStrokeColor="@color/blue"
                     >
 
+                    <!-- Title-->
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/Title"
                         android:layout_width="match_parent"
