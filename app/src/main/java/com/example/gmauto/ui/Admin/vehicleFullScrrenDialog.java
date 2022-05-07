@@ -1,22 +1,41 @@
 package com.example.gmauto.ui.Admin;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,21 +44,37 @@ import android.widget.Toast;
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
 import com.example.gmauto.models.vehicle;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.internal.Intrinsics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +91,9 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
     ImageView sparepartimage;
     RadioGroup TransmissionType, FuelType;
     Button Submit,Update;
+    ProgressBar imgPogress;
+    String currentPhotoPath;
+    FloatingActionButton fabuploadbtn;
     private static String ImageURL = "https://firebasestorage.googleapis.com/v0/b/gmauto-6c556.appspot.com/o/Placeholder%2Fplaceholder_images.png?alt=media&token=7d8c880e-2eec-456f-99aa-72472c8682c5";
     TextInputLayout vehcileTitleLayput, discriptionLauout, pricelayout, ManufacturingYearLayout, MileageLayout, CapacityLayout, ColorLayout;
     TextInputEditText vehicleTitleEditText, itemdiscription, priceedittext, ManufacturingYear, Mileage, Capacity, Color;
@@ -87,6 +125,17 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         chipGrup = view.findViewById(R.id.chipGrup);
         chipedit = view.findViewById(R.id.chipedit);
 
+                //image
+        sparepartimage = view.findViewById(R.id.sparepartimage);
+        fabuploadbtn = view.findViewById(R.id.fabuploadbtn);
+        fabuploadbtn.setOnClickListener(view12 -> {
+
+            ImagePicker.with(this)
+                    .crop()	    			//Crop image(Optional), Check Customization for more option
+                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                    .start();
+        });
 
         vehcileTitleLayput = view.findViewById(R.id.vehcileTitleLayput);
         discriptionLauout = view.findViewById(R.id.discriptionLauout);
@@ -108,6 +157,8 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         Automatic = view.findViewById(R.id.Automatic);
         Continuously = view.findViewById(R.id.Continuously);
         FuelType = view.findViewById(R.id.FuelType);
+        imgPogress = view.findViewById(R.id.imgPogress);
+
         TransmissionType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -141,7 +192,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
             itemdiscription.setText(model.getDiscription());
             priceedittext.setText(Double.toString(model.getPrice()));
             Map<String,Object> map = model.getDetails();
-
+            Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(sparepartimage);
             ManufacturingYear.setText(map.get("ManufacturingYear").toString());
             Mileage.setText(map.get("Mileage").toString());
             Capacity.setText(map.get("EngineCapacity").toString());
@@ -170,6 +221,7 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
                 switch (i) {
                     case R.id.petrol:
                         Fueltype = petrol.getText().toString();
+                    case  R.id.disel:
                         Fueltype = disel.getText().toString();
                 }
             }
@@ -199,8 +251,64 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         //apbar close button
         ImageButton close = view.findViewById(R.id.fullscreen_dialog_close);
         close.setOnClickListener(this);
+
+
     }
 
+
+
+    public void handleUpload(Uri uri) {
+
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child("VehiclesImges").child(System.currentTimeMillis() + "." + getFilExtention(uri));
+        reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                getDownloadUrl(reference);
+
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                imgPogress.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                imgPogress.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+    private String getFilExtention(Uri muri) {
+
+        ContentResolver cr = getContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(muri));
+
+    }
+
+    private void getDownloadUrl(StorageReference reference) {
+        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("url", uri.toString());
+                imgPogress.setVisibility(View.GONE);
+                Toast toast = Toast.makeText(getContext(), "Image Upload Successfully", Toast.LENGTH_LONG);
+                toast.show();
+                Log.d("imageUrlFirst",ImageURL);
+                ImageURL = uri.toString();
+                Log.d("imageUrlFirst",ImageURL);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                imgPogress.setVisibility(View.GONE);
+                Toast toast = Toast.makeText(getContext(), "Image Upload Faild", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+    }
 
     public void addChip(String text) {
         Log.d("chip", "added");
@@ -337,6 +445,14 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
             });
         }
     }
+
+
+
+
+
+
+
+
     public boolean validate(TextInputEditText editText, TextInputLayout layout) {
 
         String value = editText.getText().toString();
@@ -351,6 +467,16 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         }
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            sparepartimage.setImageURI(uri);
+            handleUpload(uri);
+        }
+    }
 
     @Override
     public void onClick(View v) {

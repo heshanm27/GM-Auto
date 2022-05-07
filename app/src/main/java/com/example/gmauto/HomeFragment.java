@@ -296,7 +296,8 @@ public class HomeFragment extends Fragment implements FirebaseAuth.AuthStateList
             @Override
             protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
                 holder.title.setText(model.getTitle());
-                holder.price.setText(Double.toString(model.getPrice())+"mil");
+                String price= getString(R.string.vehiclePrice,model.getPrice());
+                holder.price.setText(price);
                System.out.println(model.getImg());
                 Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
                     @Override

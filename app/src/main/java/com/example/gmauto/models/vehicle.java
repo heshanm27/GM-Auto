@@ -91,7 +91,7 @@ public class vehicle implements Parcelable {
         dest.writeInt(this.details.size());
         for (Map.Entry<String, Object> entry : this.details.entrySet()) {
             dest.writeString(entry.getKey());
-            dest.writeParcelable((Parcelable) entry.getValue(), flags);
+            dest.writeString((String) entry.getValue());
         }
         dest.writeStringList(this.Amenities);
     }
@@ -126,7 +126,7 @@ public class vehicle implements Parcelable {
         this.Amenities = in.createStringArrayList();
     }
 
-    public static final Creator<vehicle> CREATOR = new Creator<vehicle>() {
+    public static final Parcelable.Creator<vehicle> CREATOR = new Parcelable.Creator<vehicle>() {
         @Override
         public vehicle createFromParcel(Parcel source) {
             return new vehicle(source);

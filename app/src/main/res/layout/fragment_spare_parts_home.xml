@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filters"
+            android:text="Sort"
             android:textStyle="bold"
             android:layout_gravity="end|center_vertical"
             android:textSize="14sp"/>
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_gravity="end"
-            android:contentDescription="@string/Filters"
+            android:contentDescription="@string/Sort"
             android:gravity="end|center_vertical"
             tools:ignore="DuplicateSpeakableTextCheck" />
 

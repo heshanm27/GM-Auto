@@ -8,16 +8,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gmauto.R;
 import com.example.gmauto.Tabs.ProfileTab;
 import com.example.gmauto.Tabs.ReservationTab;
 import com.example.gmauto.Tabs.ReviewTab;
 import com.example.gmauto.adapters.MyviewPagerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 
 public class Profile extends Fragment {
@@ -28,7 +38,9 @@ ViewPager2 viewPager;
 ProfileTab profileTab;
 ReservationTab reservationTab;
 ReviewTab reviewTab;
-
+ImageView profile_image;
+TextView username;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +58,8 @@ ReviewTab reviewTab;
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.viewPager);
         tabLayout = view.findViewById(R.id.tabLayout);
-
+        profile_image =view.findViewById(R.id.profile_image);
+        username =view.findViewById(R.id.username);
        profileTab =new ProfileTab();
        reservationTab = new ReservationTab();
          reviewTab = new ReviewTab();
@@ -82,6 +95,21 @@ ReviewTab reviewTab;
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+
+        db.collection("Users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                username.setText(snapshot.getString("FullName"));
+                Log.d("s",snapshot.getString("FullName"));
+                Picasso.get().load(snapshot.getString("Img")).placeholder(R.drawable.clearicon).into(profile_image);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error occured", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -69,6 +69,17 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     >
+                  <com.google.android.material.floatingactionbutton.FloatingActionButton
+                      android:id="@+id/fabuploadbtn"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      app:fabSize="mini"
+                      android:layout_gravity="right|bottom"
+                      android:layout_margin="20dp"
+                      app:backgroundTint="@color/fui_transparent"
+                      app:srcCompat="@drawable/ic_baseline_photo_camera_24"
+                      android:tint="@color/white"
+                      />
                 <ImageView
                     android:id="@+id/sparepartimage"
                     android:layout_width="wrap_content"
@@ -83,20 +94,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:visibility="gone"
+                        android:visibility="visible"
+                        android:indeterminate="true"
+                        android:indeterminateTintMode="src_atop"
+                        android:indeterminateTint="@color/blue"
+
                         />
                 </FrameLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Selectimage"
-                    android:textSize="20sp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/vehcileTitleLayput"
