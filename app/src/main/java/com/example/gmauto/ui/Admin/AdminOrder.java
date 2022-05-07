@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
+import com.example.gmauto.models.orders;
 import com.example.gmauto.models.reservation;
+import com.example.gmauto.viewHolders.OrderViewHolder;
 import com.example.gmauto.viewHolders.ReservationViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -35,7 +38,7 @@ import java.util.Map;
 public class AdminOrder extends Fragment {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirestoreRecyclerAdapter<reservation, ReservationViewHolder> adapter;
+    private FirestoreRecyclerAdapter<orders, OrderViewHolder> adapter;
     RecyclerView orderrecyclerview;
 
     public AdminOrder() {
@@ -76,26 +79,30 @@ public class AdminOrder extends Fragment {
     }
 
     private  void getOrders(){
-        Query query = FirebaseFirestore.getInstance().collection("OnlineReservation").orderBy("Timestamp", Query.Direction.DESCENDING).whereEqualTo("Status","Pending");
-        FirestoreRecyclerOptions<reservation> options = new FirestoreRecyclerOptions.Builder<reservation>()
-                .setQuery(query, reservation.class)
+        Query query = FirebaseFirestore.getInstance().collection("Orders").orderBy("TimeStamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<orders> options = new FirestoreRecyclerOptions.Builder<orders>()
+                .setQuery(query, orders.class)
                 .build();
-        adapter = new FirestoreRecyclerAdapter<reservation, ReservationViewHolder>(options){
+        adapter = new FirestoreRecyclerAdapter<orders, OrderViewHolder>(options){
+
 
             @NonNull
             @Override
-            public ReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminr_reservation_recyclerview_layout, parent, false);
-                return new ReservationViewHolder(view);
+            public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_order_recyclerview_item, parent, false);
+                return new OrderViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ReservationViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull reservation model) {
+            protected void onBindViewHolder(@NonNull OrderViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull orders model) {
 
-                holder.ServiceType.setText(model.getServiceType());
-                holder.name.setText(model.getFullName());
-                holder.dates.setText(model.getPreferedDate());
-                holder.times.setText(model.getPrefferedTime());
+                Log.d("h","hellow");
+                holder.customeremail.setText(model.getEmail());
+                holder.name.setText(model.getCustomerName());
+                holder.item.setText(model.getItemName());
+                holder.quantity.setText(model.getQuantity().toString());
+                holder.value.setText(model.getTotal().toString());
+
 
                 holder.Accept.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -114,7 +121,6 @@ public class AdminOrder extends Fragment {
                         UpdateStatus(doc.getId(),"Declined");
                     }
                 });
-
             }
         };
 
@@ -128,7 +134,7 @@ public class AdminOrder extends Fragment {
         Map<String,Object> map = new HashMap<>();
         map.put("Status",status);
         map.put("UpdatedTimestamp",new Timestamp(new Date()));
-        db.collection("OnlineReservation").document(Id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Orders").document(Id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(),"Sucess", Toast.LENGTH_SHORT).show();
