@@ -182,7 +182,7 @@
                     app:boxStrokeColor="@color/blue"
                     app:errorEnabled="true"
                     >
-
+                    <!--Date-->
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/Date"
                         android:layout_width="match_parent"
