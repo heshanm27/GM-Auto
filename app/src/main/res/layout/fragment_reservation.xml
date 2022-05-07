@@ -84,6 +84,8 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Email-->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/EmaillLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
