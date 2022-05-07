@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gmauto.HomeFragmentDirections;
 import com.example.gmauto.R;
 import com.example.gmauto.models.vehicle;
 import com.example.gmauto.viewHolders.VehicleViewHolder;
@@ -30,6 +31,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -217,10 +219,11 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull VehicleViewHolder holder, int position, @NonNull vehicle model) {
+            protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
 
                 holder.title.setText(model.getTitle());
-                holder.price.setText(Double.toString(model.getPrice()));
+                String price= getString(R.string.vehiclePrice,model.getPrice());
+                holder.price.setText(price);
                 Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -230,6 +233,14 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                     @Override
                     public void onError(Exception e) {
 
+                    }
+                });
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        String id = doc.getId().toString();
+                        navController.navigate(vehicleHomeDirections.actionVehicleHomeToVehicleDetails(id));
                     }
                 });
             }

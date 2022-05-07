@@ -9,24 +9,46 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/undraw_contact_us"
-        />
+        android:background="@color/blue"
+        android:orientation="vertical"
+        android:gravity="center"
 
-    <TextView
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_photo_camera_24"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"/>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="@string/hello_blank_fragment"
+
+            />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/tab"
+        tools:ignore="SpeakableTextPresentCheck">
 
-<com.google.android.material.tabs.TabLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/tabLayout"
-    >
-
-</com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.tabs.TabLayout>
 
    <androidx.viewpager2.widget.ViewPager2
        android:layout_width="match_parent"

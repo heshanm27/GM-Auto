@@ -22,6 +22,7 @@
     <string name="nav_drawer_open">"Open navigation darwer "</string>
     <string name="Rating">Rating</string>
     <string name="RatingWithCount">Rating (%.1f/5)</string>
+
     <string name="RatingAvgvalue">(%.1f/5)</string>
     <string name="Ratingvalue">0/5</string>
     <string name="addReviewbtn">Add Review</string>
@@ -71,8 +72,11 @@
     <string name="your_request_has_been_submitted_successfully">Your Request Has Been Submitted Successfully</string>
     <string name="Total">LKR %.2f </string>
     <string name="Price">LKR %.2f </string>
+    <string name="vehiclePrice">LKR %.2f Million</string>
     <string name="orderSucces">Order was successfully placed.</string>
     <string name="OrderConfirmation">Your order will be reviewed and confirmed by our employees. Delivery and other information will be sent to you via the provided email within 24 hours. Thank you for selecting us.</string>
+    <string name="tab" />
+    <string name="Sort">Sort</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>

@@ -41,8 +41,10 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
@@ -52,6 +54,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -73,15 +76,12 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
     ActivityResultLauncher<Intent> mGetContent;
     ActivityResultLauncher<String> mGetGallaryContent;
     ProgressBar imgPogress;
-
+    FloatingActionButton fabuploadbtn;
     //itemid
     String Id;
 
-    private Uri imageUri;
     private static String ImageURL = "https://firebasestorage.googleapis.com/v0/b/gmauto-6c556.appspot.com/o/Placeholder%2Fplaceholder_images.png?alt=media&token=7d8c880e-2eec-456f-99aa-72472c8682c5";
-    public static final int CAMERA_PERM_CODE = 101;
 
-    String currentPhotoPath;
 
     static FullScreenDialog newInstance() {
         return new FullScreenDialog();
@@ -114,16 +114,35 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         apptitle = view.findViewById(R.id.apptitle);
         imgPogress = view.findViewById(R.id.imgPogress);
         Update= view.findViewById(R.id.Update);
+
         //progress dilogue
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
         progress.setCancelable(false);
+
         Submit.setOnClickListener(view1 -> add());
-        sparepartimage.setOnClickListener(view12 -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            imgDialog(builder);
-            Log.d("tag", "clicked");
+        fabuploadbtn = view.findViewById(R.id.fabuploadbtn);
+        fabuploadbtn.setOnClickListener(view12 -> {
+
+            ImagePicker.with(this)
+                    .crop()	    			//Crop image(Optional), Check Customization for more option
+                    .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                    .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                    .start();
         });
+        Picasso.get().load(ImageURL).placeholder(R.drawable.clearicon).into(sparepartimage, new Callback() {
+            @Override
+            public void onSuccess() {
+                imgPogress.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+
+
         Bundle bundle = getArguments();
 
         if (bundle != null) {
@@ -133,7 +152,17 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             itemdiscription.setText(model.getProductDiscription());
             priceedittext.setText(model.getProductPrice().toString());
             ImageURL = model.getImg();
-            Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(sparepartimage);
+            Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(sparepartimage, new Callback() {
+                @Override
+                public void onSuccess() {
+                    imgPogress.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
             apptitle.setText("Edit");
             Update.setVisibility(View.VISIBLE);
         }else{
@@ -145,26 +174,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         ImageButton close = view.findViewById(R.id.fullscreen_dialog_close);
         close.setOnClickListener(this);
 
-        //start intent
-        mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
 
-                File f = new File(currentPhotoPath);
-                sparepartimage.setImageURI(Uri.fromFile(f));
-                Log.d("tag", "ABsolute Url of Image is " + Uri.fromFile(f));
-
-                Log.d("tag", "clicked2");
-            }
-        });
-
-        //Gallary intent
-        mGetGallaryContent = registerForActivityResult(new ActivityResultContracts.GetContent(), result -> {
-            imageUri = result;
-            sparepartimage.setImageURI(result);
-            if (imageUri != null) {
-                handleUpload(imageUri);
-            }
-        });
 
         Update.setOnClickListener(view13 -> update(Id));
         return view;
@@ -181,25 +191,6 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
     }
 
 
-    public void imgDialog(AlertDialog.Builder builder) {
-
-        builder.setTitle("Select Image");
-        builder.setMessage("Choose Your Option?");
-        builder.setPositiveButton("Camara", (dialogInterface, i) -> {
-            dialogInterface.dismiss();
-            askCameraPermissions();
-            Log.d("tag", "clicked3");
-
-        });
-        builder.setNegativeButton("Gallary", (dialogInterface, i) -> {
-            dialogInterface.dismiss();
-
-            mGetGallaryContent.launch("image/*");
-
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     public void add() {
 
@@ -308,7 +299,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 getDownloadUrl(reference);
-
+                imgPogress.setVisibility(View.GONE);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -324,12 +315,6 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
 
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
 
     private String getFilExtention(Uri muri) {
 
@@ -362,55 +347,17 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         });
     }
 
-    private void askCameraPermissions() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
-        } else {
-            dispatchTakePictureIntent();
-        }
 
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        PackageManager pm = getActivity().getPackageManager();
-        if (takePictureIntent.resolveActivity(pm) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getContext(),
-                        "net.smallacademy.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                mGetContent.launch(takePictureIntent);
-            }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            sparepartimage.setImageURI(uri);
+            handleUpload(uri);
         }
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-
-
-    }
 
 }

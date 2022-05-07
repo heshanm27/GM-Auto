@@ -45,6 +45,9 @@
             <TextView
                 android:layout_margin="10dp"
                 android:id="@+id/title"
+                android:text="@string/EmailPlaceHolder"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView

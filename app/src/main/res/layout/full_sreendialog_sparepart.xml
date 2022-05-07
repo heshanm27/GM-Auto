@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -53,8 +52,6 @@
         android:fillViewport="true"
         android:contentDescription="@string/addReviewbtn"
         >
-
-
             <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,6 +64,17 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     >
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabuploadbtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:layout_margin="20dp"
+                        android:tint="@color/white"
+                        app:backgroundTint="@color/fui_transparent"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/ic_baseline_photo_camera_24"
+                        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
                 <ImageView
                     android:id="@+id/sparepartimage"
                     android:layout_width="wrap_content"
@@ -80,20 +88,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:visibility="gone"
+                        android:visibility="visible"
+                        android:indeterminate="true"
+                        android:indeterminateTintMode="src_atop"
+                        android:indeterminateTint="@color/blue"
                         />
                 </FrameLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Selectimage"
-                    android:textSize="20sp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/sparepartTitleLayput"
@@ -107,6 +107,7 @@
                     app:counterMaxLength="100"
                     android:hint="Enter Item Title"
                     app:hintTextColor="@color/blue"
+                    android:textColorHint="@color/black"
                     app:errorEnabled="true"
                     app:boxStrokeColor="@color/blue">
 
@@ -116,7 +117,9 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:textColor="@color/black"
-                        app:boxStrokeWidth="20dp" />
+                        android:textColorHint="#757575"
+                        app:boxStrokeWidth="20dp"
+                        app:endIconMode="clear_text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,10 +144,11 @@
                         android:id="@+id/itemdiscription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="top"
                         android:inputType="textMultiLine"
                         android:lines="10"
-                        android:gravity="top"
                         android:textColor="@color/black"
+                        android:textColorHint="#757575"
                         app:boxStrokeWidth="20dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -171,6 +175,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:textColor="@color/black"
+                        android:textColorHint="#757575"
                         app:boxStrokeWidth="20dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>

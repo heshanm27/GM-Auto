@@ -97,8 +97,8 @@ public class vehicleDetails extends Fragment {
                 for ( String elem : group ) {
                     addChip(elem);
                 }
-                title.setText((String) map.get("Title"));
-                String amount = snapshot.getDouble("Price").toString();
+                title.setText(snapshot.getString("Title"));
+                String amount =getString(R.string.vehiclePrice,snapshot.getDouble("Price"));
                 price.setText(amount);
                 ManufacturingYear.setText((String) map.get("ManufacturingYear"));
                 Fuel.setText((String) map.get("FuleType"));

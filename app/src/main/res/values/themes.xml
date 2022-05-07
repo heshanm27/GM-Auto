@@ -34,6 +34,10 @@
         <item name="android:background">@drawable/ic_baseline_filter_list_24</item>
     </style>
 
+    <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
     <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/blueAccent</item>
         <item name="chipStrokeColor">@color/blue</item>
