@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -39,6 +40,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.gmauto.Notification.FcmNotificationsSender;
 import com.example.gmauto.R;
 import com.example.gmauto.models.sparepart;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -50,6 +52,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -77,6 +80,8 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
     ActivityResultLauncher<String> mGetGallaryContent;
     ProgressBar imgPogress;
     FloatingActionButton fabuploadbtn;
+    CheckBox notification;
+    Boolean NotifcationToggle = false;
     //itemid
     String Id;
 
@@ -114,11 +119,13 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         apptitle = view.findViewById(R.id.apptitle);
         imgPogress = view.findViewById(R.id.imgPogress);
         Update= view.findViewById(R.id.Update);
-
+        notification= view.findViewById(R.id.notification);
         //progress dilogue
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
         progress.setCancelable(false);
+
+
 
         Submit.setOnClickListener(view1 -> add());
         fabuploadbtn = view.findViewById(R.id.fabuploadbtn);
@@ -174,7 +181,8 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
         ImageButton close = view.findViewById(R.id.fullscreen_dialog_close);
         close.setOnClickListener(this);
 
-
+            //Notification
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         Update.setOnClickListener(view13 -> update(Id));
         return view;
@@ -197,6 +205,9 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
 
 
         if (validate(sparepartTitleEditText, sparepartTitleLayput) && validate(itemdiscription, discriptionLauout) && validate(priceedittext, pricelayout)) {
+
+
+
             progress.show();
             String title =sparepartTitleEditText.getText().toString();
             String disc =itemdiscription.getText().toString();
@@ -220,7 +231,12 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            if(notification.isChecked()){
+                                FcmNotificationsSender notificationsSender = new FcmNotificationsSender("/topics/all","New SparePart Added CheckOut",title,getContext(),getActivity());
+                                notificationsSender.SendNotifications();
+                            }
                             // Do something after 5s = 5000ms
+
                             progress.dismiss();
                             dismiss();
                         }
