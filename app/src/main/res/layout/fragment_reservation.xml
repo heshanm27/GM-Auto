@@ -232,7 +232,7 @@
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/blue"
                             >
-
+                            <!--Reg No-->
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/RegNo"
                             android:layout_width="match_parent"
