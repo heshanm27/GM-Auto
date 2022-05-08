@@ -6,6 +6,6 @@ Gallage Motors is one of the leading automobile service stations in Sri Lanka. T
 
 ### IT20611910 - Madhuranga B.D.H - Spare Parts sell Management
 
-### IT20610616 - Madushanka H.M.A - 
+### IT20610616 - Madushanka H.M.A - Custom Care Management
 
 ### IT20600334 - Withanage P.W.E.L - 
