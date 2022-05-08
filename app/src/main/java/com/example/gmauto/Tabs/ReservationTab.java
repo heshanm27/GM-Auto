@@ -108,7 +108,7 @@ public class ReservationTab extends Fragment {
                 holder.dates.setText(model.getPreferedDate());
                 holder.times.setText(model.getPrefferedTime());
                 holder.statuslayout.setVisibility(View.VISIBLE);
-                selectColor(holder.Status,holder.Delete,model.getStatus(),holder.acceptedmsg);
+                selectColor(holder.Status,holder.Delete, holder.Update, model.getStatus(),holder.acceptedmsg);
                 holder.Delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -134,13 +134,14 @@ public class ReservationTab extends Fragment {
     }
 
 
-    public void selectColor(Button btn, Button delete, String staus, TextView textView){
+    public void selectColor(Button btn, Button delete,Button Update, String staus, TextView textView){
 
         switch(staus){
             case "Pending":
                 btn.setBackgroundColor(getResources().getColor(R.color.Pending));
                 btn.setText(staus);
                 delete.setVisibility(View.VISIBLE);
+                Update.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);
                 break;
             case "Declined":
@@ -148,12 +149,14 @@ public class ReservationTab extends Fragment {
                 btn.setText(staus);
                 delete.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);
+                Update.setVisibility(View.GONE);
                 break;
             case "Accept":
                 btn.setBackgroundColor(getResources().getColor(R.color.Accept));
                 btn.setText("Accepted");
                 delete.setVisibility(View.GONE);
                 textView.setVisibility(View.VISIBLE);
+                Update.setVisibility(View.GONE);
                 break;
 
         }

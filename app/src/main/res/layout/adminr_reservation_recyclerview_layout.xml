@@ -117,6 +117,43 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:layout_weight="2"
+           android:layout_marginTop="10dp"
+           android:padding="10dp"
+           android:gravity="center_vertical"
+           android:layout_marginBottom="10dp"
+           android:orientation="horizontal">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Status"
+               android:textStyle="bold"
+               android:textSize="15sp"
+               android:layout_weight="1"
+               />
+           <LinearLayout
+               android:layout_width="match_parent"
+              android:gravity="left"
+               android:layout_weight="1"
+               android:orientation="horizontal"
+               android:layout_height="wrap_content">
+               <Button
+                   android:id="@+id/Status"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Accept"
+
+                   android:textColor="@color/white"
+                   android:backgroundTint="@color/blue"
+                   android:clickable="false"
+                   app:cornerRadius="10dp" />
+           </LinearLayout>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
            android:padding="10dp"
            android:orientation="horizontal"
            android:gravity="center"
@@ -170,20 +207,21 @@
            android:gravity="center"
            android:visibility="gone"
            >
-
            <Button
-               android:id="@+id/Status"
+               android:id="@+id/Update"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_margin="10dp"
-               android:text="Accept"
-               android:textColor="@color/white"
+               style="@style/Widget.AppCompat.Button.Borderless.Colored"
+               android:text="Update"
+               android:textColor="@color/black"
                android:backgroundTint="@color/blue"
                android:layout_gravity="center"
-               android:clickable="false"
-               app:cornerRadius="10dp" />
-
-
+               android:drawableLeft="@drawable/ic_baseline_edit_24"
+               android:drawableTint="@color/black"
+               app:cornerRadius="10dp"
+               android:visibility="gone"
+               />
            <Button
                android:id="@+id/Delete"
                android:layout_width="wrap_content"
