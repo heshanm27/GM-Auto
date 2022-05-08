@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gmauto.R;
 
 public class OrderViewHolder extends RecyclerView.ViewHolder {
-    public Button decline,Accept,Status,Delete;
+    public Button decline,Accept,Status,Delete,Update;
     public TextView value,quantity,item,name,customeremail,acceptedmsg;
     public LinearLayout statuslayout,adminlayout;
     public OrderViewHolder(@NonNull View itemView) {
@@ -28,6 +28,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
         adminlayout = itemView.findViewById(R.id.adminlayout);
         Status = itemView.findViewById(R.id.Status);
         Delete = itemView.findViewById(R.id.Delete);
+        Update = itemView.findViewById(R.id.Update);
         acceptedmsg = itemView.findViewById(R.id.acceptedmsg);
     }
 }

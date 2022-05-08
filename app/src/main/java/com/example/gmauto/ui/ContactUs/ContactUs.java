@@ -1,9 +1,16 @@
 package com.example.gmauto.ui.ContactUs;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -34,7 +41,7 @@ public class ContactUs extends Fragment {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     TextInputLayout NameLayout,EmaillLayout,MobileLayout,messageLayout;
     TextInputEditText Name,Email,Mobile,message;
-    Button add;
+    Button add,call;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +68,14 @@ public class ContactUs extends Fragment {
         Mobile = view.findViewById(R.id.Mobile);
         message = view.findViewById(R.id.message);
         add = view.findViewById(R.id.add);
+        call =view.findViewById(R.id.call);
 
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCallBtnClick();
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +88,56 @@ public class ContactUs extends Fragment {
     }
 
 
+public  void checkPermission(String permission,int requestode){
+        if(ContextCompat.checkSelfPermission(getContext(),permission) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(getActivity(),new String[] {permission},requestode);
+        }else{
 
+        }
+}
 
+    private void onCallBtnClick(){
+        if (Build.VERSION.SDK_INT < 23) {
+            phoneCall();
+        }else {
+
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+                phoneCall();
+            }else {
+                final String[] PERMISSIONS_STORAGE = {Manifest.permission.CALL_PHONE};
+                //Asking request Permissions
+                ActivityCompat.requestPermissions(getActivity(), PERMISSIONS_STORAGE, 9);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        boolean permissionGranted = false;
+        switch(requestCode){
+            case 9:
+                permissionGranted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+                break;
+        }
+        if(permissionGranted){
+            phoneCall();
+        }else {
+            Toast.makeText(getContext(), "You don't assign permission.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void phoneCall(){
+        if (ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:0717083178"));
+            getActivity().startActivity(callIntent);
+        }else{
+            Toast.makeText(getContext(), "You don't assign permission.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void adds(){
 

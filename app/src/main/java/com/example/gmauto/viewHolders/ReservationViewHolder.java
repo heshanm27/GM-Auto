@@ -12,7 +12,7 @@ import com.example.gmauto.R;
 
 public class ReservationViewHolder extends RecyclerView.ViewHolder {
 
-    public Button decline,Accept,Status,Delete;
+    public Button decline,Accept,Status,Delete,Update;
     public TextView times,dates,ServiceType,name,acceptedmsg;
     public LinearLayout statuslayout,adminlayout;
     public ReservationViewHolder(@NonNull View itemView) {
@@ -28,5 +28,6 @@ public class ReservationViewHolder extends RecyclerView.ViewHolder {
         ServiceType = itemView.findViewById(R.id.ServiceType);
         name = itemView.findViewById(R.id.name);
         acceptedmsg = itemView.findViewById(R.id.acceptedmsg);
+        Update = itemView.findViewById(R.id.Update);
     }
 }

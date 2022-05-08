@@ -98,7 +98,7 @@ public class OrdersTab extends Fragment {
                 holder.quantity.setText(model.getQuantity().toString());
                 holder.value.setText(model.getTotal().toString());
                 holder.statuslayout.setVisibility(View.VISIBLE);
-                selectColor(holder.Status,holder.Delete,model.getStatus(),holder.acceptedmsg);
+                selectColor(holder.Status,holder.Delete, holder.Update,model.getStatus(),holder.acceptedmsg);
 
                 holder.Delete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -131,7 +131,7 @@ public class OrdersTab extends Fragment {
 
     }
 
-    public void selectColor(Button btn, Button delete, String staus, TextView textView){
+    public void selectColor(Button btn, Button delete,Button Update, String staus, TextView textView){
 
         switch(staus){
             case "Pending":
@@ -139,18 +139,21 @@ public class OrdersTab extends Fragment {
                 btn.setText(staus);
                 delete.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);
+                Update.setVisibility(View.VISIBLE);
                 break;
             case "Declined":
                 btn.setBackgroundColor(getResources().getColor(R.color.Declined));
                 btn.setText(staus);
                 delete.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);
+                Update.setVisibility(View.GONE);
                 break;
             case "Accept":
                 btn.setBackgroundColor(getResources().getColor(R.color.Accept));
                 btn.setText("Accepted");
                 delete.setVisibility(View.GONE);
                 textView.setVisibility(View.VISIBLE);
+                Update.setVisibility(View.GONE);
                 break;
 
         }

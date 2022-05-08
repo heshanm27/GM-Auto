@@ -143,7 +143,7 @@ public class vehicleHome extends Fragment implements FirebaseAuth.AuthStateListe
                     filterquey(orderByText,Directions);
                     Log.d("search","empty");
                 }else{
-                    data =editable.toString();
+                    data =editable.toString().toLowerCase();
                     orderByText="Title";
                     Directions = Query.Direction.DESCENDING;
                     FilterSearh(orderByText,data);
