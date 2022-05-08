@@ -1,5 +1,7 @@
 package com.example.gmauto.Tabs;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +15,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gmauto.R;
+import com.example.gmauto.models.reservation;
 import com.example.gmauto.models.reviews;
 import com.example.gmauto.models.sparepart;
+import com.example.gmauto.viewHolders.ReservationViewHolder;
 import com.example.gmauto.viewHolders.ReviewsViewHolder;
 import com.example.gmauto.viewHolders.SparePartHomeViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -29,8 +41,9 @@ import com.google.firebase.firestore.Query;
 public class ReservationTab extends Fragment {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirestoreRecyclerAdapter<reviews, ReviewsViewHolder> adapter;
-    RecyclerView reviewRecyclerView;
+    private FirestoreRecyclerAdapter<reservation, ReservationViewHolder> adapter;
+    RecyclerView reservationRecyclerView;
+
 
 
 
@@ -57,51 +70,58 @@ public class ReservationTab extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        reviewRecyclerView = view.findViewById(R.id.reviewRecyclerView);
-        getReviews(FirebaseAuth.getInstance().getUid());
+        reservationRecyclerView = view.findViewById(R.id.reservationRecyclerView);
 
+        getReservations();
 
         //set layoutmanger into recyclerview
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
-        reviewRecyclerView.setLayoutManager(layoutManager);
+        reservationRecyclerView.setLayoutManager(layoutManager);
         //recyler view decoration
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
-        reviewRecyclerView.addItemDecoration(dividerItemDecoration);
+        reservationRecyclerView.addItemDecoration(dividerItemDecoration);
 
     }
 
 
 
-    private  void getReviews(String ID){
-        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("userid",ID);
-        FirestoreRecyclerOptions<reviews> options = new FirestoreRecyclerOptions.Builder<reviews>()
-                .setQuery(query, reviews.class)
+    private  void getReservations(){
+        Query query = FirebaseFirestore.getInstance().collection("OnlineReservation").orderBy("Timestamp", Query.Direction.DESCENDING).whereEqualTo("userID",FirebaseAuth.getInstance().getUid());
+        FirestoreRecyclerOptions<reservation> options = new FirestoreRecyclerOptions.Builder<reservation>()
+                .setQuery(query, reservation.class)
                 .build();
-        adapter = new FirestoreRecyclerAdapter<reviews, ReviewsViewHolder>(options){
+        adapter = new FirestoreRecyclerAdapter<reservation, ReservationViewHolder>(options){
+
             @NonNull
             @Override
-            public ReviewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reviews_recycler_layout, parent, false);
-                return new ReviewsViewHolder(view);
+            public ReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminr_reservation_recyclerview_layout, parent, false);
+                return new ReservationViewHolder(view);
             }
 
             @Override
-            public void onDataChanged() {
-                super.onDataChanged();
+            protected void onBindViewHolder(@NonNull ReservationViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull reservation model) {
 
-            }
-            @Override
-            protected void onBindViewHolder(@NonNull ReviewsViewHolder holder, int position, @NonNull reviews model) {
-                holder.username.setText(model.getUserName());
-                holder.ratingBar.setRating(model.getRate().floatValue());
-                holder.message.setText(model.getReview().toString());
-                Log.d("timestamp",model.getTimestamp().toDate().toString());
+                holder.ServiceType.setText(model.getServiceType());
+                holder.name.setText(model.getFullName());
+                holder.dates.setText(model.getPreferedDate());
+                holder.times.setText(model.getPrefferedTime());
+                holder.statuslayout.setVisibility(View.VISIBLE);
+                selectColor(holder.Status,holder.Delete,model.getStatus(),holder.acceptedmsg);
+                holder.Delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
+                        delete(doc);
+                    }
+                });
+
 
             }
         };
 
-        reviewRecyclerView.setAdapter(adapter);
+        reservationRecyclerView.setAdapter(adapter);
 
     }
     @Override
@@ -113,6 +133,48 @@ public class ReservationTab extends Fragment {
 
     }
 
+
+    public void selectColor(Button btn, Button delete, String staus, TextView textView){
+
+        switch(staus){
+            case "Pending":
+                btn.setBackgroundColor(getResources().getColor(R.color.Pending));
+                btn.setText(staus);
+                delete.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                break;
+            case "Declined":
+                btn.setBackgroundColor(getResources().getColor(R.color.Declined));
+                btn.setText(staus);
+                delete.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                break;
+            case "Accept":
+                btn.setBackgroundColor(getResources().getColor(R.color.Accept));
+                btn.setText("Accepted");
+                delete.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
+                break;
+
+        }
+
+    }
+
+    private   void delete(DocumentSnapshot snapshot){
+        DocumentReference documentReference = snapshot.getReference();
+        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error occured", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
     @Override
     public void onResume() {
         super.onResume();

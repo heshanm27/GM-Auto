@@ -77,6 +77,7 @@
     <string name="OrderConfirmation">Your order will be reviewed and confirmed by our employees. Delivery and other information will be sent to you via the provided email within 24 hours. Thank you for selecting us.</string>
     <string name="tab" />
     <string name="Sort">Sort</string>
+    <string name="acceptemsg">Check your provided email for further information.</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>

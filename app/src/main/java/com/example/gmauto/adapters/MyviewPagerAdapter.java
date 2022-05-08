@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.gmauto.Tabs.OrdersTab;
 import com.example.gmauto.Tabs.ProfileTab;
 import com.example.gmauto.Tabs.ReservationTab;
 import com.example.gmauto.Tabs.ReviewTab;
@@ -23,12 +24,14 @@ public class MyviewPagerAdapter extends FragmentStateAdapter {
                 return new ReviewTab();
             case 2:
                 return new ReservationTab();
+            case 3:
+                return  new OrdersTab();
         }
         return new ProfileTab();
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

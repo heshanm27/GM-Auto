@@ -18,11 +18,20 @@ public class orders {
     String ExtraDetails;
     String UserId;
     Timestamp TimeStamp;
+    String Status;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 
     public orders() {
     }
 
-    public orders(String itemID, String ItemName, Double total, Integer quantity, String customerName, String email, String phoneno, String address, String extraDetails, String userId, Timestamp timeStamp) {
+    public orders(String itemID, String ItemName, Double total, Integer quantity, String customerName, String email, String phoneno, String address, String extraDetails, String userId, Timestamp timeStamp,String Status) {
         ItemID = itemID;
         this.ItemName = ItemName;
         Total = total;
@@ -34,6 +43,7 @@ public class orders {
         ExtraDetails = extraDetails;
         UserId = userId;
         TimeStamp = timeStamp;
+        this.Status=Status;
     }
 
     public String getItemID() {
