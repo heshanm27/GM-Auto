@@ -136,6 +136,10 @@
         android:label="Vehicle Details"
         tools:layout="@layout/fragment_vehicle_details" >
         <argument android:name="FirebaseID" />
+        <action
+            android:id="@+id/action_vehicleDetails_to_contactUs"
+            app:destination="@id/contactUs"
+            app:popUpTo="@id/vehicleDetails" />
     </fragment>
     <fragment
         android:id="@+id/profile"

@@ -6,11 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,6 +43,8 @@ public class vehicleDetails extends Fragment {
     ChipGroup chipGroup;
     ImageView imageView5;
     ProgressBar progressLoad;
+    Button contact;
+    NavController navController;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -71,6 +76,14 @@ public class vehicleDetails extends Fragment {
         imageView5 = view.findViewById(R.id.imageView5);
         progressLoad = view.findViewById(R.id.progressLoad);
         discription = view.findViewById(R.id.discription);
+        contact = view.findViewById(R.id.contact);
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_vehicleDetails_to_contactUs);
+            }
+        });
         Log.d("debug", Id);
 
         getDetails();

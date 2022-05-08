@@ -38,6 +38,8 @@ import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 
 public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateListener{
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -136,7 +138,7 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
                         filterquey(orderByText,Directions);
                         Log.d("search","empty");
                     }else{
-                        data =editable.toString();
+                        data =editable.toString().toLowerCase();
                         orderByText="SearchKey";
                         Directions = Query.Direction.DESCENDING;
                         FilterSearh(orderByText,data);
@@ -157,7 +159,7 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         if (firebaseAuth.getCurrentUser() == null) {
-            navController.navigate(R.id.action_dashFragment_to_login2);
+            Navigation.findNavController(getView()).navigate(R.id.action_dashFragment_to_login2);
         }
     }
     @Override

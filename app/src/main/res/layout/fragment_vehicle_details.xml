@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_dehaze_24"
+                android:drawablePadding="10dp"
                 android:textColor="@color/blue"
                 android:text="Discription"
                 />
@@ -74,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_dehaze_24"
+                android:drawablePadding="10dp"
                 android:textColor="@color/blue"
                 android:layout_marginLeft="10dp"
                 android:text="@string/TechnicalSpecifications"
@@ -236,7 +238,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_dehaze_24"
+            android:drawableLeft="@drawable/ic_baseline_discount_24"
             android:textColor="@color/blue"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -249,7 +251,19 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             />
+
+        <Button
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Contact"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/black"
+            android:layout_gravity="center"
+            app:cornerRadius="30dp" />
     </LinearLayout>
+
 
 </ScrollView>
 </FrameLayout>
