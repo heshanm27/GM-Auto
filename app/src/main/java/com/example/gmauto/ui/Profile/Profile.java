@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
+import com.example.gmauto.Tabs.OrdersTab;
 import com.example.gmauto.Tabs.ProfileTab;
 import com.example.gmauto.Tabs.ReservationTab;
 import com.example.gmauto.Tabs.ReviewTab;
@@ -38,6 +39,7 @@ ViewPager2 viewPager;
 ProfileTab profileTab;
 ReservationTab reservationTab;
 ReviewTab reviewTab;
+OrdersTab ordersTab;
 ImageView profile_image;
 TextView username;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,7 +65,7 @@ TextView username;
        profileTab =new ProfileTab();
        reservationTab = new ReservationTab();
          reviewTab = new ReviewTab();
-
+        ordersTab = new OrdersTab();
         FragmentManager manager = getActivity().getSupportFragmentManager();
         MyviewPagerAdapter adapter = new MyviewPagerAdapter(manager,getLifecycle());
         viewPager.setAdapter(adapter);
@@ -72,7 +74,7 @@ TextView username;
         tabLayout.addTab(tabLayout.newTab().setText("Profile"));
         tabLayout.addTab(tabLayout.newTab().setText("Reviews"));
         tabLayout.addTab(tabLayout.newTab().setText("Reservations"));
-
+        tabLayout.addTab(tabLayout.newTab().setText("Orders"));
         viewPager.setUserInputEnabled(true);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -104,7 +106,7 @@ TextView username;
             public void onSuccess(DocumentSnapshot snapshot) {
                 username.setText(snapshot.getString("FullName"));
                 Log.d("s",snapshot.getString("FullName"));
-                Picasso.get().load(snapshot.getString("Img")).placeholder(R.drawable.clearicon).into(profile_image);
+                Picasso.get().load(snapshot.getString("Img")).placeholder(R.drawable.placeholder_images).into(profile_image);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

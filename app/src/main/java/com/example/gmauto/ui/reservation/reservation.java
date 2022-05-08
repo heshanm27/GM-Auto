@@ -254,7 +254,6 @@ Dialog thxDialog;
     }
     public void insert(){
 
-        String userID = FirebaseAuth.getInstance().getUid();
 
         Map<String,Object> map = new HashMap<>();
         map.put("Title",Title.getText().toString());
@@ -265,7 +264,7 @@ Dialog thxDialog;
         map.put("Email",Email.getText().toString() );
         map.put("ContactNumber",contact.getText().toString());
         map.put("VehicleRegistrat",RegNo.getText().toString());
-        map.put("userID",userID);
+        map.put("userID",FirebaseAuth.getInstance().getUid());
         map.put("Timestamp",new Timestamp(new Date()));
         map.put("Status","Pending");
 

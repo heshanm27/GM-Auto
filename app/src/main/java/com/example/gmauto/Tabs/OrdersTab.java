@@ -1,4 +1,4 @@
-package com.example.gmauto.ui.Admin;
+package com.example.gmauto.Tabs;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -14,38 +14,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
 import com.example.gmauto.models.orders;
-import com.example.gmauto.models.reservation;
 import com.example.gmauto.viewHolders.OrderViewHolder;
-import com.example.gmauto.viewHolders.ReservationViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-
-public class AdminOrder extends Fragment {
+public class OrdersTab extends Fragment {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirestoreRecyclerAdapter<orders, OrderViewHolder> adapter;
     RecyclerView orderrecyclerview;
 
-    public AdminOrder() {
+    public OrdersTab() {
         // Required empty public constructor
     }
-
-
 
 
     @Override
@@ -58,7 +53,7 @@ public class AdminOrder extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_order, container, false);
+        return inflater.inflate(R.layout.fragment_orders_tab, container, false);
     }
 
     @Override
@@ -75,11 +70,11 @@ public class AdminOrder extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL);
         orderrecyclerview.addItemDecoration(dividerItemDecoration);
         getOrders();
-
     }
 
+
     private  void getOrders(){
-        Query query = FirebaseFirestore.getInstance().collection("Orders").orderBy("TimeStamp", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("Orders").orderBy("TimeStamp", Query.Direction.DESCENDING).whereEqualTo("UserId", FirebaseAuth.getInstance().getUid());
         FirestoreRecyclerOptions<orders> options = new FirestoreRecyclerOptions.Builder<orders>()
                 .setQuery(query, orders.class)
                 .build();
@@ -102,23 +97,15 @@ public class AdminOrder extends Fragment {
                 holder.item.setText(model.getItemName());
                 holder.quantity.setText(model.getQuantity().toString());
                 holder.value.setText(model.getTotal().toString());
+                holder.statuslayout.setVisibility(View.VISIBLE);
+                selectColor(holder.Status,holder.Delete,model.getStatus(),holder.acceptedmsg);
 
-                holder.adminlayout.setVisibility(View.VISIBLE);
-                holder.Accept.setOnClickListener(new View.OnClickListener() {
+                holder.Delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         DocumentSnapshot doc=getSnapshots().getSnapshot(position);
-                        UpdateStatus(doc.getId(),"Accept");
-                    }
-                });
 
-                holder.decline.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        DocumentSnapshot doc=getSnapshots().getSnapshot(position);
-                        UpdateStatus(doc.getId(),"Declined");
+                        deleteOrder(doc);
                     }
                 });
             }
@@ -128,23 +115,46 @@ public class AdminOrder extends Fragment {
 
     }
 
-
-    public void UpdateStatus(String Id,String status){
-
-        Map<String,Object> map = new HashMap<>();
-        map.put("Status",status);
-        map.put("UpdatedTimestamp",new Timestamp(new Date()));
-        db.collection("Orders").document(Id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+    private   void deleteOrder(DocumentSnapshot snapshot){
+        DocumentReference documentReference = snapshot.getReference();
+        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(getContext(),"Sucess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Error occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error occured", Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+
+    public void selectColor(Button btn, Button delete, String staus, TextView textView){
+
+        switch(staus){
+            case "Pending":
+                btn.setBackgroundColor(getResources().getColor(R.color.Pending));
+                btn.setText(staus);
+                delete.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                break;
+            case "Declined":
+                btn.setBackgroundColor(getResources().getColor(R.color.Declined));
+                btn.setText(staus);
+                delete.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                break;
+            case "Accept":
+                btn.setBackgroundColor(getResources().getColor(R.color.Accept));
+                btn.setText("Accepted");
+                delete.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
+                break;
+
+        }
+
     }
 
     @Override

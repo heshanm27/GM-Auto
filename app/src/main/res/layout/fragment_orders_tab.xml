@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Tabs.ReservationTab"
-    android:orientation="vertical"
-    >
+    tools:context=".Tabs.OrdersTab">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reservationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:id="@+id/orderrecyclerview"
+        />
 
 </LinearLayout>

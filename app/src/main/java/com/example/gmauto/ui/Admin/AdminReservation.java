@@ -99,6 +99,7 @@ public class AdminReservation extends Fragment {
                 holder.name.setText(model.getFullName());
                 holder.dates.setText(model.getPreferedDate());
                 holder.times.setText(model.getPrefferedTime());
+                holder.adminlayout.setVisibility(View.VISIBLE);
 
                 holder.Accept.setOnClickListener(new View.OnClickListener() {
                     @Override
