@@ -142,7 +142,6 @@ public class sparePartsHome extends Fragment implements FirebaseAuth.AuthStateLi
                         orderByText="SearchKey";
                         Directions = Query.Direction.DESCENDING;
                         FilterSearh(orderByText,data);
-
                     }
 
             }

@@ -210,7 +210,6 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
         }else{
             Submit.setVisibility(View.VISIBLE);
             apptitle.setText("Add Vehicle");
-
         }
 
         //progress dilogue
@@ -498,5 +497,11 @@ public class vehicleFullScrrenDialog extends DialogFragment implements View.OnCl
 
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dismiss();
     }
 }

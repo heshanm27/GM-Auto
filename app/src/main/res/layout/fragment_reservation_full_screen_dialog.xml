@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Tabs.ReservationFullScreenDialog">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@color/blue"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/fullscreen_dialog_close"
+                app:tint="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/Closedialogue"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:src="@drawable/clearicon" />
+
+            <TextView
+                android:id="@+id/apptitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/fullscreen_dialog_close"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/reservationimg"
+                android:contentDescription="@string/reservationimg" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/make_appoinment"
+                android:textSize="20sp"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TitleLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/title"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="#757575"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/clearicon" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/FullNamePlaceHolder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/clearicon"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/EmaillLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/EmailPlaceHolder"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="#757575"
+                    android:inputType="textEmailAddress"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/clearicon" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/contactlayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/ContactUs"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:counterMaxLength="10"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    android:inputType="phone"
+                    app:startIconDrawable="@drawable/clearicon"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ServiceTypelayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/ServiceType"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/blue"
+                android:background="@null"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/ServiceType"
+                    android:layout_width="match_parent"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:textColor="@color/blue"
+                    android:nextFocusDown="@+id/Datelayout"
+                    android:imeOptions="actionNext"
+                    android:layout_height="wrap_content"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Datelayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+
+                android:layout_marginRight="20dp"
+                android:hint="@string/SelectDate"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                app:errorEnabled="true"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/clearicon"
+                    android:textColor="@color/black"
+                    android:inputType="none"
+                    android:focusableInTouchMode="false"
+
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TimeLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                app:hintTextColor="@color/blue"
+                android:layout_marginRight="20dp"
+                android:hint="@string/selectTime"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/Time"
+                    android:layout_width="match_parent"
+                    android:inputType="none"
+                    android:layout_height="wrap_content"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/RegNoLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/VehicleRegistrationNo"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/blue"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/RegNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeWidth="20dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/clearicon"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/Submit"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/Submit"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/black"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:cornerRadius="30dp" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

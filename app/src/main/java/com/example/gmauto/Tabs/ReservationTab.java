@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -116,6 +117,18 @@ public class ReservationTab extends Fragment {
                         delete(doc);
                     }
                 });
+                holder.Update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot snap = getSnapshots().getSnapshot(position);
+                        DialogFragment dialog = ReservationFullScreenDialog.newInstance();
+                        Bundle args = new Bundle();
+                        args.putString("FirebaseID",snap.getId());
+                        args.putParcelable("model",model);
+                        dialog.setArguments(args);
+                        dialog.show(getActivity().getSupportFragmentManager(), "Update");
+                    }
+                });
 
 
             }
@@ -178,6 +191,7 @@ public class ReservationTab extends Fragment {
         });
 
     }
+
     @Override
     public void onResume() {
         super.onResume();

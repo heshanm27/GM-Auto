@@ -110,7 +110,6 @@ public class AdminSparePart extends Fragment {
                 .setQuery(query, sparepart.class)
                 .build();
         adapter = new FirestoreRecyclerAdapter<sparepart, SparePartHomeViewHolder>(options) {
-
             DocumentSnapshot doc;
             String id;
             @NonNull
@@ -120,29 +119,22 @@ public class AdminSparePart extends Fragment {
                 View view = layoutinflater.inflate(R.layout.admin_sparepart_recycler, parent, false);
                 return new SparePartHomeViewHolder(view);
             }
-
             @Override
             public void onDataChanged() {
                 super.onDataChanged();
-
             }
-
             @Override
             public void onError(@NonNull FirebaseFirestoreException e) {
                 super.onError(e);
                 Log.d("err","error occuer" +e);
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), e.getMessage().toString(),Toast.LENGTH_LONG);
                 toast.show();
-
             }
-
             @Override
             protected void onBindViewHolder(@NonNull SparePartHomeViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull sparepart model) {
                 holder.title.setText(model.getProductName());
-
 //                holder.itemdescription.setText(model.getProductDiscription());
 //                Picasso.get().load(model.getImg()).placeholder(R.drawable.clearicon).into(holder.cardimg);
-
                     try{
                 holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,9 +142,7 @@ public class AdminSparePart extends Fragment {
                          doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
                         delete(doc,model);
-
                             adapter.startListening();
-
                     }
                 });}catch(Exception e) {
                         e.printStackTrace();
@@ -163,14 +153,10 @@ public class AdminSparePart extends Fragment {
                         doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
                         update(id,model);
-
                     }
                 });
             }
-
-
         };
-
         adminSparePartRecylerView.setAdapter(adapter);
         adapter.startListening();
     }

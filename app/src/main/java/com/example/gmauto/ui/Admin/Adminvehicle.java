@@ -111,7 +111,6 @@ public class Adminvehicle extends Fragment {
         adapter = new FirestoreRecyclerAdapter<vehicle, VehicleViewHolder>(options) {
             DocumentSnapshot doc;
             String id;
-
             @NonNull
             @Override
             public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -119,7 +118,6 @@ public class Adminvehicle extends Fragment {
                 View view = layoutinflater.inflate(R.layout.admin_sparepart_recycler, parent, false);
                 return new VehicleViewHolder(view);
             }
-
             @Override
             protected void onBindViewHolder(@NonNull VehicleViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull vehicle model) {
 
@@ -139,12 +137,10 @@ public class Adminvehicle extends Fragment {
                         doc=getSnapshots().getSnapshot(position);
                         id = doc.getId();
                         update(id,model);
-
                     }
                 });
             }
         };
-
         adminRecylerView.setAdapter(adapter);
         adapter.startListening();
     }

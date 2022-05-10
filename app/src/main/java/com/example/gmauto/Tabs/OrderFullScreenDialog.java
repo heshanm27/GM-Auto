@@ -1,102 +1,79 @@
-package com.example.gmauto.ui.spareParts;
+package com.example.gmauto.Tabs;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.PluralsRes;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gmauto.R;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.gmauto.models.orders;
+import com.example.gmauto.models.vehicle;
+import com.example.gmauto.ui.Admin.vehicleFullScrrenDialog;
+import com.example.gmauto.ui.spareParts.Order;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class Order extends Fragment {
+public class OrderFullScreenDialog extends DialogFragment implements View.OnClickListener {
 
-    Spinner qutSpinner;
-    double Price=0.0;
-    TextView price,total,itemname;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String ID;
+    TextInputLayout NameLayout,EmaillLayout,PhoneLayout,AddressLayout,messageLayout;
+    TextInputEditText Name,Email,Phone,address,message;
     Float Total;
     ImageView itemimg;
+    Button Update;
+    TextView price,total,itemname;
+    Spinner qutSpinner;
     Integer Quantity;
-    String ItemID;
-    Button OrderItem,Accept,Cancel;
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    TextInputLayout NameLayout,EmaillLayout,PhoneLayout,AddressLayout,messageLayout;
-    TextInputEditText  Name,Email,Phone,address,message;
-    NavController navController;
     ProgressDialog progress;
-    AlertDialog alertDialog;
+    ImageButton fullscreen_dialog_close;
+    double Price=0.0;
 
-    public Order() {
+    public OrderFullScreenDialog() {
+        // Required empty public constructor
+    }
+    static OrderFullScreenDialog newInstance() {
+        return new OrderFullScreenDialog();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullscreenDialogTheme);
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order, container, false);
         // Inflate the layout for this fragment
-
-        price = view.findViewById(R.id.price);
-        total = view.findViewById(R.id.total);
-        itemimg = view.findViewById(R.id.itemimg);
-        itemname = view.findViewById(R.id.itemname);
-
-
-
-
-        Bundle b = getArguments();
-        String imgUrl = b.getString("img");
-        Price = b.getDouble("price");
-        Picasso.get().load(imgUrl).placeholder(R.drawable.clearicon).into(itemimg);
-        itemname.setText(b.getString("Title"));
-        ItemID = b.getString("FirebaseID");
-        String Prices = getString(R.string.Price,Price);
-        price.setText(Prices);
-        return view;
+        return inflater.inflate(R.layout.fragment_order_full_screen_dialog, container, false);
     }
 
     @Override
@@ -107,13 +84,30 @@ public class Order extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         qutSpinner.setAdapter(arrayAdapter);
 
-        navController = Navigation.findNavController(view);
-        //progress dilogue
+        fullscreen_dialog_close =view.findViewById(R.id.fullscreen_dialog_close);
+        price = view.findViewById(R.id.price);
+        total = view.findViewById(R.id.total);
+        itemimg = view.findViewById(R.id.itemimg);
+        itemname = view.findViewById(R.id.itemname);
+
+        //Layout and EditTexts
+        NameLayout = view.findViewById(R.id.NameLayout);
+        Name = view.findViewById(R.id.Name);
+        EmaillLayout = view.findViewById(R.id.EmaillLayout);
+        Email = view.findViewById(R.id.Email);
+        PhoneLayout = view.findViewById(R.id.PhoneLayout);
+        Phone = view.findViewById(R.id.Phone);
+        AddressLayout = view.findViewById(R.id.AddressLayout);
+        address = view.findViewById(R.id.address);
+        messageLayout = view.findViewById(R.id.messageLayout);
+        message = view.findViewById(R.id.message);
+        Update = view.findViewById(R.id.Update);
+
+
+
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
         progress.setCancelable(false);
-
-
 
         qutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -138,57 +132,85 @@ public class Order extends Fragment {
                         break;
                 }
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
 
-        //Layout and EditTexts
-        NameLayout = view.findViewById(R.id.NameLayout);
-        Name = view.findViewById(R.id.Name);
-        EmaillLayout = view.findViewById(R.id.EmaillLayout);
-        Email = view.findViewById(R.id.Email);
-        PhoneLayout = view.findViewById(R.id.PhoneLayout);
-        Phone = view.findViewById(R.id.Phone);
-        AddressLayout = view.findViewById(R.id.AddressLayout);
-        address = view.findViewById(R.id.address);
-        messageLayout = view.findViewById(R.id.messageLayout);
-        message = view.findViewById(R.id.message);
-        OrderItem = view.findViewById(R.id.OrderItem);
+        Bundle bundle = getArguments();
+
+        if(bundle != null){
+            ID = bundle.getString("FirebaseID");
+            orders model = bundle.getParcelable("model");
+            Name.setText(model.getItemName());
+            Email.setText(model.getEmail());
+            Phone.setText(model.getPhoneno());
+            address.setText(model.getAddress());
+            message.setText(model.getAddress());
+//            Total = Float.parseFloat(model.getTotal().toString());
+//            String tot = getString(R.string.Total,Total);
+//            total.setText(tot);
+
+            setTotatl(model.getQuantity());
+            Integer pos = arrayAdapter.getPosition(model.getQuantity().toString());
+            
+            qutSpinner.setSelection(pos);
 
 
+         System.out.println(pos);
+         System.out.println(ID);
+         System.out.println(total.getText());
+         System.out.println(model.getQuantity());
+         getProduct(model.getItemID());
 
-        OrderItem.setOnClickListener(new View.OnClickListener() {
+        }
+        fullscreen_dialog_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(validate(Name,NameLayout)&& validEmailAddress(Email,EmaillLayout)&& validPhoneNo(Phone,PhoneLayout)  &&validate(address,AddressLayout) && validate(message,messageLayout)  ){
-                    addOrder();
-                    progress.show();
-                    ShowLAlertDialog();
-                }
-
+                dismiss();
             }
         });
 
 
+
+
+
+
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(validate(Name,NameLayout)&& validEmailAddress(Email,EmaillLayout)&& validPhoneNo(Phone,PhoneLayout)  &&validate(address,AddressLayout) && validate(message,messageLayout)  ){
+                    Update(ID);
+                    progress.show();
+                }
+            }
+        });
+
     }
 
 
-    public void setTotatl(Integer qty){
-        Total = Float.parseFloat(String.valueOf(Price * qty));
-        String tot = getString(R.string.Total,Total);
-        total.setText(tot);
+    public void getProduct(String ID){
+        db.collection("SpareParts").document(ID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                Price = snapshot.getDouble("productPrice");
+                price.setText(snapshot.getDouble("productPrice").toString());
+                Picasso.get().load(snapshot.getString("img")).placeholder(R.drawable.clearicon).into(itemimg);
+                itemname.setText(snapshot.getString("productDiscription"));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error Occured", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    //firebase
+    public void Update(String ID){
 
-    public void addOrder(){
-        Log.d("review", "order");
         Map<String,Object> map = new HashMap<>();
-        map.put("ItemId",ItemID);
+        map.put("ItemId",ID);
         map.put("ItemName",itemname.getText().toString());
         map.put("Total",Total);
         map.put("Quantity",Quantity);
@@ -197,70 +219,37 @@ public class Order extends Fragment {
         map.put("Phoneno",Phone.getText().toString());
         map.put("Address",address.getText().toString());
         map.put("ExtraDetails",message.getText().toString());
-        map.put("TimeStamp",new Timestamp(new Date()));
-        map.put("UserId", FirebaseAuth.getInstance().getUid());
-        map.put("Status", "Pending");
-        db.collection("Orders").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+
+        db.collection("OnlineReservation").document(ID).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(Void unused) {
                 progress.dismiss();
+                dismiss();
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
 
             }
-        }).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-//                ShowLAlertDialog();
-            }
         });
+
+
     }
 
-
-    //alert Dialog
-
-    public void ShowLAlertDialog(){
-
-        LayoutInflater inflater =LayoutInflater.from(getContext());
-        View view =inflater.inflate(R.layout.order_confirmation_dialog,null);
-
-        alertDialog = new AlertDialog.Builder(getContext()).setView(view).create();
-        alertDialog.show();
-
-        Accept = view.findViewById(R.id.Accept);
-        Cancel = view.findViewById(R.id.Cancel);
-        Accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-                navController.navigateUp();
-//                navController =Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
-//                if(navController.getCurrentDestination().getId() ==R.id.order2){
-//
-//                    NavDirections action = OrderDirections.actionOrder2ToSparePartsHome();
-//                    NavOptions options = new NavOptions.Builder().setPopUpTo(R.id.order2,true).build();
-//                    navController.navigate(action,options);
-//                }
-
-
-            }
-        });
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-
+    public void setTotatl(Integer qty){
+        Total = Float.parseFloat(String.valueOf(Price * qty));
+        String tot = getString(R.string.Total,Total);
+        total.setText(tot);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        if(alertDialog != null){
-            alertDialog.dismiss();
+    public void onClick(View view) {
+        int id = view.getId();
+
+        if (id == R.id.fullscreen_dialog_close) {
+            dismiss();
         }
     }
 
@@ -309,6 +298,12 @@ public class Order extends Fragment {
             layout.setError("Please Enter Valid MobileNo");
             return false;
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dismiss();
     }
 
 

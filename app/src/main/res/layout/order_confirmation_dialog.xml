@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -15,7 +14,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/order_confirmation"
-     />
+        android:contentDescription="@string/OrderConfirmation" />
     <TextView
         android:id="@+id/Confirm"
         android:layout_width="wrap_content"
@@ -42,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Accept"
+        android:text="@string/accept"
 
         />
 
@@ -51,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Cancel"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

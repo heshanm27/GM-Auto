@@ -91,16 +91,13 @@ public class AdminReservation extends Fragment {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adminr_reservation_recyclerview_layout, parent, false);
                 return new ReservationViewHolder(view);
             }
-
             @Override
             protected void onBindViewHolder(@NonNull ReservationViewHolder holder, @SuppressLint("RecyclerView") int position, @NonNull reservation model) {
-
                 holder.ServiceType.setText(model.getServiceType());
                 holder.name.setText(model.getFullName());
                 holder.dates.setText(model.getPreferedDate());
                 holder.times.setText(model.getPrefferedTime());
                 holder.adminlayout.setVisibility(View.VISIBLE);
-
                 holder.Accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -109,7 +106,6 @@ public class AdminReservation extends Fragment {
                         UpdateStatus(doc.getId(),"Accept");
                     }
                 });
-
                 holder.decline.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -118,12 +114,9 @@ public class AdminReservation extends Fragment {
                         UpdateStatus(doc.getId(),"Declined");
                     }
                 });
-
             }
         };
-
         reservationRecyclerView.setAdapter(adapter);
-
     }
     @Override
     public void onStop() {
