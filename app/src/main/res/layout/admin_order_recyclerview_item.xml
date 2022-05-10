@@ -236,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:text="Delete"
+                android:text="Update"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/blue"
                 android:layout_gravity="center"

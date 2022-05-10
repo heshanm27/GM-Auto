@@ -1,6 +1,9 @@
 package com.example.gmauto.models;
 
-public class reservation {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class reservation implements Parcelable {
 
     String ContactNumber;
     String  Email;
@@ -108,4 +111,61 @@ public class reservation {
     public void setStatus(String status) {
         Status = status;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.ContactNumber);
+        dest.writeString(this.Email);
+        dest.writeString(this.FullName);
+        dest.writeString(this.PreferedDate);
+        dest.writeString(this.PrefferedTime);
+        dest.writeString(this.ServiceType);
+        dest.writeString(this.Title);
+        dest.writeString(this.VehicleRegistrat);
+        dest.writeString(this.userID);
+        dest.writeString(this.Status);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.ContactNumber = source.readString();
+        this.Email = source.readString();
+        this.FullName = source.readString();
+        this.PreferedDate = source.readString();
+        this.PrefferedTime = source.readString();
+        this.ServiceType = source.readString();
+        this.Title = source.readString();
+        this.VehicleRegistrat = source.readString();
+        this.userID = source.readString();
+        this.Status = source.readString();
+    }
+
+    protected reservation(Parcel in) {
+        this.ContactNumber = in.readString();
+        this.Email = in.readString();
+        this.FullName = in.readString();
+        this.PreferedDate = in.readString();
+        this.PrefferedTime = in.readString();
+        this.ServiceType = in.readString();
+        this.Title = in.readString();
+        this.VehicleRegistrat = in.readString();
+        this.userID = in.readString();
+        this.Status = in.readString();
+    }
+
+    public static final Parcelable.Creator<reservation> CREATOR = new Parcelable.Creator<reservation>() {
+        @Override
+        public reservation createFromParcel(Parcel source) {
+            return new reservation(source);
+        }
+
+        @Override
+        public reservation[] newArray(int size) {
+            return new reservation[size];
+        }
+    };
 }

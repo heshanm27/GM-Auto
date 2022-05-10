@@ -154,6 +154,9 @@
         <action
             android:id="@+id/action_order2_to_sparePartsHome"
             app:destination="@id/sparePartsHome" />
+        <argument
+            android:name="FirebaseID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/contactUs"

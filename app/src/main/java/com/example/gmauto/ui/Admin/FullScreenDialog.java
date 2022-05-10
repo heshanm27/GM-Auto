@@ -201,13 +201,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
 
 
     public void add() {
-
-
-
         if (validate(sparepartTitleEditText, sparepartTitleLayput) && validate(itemdiscription, discriptionLauout) && validate(priceedittext, pricelayout)) {
-
-
-
             progress.show();
             String title =sparepartTitleEditText.getText().toString();
             String disc =itemdiscription.getText().toString();
@@ -236,7 +230,6 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
                                 notificationsSender.SendNotifications();
                             }
                             // Do something after 5s = 5000ms
-
                             progress.dismiss();
                             dismiss();
                         }
@@ -294,6 +287,8 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             });
         }
     }
+
+
     public boolean validate(TextInputEditText editText, TextInputLayout layout) {
 
         String value = editText.getText().toString();
@@ -373,7 +368,11 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
             handleUpload(uri);
         }
     }
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        dismiss();
+    }
 
 
 }

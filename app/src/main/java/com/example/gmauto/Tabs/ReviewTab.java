@@ -207,6 +207,8 @@ public class ReviewTab extends Fragment {
         }
     }
     });
+
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

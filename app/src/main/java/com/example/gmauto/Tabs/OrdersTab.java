@@ -1,10 +1,12 @@
 package com.example.gmauto.Tabs;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +41,9 @@ public class OrdersTab extends Fragment {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirestoreRecyclerAdapter<orders, OrderViewHolder> adapter;
     RecyclerView orderrecyclerview;
+
+
+
 
     public OrdersTab() {
         // Required empty public constructor
@@ -100,6 +107,18 @@ public class OrdersTab extends Fragment {
                 holder.statuslayout.setVisibility(View.VISIBLE);
                 selectColor(holder.Status,holder.Delete, holder.Update,model.getStatus(),holder.acceptedmsg);
 
+                holder.Update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DocumentSnapshot snap = getSnapshots().getSnapshot(position);
+                        DialogFragment dialog = OrderFullScreenDialog.newInstance();
+                        Bundle args = new Bundle();
+                        args.putString("FirebaseID",snap.getId());
+                        args.putParcelable("model",model);
+                        dialog.setArguments(args);
+                        dialog.show(getActivity().getSupportFragmentManager(), "Update");
+                    }
+                });
                 holder.Delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -161,6 +180,12 @@ public class OrdersTab extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        System.out.println("hello");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if(adapter != null){
@@ -177,4 +202,11 @@ public class OrdersTab extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(adapter != null){
+            adapter.onDataChanged();
+        }
+    }
 }

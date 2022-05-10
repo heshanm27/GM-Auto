@@ -125,19 +125,16 @@ public class sparepartDetails extends Fragment {
         CalAvgRating(Id);
         getReviews(Id);
 
-
         addreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog = new BottomSheetDialog(getContext());
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog);
-
                 TextInputEditText review = bottomSheetDialog.findViewById(R.id.review);
                 TextInputLayout reviewTextLayout = bottomSheetDialog.findViewById(R.id.reviewTextLayout);
                 RatingBar rate = bottomSheetDialog.findViewById(R.id.ratingInput);
                 Button postBtn = bottomSheetDialog.findViewById(R.id.post);
                 TextView ratingCount = bottomSheetDialog.findViewById(R.id.ratingCount);
-
                 String reviewMessage = review.getText().toString();
                 //keybord hide when unfocus
                 review.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -147,7 +144,6 @@ public class sparepartDetails extends Fragment {
                             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
-
                     }
                 });
                 Float rateing = rate.getRating();
@@ -162,8 +158,6 @@ public class sparepartDetails extends Fragment {
                         ratingCount.setText(ratingCountstring);
                     }
                 });
-
-
                 postBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -195,8 +189,6 @@ public class sparepartDetails extends Fragment {
                         }
                     }
                 });
-
-
                 bottomSheetDialog.show();
             }
         });
@@ -212,8 +204,6 @@ public class sparepartDetails extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_sparepartDetails_to_order2, args);
             }
         });
-
-
     }
 
     private void getDetails(String ID) {

@@ -78,6 +78,11 @@
     <string name="tab" />
     <string name="Sort">Sort</string>
     <string name="acceptemsg">Check your provided email for further information.</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="reservationimg">Reservationimg</string>
+    <string name="title">Title</string>
+    <string name="edit_your_order">Edit Your Order</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>

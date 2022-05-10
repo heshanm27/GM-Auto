@@ -1,34 +1,32 @@
-package com.example.gmauto.ui.reservation;
+package com.example.gmauto.Tabs;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.gmauto.R;
 import com.example.gmauto.helpers.DateValidatorsweekDays;
+import com.example.gmauto.models.orders;
+import com.example.gmauto.models.reservation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,32 +42,39 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
 
-public class reservation extends Fragment {
+public class ReservationFullScreenDialog extends DialogFragment implements View.OnClickListener {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-TextInputLayout Datelayout,TimeLayout,ServiceTypelayout,TitleLayout,name_layout,EmaillLayout,contactlayout,RegNoLayout;
-TextInputEditText Date,Title,name,Email,contact,RegNo;
-AutoCompleteTextView Time,ServiceType;
-ArrayAdapter<String> TimearrayAdapter,ServiceArrayAdapter;
-Button Submit;
-String[] times = {"8.00-12.00:AM","13.00-18.00:PM"};
-String[] ServiceTypes = {"Free Service","General Service","Warranty Repair","Other"};
-String PreferedTime,ServieType;
-ProgressDialog progress;
-Dialog thxDialog;
+    TextInputLayout Datelayout,TimeLayout,ServiceTypelayout,TitleLayout,name_layout,EmaillLayout,contactlayout,RegNoLayout;
+    TextInputEditText Date,Title,name,Email,contact,RegNo;
+    AutoCompleteTextView Time,ServiceType;
+    ArrayAdapter<String> TimearrayAdapter,ServiceArrayAdapter;
+    Button Submit;
+    String[] times = {"8.00-12.00:AM","13.00-18.00:PM"};
+    String[] ServiceTypes = {"Free Service","General Service","Warranty Repair","Other"};
+    String PreferedTime,ServieType;
+    ProgressDialog progress;
+    String ID;
+    ImageButton fullscreen_dialog_close;
+    public ReservationFullScreenDialog() {
+        // Required empty public constructor
+    }
+
+    static ReservationFullScreenDialog newInstance() {
+        return new ReservationFullScreenDialog();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullscreenDialogTheme);
         super.onCreate(savedInstanceState);
 
     }
@@ -78,7 +83,7 @@ Dialog thxDialog;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reservation, container, false);
+        return inflater.inflate(R.layout.fragment_reservation_full_screen_dialog, container, false);
     }
 
     @Override
@@ -92,10 +97,11 @@ Dialog thxDialog;
         ServiceType.setAdapter(ServiceArrayAdapter);
     }
 
-    @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         Datelayout = view.findViewById(R.id.Datelayout);
         Date = view.findViewById(R.id.Date);
         Time =view.findViewById(R.id.Time);
@@ -114,35 +120,36 @@ Dialog thxDialog;
         contact = view.findViewById(R.id.contact);
         RegNo = view.findViewById(R.id.RegNo);
         Submit =view.findViewById(R.id.Submit);
+        fullscreen_dialog_close= view.findViewById(R.id.fullscreen_dialog_close);
+        fullscreen_dialog_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
+        Bundle bundle = getArguments();
+        if(bundle != null){
+
+            ID = bundle.getString("FirebaseID");
+            reservation model = bundle.getParcelable("model");
+
+            Date.setText(model.getPreferedDate());
+            Time.setText(model.getPrefferedTime());
+            ServiceType.setText(model.getServiceType());
+            Title.setText(model.getTitle());
+            name.setText(model.getFullName());
+            Email.setText(model.getEmail());
+            contact.setText(model.getContactNumber());
+            RegNo.setText(model.getVehicleRegistrat());
+
+        }
 
 
         //progress dilogue
         progress = new ProgressDialog(getContext());
         progress.setContentView(R.layout.loading_dialog);
         progress.setCancelable(false);
-
-        //Thx dilogue
-        thxDialog = new Dialog(getContext());
-        thxDialog.setContentView(R.layout.thx_progress_dialog);
-        thxDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-
-
-        Submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideSoftKeyboard(getActivity(), view);
-                if(validate(Title,TitleLayout)&& validate(name,name_layout)&& validEmailAddress(Email,EmaillLayout) &&
-                        validPhoneNo(contact,contactlayout)  && validateAutoComplete(ServiceType,ServiceTypelayout) && validate(Date,Datelayout)&& validateAutoComplete(Time,TimeLayout) && validate(RegNo,RegNoLayout)){
-
-                    progress.show();
-                    insert();
-
-                }
-            }
-        });
-
-
 
         Time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -163,14 +170,32 @@ Dialog thxDialog;
             }
         });
 
+        Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideSoftKeyboard(getActivity(), view);
+                if(validate(Title,TitleLayout)&& validate(name,name_layout)&& validEmailAddress(Email,EmaillLayout) &&
+                        validPhoneNo(contact,contactlayout)  && validateAutoComplete(ServiceType,ServiceTypelayout) && validate(Date,Datelayout)&& validateAutoComplete(Time,TimeLayout) && validate(RegNo,RegNoLayout)){
+
+                    progress.show();
+                    update(ID);
+
+                }
+            }
+        });
 
     }
 
-    public static void hideSoftKeyboard (Activity activity, View view)
-    {
-        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.fullscreen_dialog_close) {
+            dismiss();
+        }
     }
+
     public void dateDialog() {
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -192,11 +217,16 @@ Dialog thxDialog;
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-            Date.setText(materialDatePicker.getHeaderText());
+                Date.setText(materialDatePicker.getHeaderText());
             }
         });
     }
 
+    public static void hideSoftKeyboard (Activity activity, View view)
+    {
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+    }
     public boolean validate(TextInputEditText editText, TextInputLayout layout) {
 
         String value = editText.getText().toString();
@@ -253,7 +283,7 @@ Dialog thxDialog;
         }
     }
 
-    public void insert(){
+    public void update(String ID){
 
         Map<String,Object> map = new HashMap<>();
         map.put("Title",Title.getText().toString());
@@ -264,9 +294,10 @@ Dialog thxDialog;
         map.put("Email",Email.getText().toString() );
         map.put("ContactNumber",contact.getText().toString());
         map.put("VehicleRegistrat",RegNo.getText().toString());
-        map.put("userID",FirebaseAuth.getInstance().getUid());
+        map.put("userID", FirebaseAuth.getInstance().getUid());
         map.put("Timestamp",new Timestamp(new Date()));
         map.put("Status","Pending");
+
         ArrayList<TextInputEditText> editTexts = new ArrayList<>();
         editTexts.add(Title);
         editTexts.add(Date);
@@ -275,22 +306,17 @@ Dialog thxDialog;
         editTexts.add(contact);
         editTexts.add(RegNo);
 
-        db.collection("OnlineReservation").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("OnlineReservation").document(ID).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(Void unused) {
                 progress.dismiss();
                 clearEditText(editTexts);
+                dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
-            }
-        }).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                thxDialog.show();
-                Toast.makeText(getContext(),"Valid",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Error Occured",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -308,4 +334,16 @@ Dialog thxDialog;
         ServiceType.getText().clear();
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dismiss();
+    }
 }
