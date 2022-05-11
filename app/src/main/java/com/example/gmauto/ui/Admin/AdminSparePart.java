@@ -170,7 +170,7 @@ public class AdminSparePart extends Fragment {
         map.put("productPrice",model.getProductPrice());
         map.put("productName",model.getProductName());
         map.put("rateavg",0.0);
-        map.put("Timestamp",model.getTime());
+        map.put("Timestamp",model.getTimestamp());
         map.put("SearchKey",model.getProductName());
 
             documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {

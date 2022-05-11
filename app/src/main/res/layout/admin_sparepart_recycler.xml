@@ -52,7 +52,7 @@
                 android:scaleY="1.2"
 
                 app:srcCompat="@drawable/ic_baseline_edit_24"
-                app:tint="@color/blue" />
+               />
 
             <ImageButton
                 android:id="@+id/deleteBtn"
@@ -60,11 +60,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/fui_transparent"
                 android:contentDescription="@string/editbtn"
+                android:minHeight="48dp"
                 android:padding="10dp"
                 android:scaleX="1.2"
                 android:scaleY="1.2"
-                app:srcCompat="@drawable/ic_baseline_delete_forever_24"
-                app:tint="@color/cardview_dark_background" />
+                app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
         </LinearLayout>
 
 

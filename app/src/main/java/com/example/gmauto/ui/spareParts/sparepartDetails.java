@@ -237,19 +237,25 @@ public class sparepartDetails extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("recycler","HellowStart");
         if (adapter != null) {
             adapter.startListening();
+            reviewRecyclerView.setAdapter(adapter);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.d("recycler","HellowResume");
+        if (adapter != null) {
+            adapter.startListening();
+            reviewRecyclerView.setAdapter(adapter);
+        }
     }
 
     private void getReviews(String ID) {
-        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid", ID).limit(5);
+        Query query = FirebaseFirestore.getInstance().collection("Reviews").whereEqualTo("sparepartid", ID).orderBy("Timestamp", Query.Direction.DESCENDING).limit(5);
         FirestoreRecyclerOptions<reviews> options = new FirestoreRecyclerOptions.Builder<reviews>()
                 .setQuery(query, reviews.class)
                 .build();
@@ -287,6 +293,7 @@ public class sparepartDetails extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("recycler","HellowStop");
         if (adapter != null) {
             adapter.stopListening();
         }

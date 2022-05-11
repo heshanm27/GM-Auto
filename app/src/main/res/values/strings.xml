@@ -83,6 +83,11 @@
     <string name="reservationimg">Reservationimg</string>
     <string name="title">Title</string>
     <string name="edit_your_order">Edit Your Order</string>
+    <string name="spare_parts">Spare Parts</string>
+    <string name="sort">Sort</string>
+    <string name="sparpartitemimageholder">sparpartItemImageHolder</string>
+    <string name="order">Order</string>
+    <string name="reviews">Reviews</string>
     <string-array name="filters">
         <item>Newst</item>
         <item>Old</item>

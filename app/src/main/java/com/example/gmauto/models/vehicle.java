@@ -3,6 +3,8 @@ package com.example.gmauto.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.Timestamp;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,18 +17,27 @@ public class vehicle implements Parcelable {
     String Discription;
     private Map<String, Object> details;
     List<String> Amenities;
+    Timestamp Timestamp;
 
+    public com.google.firebase.Timestamp getTimestamp() {
+        return Timestamp;
+    }
+
+    public void setTimestamp(com.google.firebase.Timestamp timestamp) {
+        Timestamp = timestamp;
+    }
 
     public vehicle() {
     }
 
-    public vehicle(String title, String img, Double price, Map<String, Object> details, List<String> amenities,String Discription) {
+    public vehicle(String title, String img, Double price, Map<String, Object> details, List<String> amenities,String Discription,Timestamp Timestamp) {
         this.Title = title;
         this.img = img;
         this. Price = price;
         this.details = details;
         this.Amenities = amenities;
         this.Discription =Discription;
+        this.Timestamp=Timestamp;
     }
 
     public Double getPrice() {

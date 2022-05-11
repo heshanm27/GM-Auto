@@ -23,7 +23,9 @@
 
     <style name="Theme.GMAuto.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
+    <style name="MyAppTheme.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/errorRed</item>
+    </style>
     <style name="FullscreenDialogTheme" parent="Theme.AppCompat.Light.DialogWhenLarge">
         <item name="android:statusBarColor">@color/blue</item>
         <item name="windowNoTitle">true</item>
