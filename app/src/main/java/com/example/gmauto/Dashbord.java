@@ -17,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 
 
 import com.example.gmauto.Auth.login;
+import com.example.gmauto.Utility.NetworkChangeListner;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +41,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashbord extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    NetworkChangeListner networkChangeListner = new NetworkChangeListner();
+
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
         DrawerLayout drawerLayout;
         NavigationView navigationView;
@@ -173,5 +179,19 @@ public class Dashbord extends AppCompatActivity implements NavigationView.OnNavi
                 Toast.makeText(getApplicationContext(),"LoginFaild",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListner,filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(networkChangeListner);
     }
 }
