@@ -43,13 +43,13 @@ import java.util.Map;
 public class OrderFullScreenDialog extends DialogFragment implements View.OnClickListener {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String ID;
+    String ID,ItemID;
     TextInputLayout NameLayout,EmaillLayout,PhoneLayout,AddressLayout,messageLayout;
     TextInputEditText Name,Email,Phone,address,message;
-    Float Total;
+    double Total=0.0;
     ImageView itemimg;
     Button Update;
-    TextView price,total,itemname;
+    TextView price,totalText,itemname;
     Spinner qutSpinner;
     Integer Quantity;
     ProgressDialog progress;
@@ -79,6 +79,7 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = getArguments();
         qutSpinner = view.findViewById(R.id.qutSpinner);
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getContext(),R.array.Quanity, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -86,7 +87,7 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
 
         fullscreen_dialog_close =view.findViewById(R.id.fullscreen_dialog_close);
         price = view.findViewById(R.id.price);
-        total = view.findViewById(R.id.total);
+        totalText = view.findViewById(R.id.totalText);
         itemimg = view.findViewById(R.id.itemimg);
         itemname = view.findViewById(R.id.itemname);
 
@@ -138,9 +139,11 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
         });
 
 
-        Bundle bundle = getArguments();
-
         if(bundle != null){
+
+
+
+
             ID = bundle.getString("FirebaseID");
             orders model = bundle.getParcelable("model");
             Name.setText(model.getItemName());
@@ -148,20 +151,24 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
             Phone.setText(model.getPhoneno());
             address.setText(model.getAddress());
             message.setText(model.getAddress());
-//            Total = Float.parseFloat(model.getTotal().toString());
-//            String tot = getString(R.string.Total,Total);
-//            total.setText(tot);
+            Total = bundle.getDouble("Total");
+            String tot = getString(R.string.Total,Total);
+            totalText.setText(tot);
 
             setTotatl(model.getQuantity());
             Integer pos = arrayAdapter.getPosition(model.getQuantity().toString());
-            
-            qutSpinner.setSelection(pos);
+            qutSpinner.setSelection(pos,true);
+            View itemView = (View)qutSpinner.getChildAt(pos);
+            long itemId = qutSpinner.getAdapter().getItemId(pos);
+
+            qutSpinner.performItemClick(itemView, pos, itemId);
 
 
-         System.out.println(pos);
-         System.out.println(ID);
-         System.out.println(total.getText());
-         System.out.println(model.getQuantity());
+            ItemID = model.getItemID();
+
+         System.out.println(bundle.getDouble("Total"));
+         System.out.println(tot);
+//         System.out.println(total.getText());
          getProduct(model.getItemID());
 
         }
@@ -195,9 +202,12 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
                 Price = snapshot.getDouble("productPrice");
-                price.setText(snapshot.getDouble("productPrice").toString());
+                String value = getString(R.string.Price,snapshot.getDouble("productPrice").floatValue());
+                price.setText(value);
                 Picasso.get().load(snapshot.getString("img")).placeholder(R.drawable.clearicon).into(itemimg);
-                itemname.setText(snapshot.getString("productDiscription"));
+                itemname.setText(snapshot.getString("productName"));
+                System.out.println(snapshot.getString("img"));
+                Toast.makeText(getContext(), "no Error Occured", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -210,7 +220,7 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
     public void Update(String ID){
 
         Map<String,Object> map = new HashMap<>();
-        map.put("ItemId",ID);
+        map.put("ItemId",ItemID);
         map.put("ItemName",itemname.getText().toString());
         map.put("Total",Total);
         map.put("Quantity",Quantity);
@@ -220,18 +230,19 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
         map.put("Address",address.getText().toString());
         map.put("ExtraDetails",message.getText().toString());
 
-        db.collection("OnlineReservation").document(ID).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("Orders").document(ID).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 progress.dismiss();
                 dismiss();
 
-
+                Toast.makeText(getContext(), "Successfully Updated", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
+                progress.dismiss();
+                Toast.makeText(getContext(), "Error Occured", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -241,7 +252,7 @@ public class OrderFullScreenDialog extends DialogFragment implements View.OnClic
     public void setTotatl(Integer qty){
         Total = Float.parseFloat(String.valueOf(Price * qty));
         String tot = getString(R.string.Total,Total);
-        total.setText(tot);
+        totalText.setText(tot);
     }
 
     @Override

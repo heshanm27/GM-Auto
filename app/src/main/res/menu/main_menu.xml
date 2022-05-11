@@ -38,6 +38,12 @@
                 <item android:id="@+id/adminOrder"
                     android:title="Orders"
                     android:icon="@drawable/adminordersicon"/>
+                <item android:id="@+id/adminContactus"
+                    android:title="Messages"
+                    android:icon="@drawable/ic_baseline_message_24"/>
+
+
+
 
             </group>
         </menu>

@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_nav_home_to_adminOrder"
             app:destination="@id/adminOrder" />
+        <action
+            android:id="@+id/action_nav_home_to_adminContactus"
+            app:destination="@id/adminContactus" />
     </fragment>
     <fragment
         android:id="@+id/vehicleHome"
@@ -173,5 +176,10 @@
         android:name="com.example.gmauto.ui.Admin.AdminOrder"
         android:label="Orders"
         tools:layout="@layout/fragment_admin_order" />
+    <fragment
+        android:id="@+id/adminContactus"
+        android:name="com.example.gmauto.ui.Admin.AdminContactus"
+        android:label="fragment_admin_contactus"
+        tools:layout="@layout/fragment_admin_contactus" />
 
 </navigation>

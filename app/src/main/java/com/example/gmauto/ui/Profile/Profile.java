@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -42,6 +44,7 @@ ReviewTab reviewTab;
 OrdersTab ordersTab;
 ImageView profile_image;
 TextView username;
+ProgressBar progressLoad;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ TextView username;
         tabLayout = view.findViewById(R.id.tabLayout);
         profile_image =view.findViewById(R.id.profile_image);
         username =view.findViewById(R.id.username);
+        progressLoad =view.findViewById(R.id.progressLoad);
        profileTab =new ProfileTab();
        reservationTab = new ReservationTab();
          reviewTab = new ReviewTab();
@@ -106,7 +110,17 @@ TextView username;
             public void onSuccess(DocumentSnapshot snapshot) {
                 username.setText(snapshot.getString("FullName"));
                 Log.d("s",snapshot.getString("FullName"));
-                Picasso.get().load(snapshot.getString("Img")).placeholder(R.drawable.placeholder_images).into(profile_image);
+                Picasso.get().load(snapshot.getString("Img")).placeholder(R.drawable.placeholder_images).into(profile_image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressLoad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

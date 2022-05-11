@@ -3,6 +3,8 @@ package com.example.gmauto.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.Timestamp;
+
 public class reservation implements Parcelable {
 
     String ContactNumber;
@@ -15,11 +17,28 @@ public class reservation implements Parcelable {
     String VehicleRegistrat;
     String userID;
     String Status;
-
+    Timestamp Timestamp;
+    Timestamp UpdatedTimestamp;
     public reservation() {
     }
 
-    public reservation(String contactNumber, String email, String fullName, String preferedDate, String prefferedTime, String serviceType, String title, String vehicleRegistrat, String userID, String status) {
+    public com.google.firebase.Timestamp getTimestamp() {
+        return Timestamp;
+    }
+
+    public void setTimestamp(com.google.firebase.Timestamp timestamp) {
+        Timestamp = timestamp;
+    }
+
+    public com.google.firebase.Timestamp getUpdatedTimestamp() {
+        return UpdatedTimestamp;
+    }
+
+    public void setUpdatedTimestamp(com.google.firebase.Timestamp updatedTimestamp) {
+        UpdatedTimestamp = updatedTimestamp;
+    }
+
+    public reservation(String contactNumber, String email, String fullName, String preferedDate, String prefferedTime, String serviceType, String title, String vehicleRegistrat, String userID, String status, Timestamp Timestamp, Timestamp UpdatedTimestamp) {
         ContactNumber = contactNumber;
         Email = email;
         FullName = fullName;
@@ -30,7 +49,10 @@ public class reservation implements Parcelable {
         VehicleRegistrat = vehicleRegistrat;
         this.userID = userID;
         Status = status;
+        this.Timestamp=Timestamp;
+        this.UpdatedTimestamp=UpdatedTimestamp;
     }
+
 
     public String getContactNumber() {
         return ContactNumber;

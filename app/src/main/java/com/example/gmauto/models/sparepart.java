@@ -3,7 +3,7 @@ package com.example.gmauto.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.sql.Timestamp;
+import com.google.firebase.Timestamp;
 
 public class sparepart implements Parcelable {
     private String productName;
@@ -11,24 +11,37 @@ public class sparepart implements Parcelable {
     private String img;
     private Double productPrice;
     private  Double rateavg;
-    private Timestamp time;
+    Timestamp Timestamp;
+    private  String SearchKey;
 
-    public Timestamp getTime() {
-        return time;
+    public com.google.firebase.Timestamp getTimestamp() {
+        return Timestamp;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setTimestamp(com.google.firebase.Timestamp timestamp) {
+        Timestamp = timestamp;
     }
+
+
+
+    public String getSearchKey() {
+        return SearchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        SearchKey = searchKey;
+    }
+
 
     public sparepart(){}
-    public sparepart(String productName, String productDiscription, String img, Double productPrice, Double rateavg,Timestamp time) {
+    public sparepart(String productName, String productDiscription, String img, Double productPrice, Double rateavg, com.google.firebase.Timestamp time, String SearchKey) {
         this.productName = productName;
         this.productDiscription = productDiscription;
         this.img = img;
         this.productPrice = productPrice;
         this.rateavg = rateavg;
-        this.time=time;
+        this.Timestamp=time;
+        this.SearchKey =SearchKey;
     }
 
     public String getProductName() {
@@ -71,6 +84,7 @@ public class sparepart implements Parcelable {
         this.rateavg = rateavg;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,7 +97,8 @@ public class sparepart implements Parcelable {
         dest.writeString(this.img);
         dest.writeValue(this.productPrice);
         dest.writeValue(this.rateavg);
-        dest.writeSerializable(this.time);
+        dest.writeParcelable(this.Timestamp, flags);
+        dest.writeString(this.SearchKey);
     }
 
     public void readFromParcel(Parcel source) {
@@ -92,7 +107,8 @@ public class sparepart implements Parcelable {
         this.img = source.readString();
         this.productPrice = (Double) source.readValue(Double.class.getClassLoader());
         this.rateavg = (Double) source.readValue(Double.class.getClassLoader());
-        this.time = (Timestamp) source.readSerializable();
+        this.Timestamp = source.readParcelable(com.google.firebase.Timestamp.class.getClassLoader());
+        this.SearchKey = source.readString();
     }
 
     protected sparepart(Parcel in) {
@@ -101,10 +117,11 @@ public class sparepart implements Parcelable {
         this.img = in.readString();
         this.productPrice = (Double) in.readValue(Double.class.getClassLoader());
         this.rateavg = (Double) in.readValue(Double.class.getClassLoader());
-        this.time = (Timestamp) in.readSerializable();
+        this.Timestamp = in.readParcelable(com.google.firebase.Timestamp.class.getClassLoader());
+        this.SearchKey = in.readString();
     }
 
-    public static final Parcelable.Creator<sparepart> CREATOR = new Parcelable.Creator<sparepart>() {
+    public static final Creator<sparepart> CREATOR = new Creator<sparepart>() {
         @Override
         public sparepart createFromParcel(Parcel source) {
             return new sparepart(source);

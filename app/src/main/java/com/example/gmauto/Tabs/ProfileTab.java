@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class ProfileTab extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Mobile = view.findViewById(R.id.Mobile);
         email = view.findViewById(R.id.email);
+
 
 
 

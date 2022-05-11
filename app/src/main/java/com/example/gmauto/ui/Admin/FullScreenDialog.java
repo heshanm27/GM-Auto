@@ -371,7 +371,7 @@ public class FullScreenDialog extends DialogFragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-        dismiss();
+
     }
 
 

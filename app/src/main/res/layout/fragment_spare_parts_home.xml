@@ -25,10 +25,10 @@
         android:orientation="horizontal"
    >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Spare Parts"
+            android:text="@string/spare_parts"
             android:textColor="@color/blue"
             android:textStyle="bold"
 
@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sort"
+            android:text="@string/sort"
             android:textStyle="bold"
             android:layout_gravity="end|center_vertical"
             android:textSize="14sp"/>
@@ -58,10 +58,10 @@
         android:orientation="horizontal"
         android:layout_margin="20dp"
         android:weightSum="3"
-        >
+        android:baselineAligned="false">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxStrokeColor="@color/blue"

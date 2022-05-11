@@ -115,6 +115,8 @@ public class OrdersTab extends Fragment {
                         Bundle args = new Bundle();
                         args.putString("FirebaseID",snap.getId());
                         args.putParcelable("model",model);
+                        args.putDouble("Total",model.getTotal());
+
                         dialog.setArguments(args);
                         dialog.show(getActivity().getSupportFragmentManager(), "Update");
                     }

@@ -109,6 +109,7 @@
                     app:hintTextColor="@color/blue"
                     android:textColorHint="@color/black"
                     app:errorEnabled="true"
+                    app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                     app:boxStrokeColor="@color/blue">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -137,6 +138,7 @@
                     app:counterTextColor="@color/blue"
                     app:counterMaxLength="400"
                     app:errorEnabled="true"
+                    app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                     android:textColorHint="@color/black"
                     app:boxStrokeColor="@color/blue">
 
@@ -164,6 +166,7 @@
                     android:layout_marginRight="20dp"
                     app:prefixText="LKR"
                     android:hint="Enter Item Price"
+                    app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                     app:hintTextColor="@color/blue"
                     app:boxStrokeColor="@color/blue">
 
